@@ -7,17 +7,22 @@ function send(processInfo) {
     if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, [
         '**/steamapps/**'
     ])) {
+        // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
+        console.log('Watching target process', processInfo)
         const { pid } = processInfo.payload
         let timeout
         let interval
-        interval = setInterval(async () => {
+        interval = setInterval(() => {
             const foregroundWindowPID = Window.getForeground().getPid();
             if (pid === foregroundWindowPID) {
                 clearInterval(interval)
                 clearTimeout(timeout)
-                const keys = [Key.LeftControl, Key.LeftAlt, Key.S]
-                await keyboard.pressKey(...keys)
-                await keyboard.releaseKey(...keys)
+                setTimeout(async () => {
+                    console.log('Scaling', processInfo.payload.process)
+                    const keys = [Key.LeftControl, Key.LeftAlt, Key.S]
+                    await keyboard.pressKey(...keys)
+                    await keyboard.releaseKey(...keys)
+                }, 3000)
             }
         }, 1000)
         setTimeout(
@@ -41,7 +46,6 @@ wqlImport
         })
     })
     .then((processMonitor) => {
-        // require('windows-tlist').getProcessInfo(pid).then(console.log)
         processMonitor.on('creation', ([process, pid, filepath, user]) => {
             send({
                 type: 'process-creation',
