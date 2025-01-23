@@ -1,0 +1,20 @@
+diff --git a/node_modules/wql-process-monitor/lib/util/ffi.js b/node_modules/wql-process-monitor/lib/util/ffi.js
+index a7116d4..6c5d125 100644
+--- a/node_modules/wql-process-monitor/lib/util/ffi.js
++++ b/node_modules/wql-process-monitor/lib/util/ffi.js
+@@ -7,9 +7,14 @@ found in the LICENSE file in the root directory of this source tree.
+ import { arch } from "node:process";
+ import { join } from "node:path";
+ import { dlopen, Callback } from "@xan105/ffi/koffi";
++import { fileURLToPath } from 'url';
++import { dirname } from 'path';
++
++const __filename = fileURLToPath(import.meta.url);
++const __dirname = dirname(__filename);
+ 
+ const file = join(
+-  import.meta.dirname,
++  import.meta.dirname||__dirname,
+   "../dist/",
+   `processMonitor.${{ia32: "x86"}[arch] ?? arch}.dll`
+ ).replace("app.asar", "app.asar.unpacked"); //electron asar friendly

@@ -1,0 +1,19 @@
+{
+  "name": "auto-ls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx patch-package"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^4.2.4",
+    "micromatch": "^4.0.8",
+    "patch-package": "^8.0.0",
+    "win-control": "^0.3.1",
+    "wql-process-monitor": "^3.0.2"
+  }
+}
