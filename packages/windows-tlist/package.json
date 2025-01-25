@@ -1,0 +1,34 @@
+{
+  "name": "windows-tlist",
+  "version": "0.1.3",
+  "description": "Get information about Windows processes, including the current working directory, threads, loaded modules (DLLs), and memory usage.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/widget2143/windows-tlist.git"
+  },
+  "scripts": {
+    "test": "mocha tests/test.spec.js",
+    "lint": "eslint . --quiet",
+    "lint:loud": "eslint ."
+  },
+  "keywords": [
+    "tlist",
+    "process",
+    "info",
+    "information",
+    "windows",
+    "dll",
+    "memory",
+    "cwd",
+    "working",
+    "virtual"
+  ],
+  "author": "Max Shepard",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "mocha": "^3.3.0"
+  }
+}

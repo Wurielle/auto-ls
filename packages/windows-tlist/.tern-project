@@ -1,0 +1,9 @@
+{
+    "libs": ["ecma5","browser","ecma6"],
+    "loadEagerly": [
+    ],
+    "plugins": {
+		"node": {},
+		"chrome-extension": {}
+    }
+}

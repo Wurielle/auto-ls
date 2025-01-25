@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, globalShortcut } from 'electron'
 import path from 'node:path'
 import { fork } from 'child_process'
 import {EXTERNALS_DIR} from './const'
@@ -7,7 +7,25 @@ import { Window } from 'win-control'
 const appFolder = path.dirname(process.execPath)
 const updateExe = path.resolve(appFolder, '..', 'Update.exe')
 const exeName = path.basename(process.execPath)
+import Store from 'electron-store';
 
+type ProcessEvent = {
+    type: 'process-creation' | 'process-deletion'
+    payload: {
+        pid: number
+        filepath: string
+        process: string
+        user: string
+    }
+}
+/* Unfortunately some games (e.g: Marvel Rivals) prevent you to get infos on the process such as the path
+ * but this info is available on process creation so we keep a list of processes created in order to find the path when we need it
+ */
+const processes: Record<string, ProcessEvent['payload']> = {}
+const store = new Store();
+if (!store.get('processes')) {
+    store.set('processes', []);
+}
 app.setLoginItemSettings({
     openAtLogin: true,
     path: updateExe,
@@ -18,6 +36,20 @@ app.setLoginItemSettings({
 })
 
 app.whenReady().then(() => {
+    globalShortcut.register('Alt+CommandOrControl+I', () => {
+        const foregroundProcessPid = Window.getForeground().getPid()
+        console.log('Opt in', foregroundProcessPid)
+        const processPath = processes[foregroundProcessPid]?.filepath
+        const processesPaths = store.get('processes') as string[]
+        if (processPath && processesPaths.indexOf(processPath) !== -1) store.set('processes', [...store.get('processes') as string[], processPath]);
+        scaleByPid(foregroundProcessPid, 0)
+    })
+    globalShortcut.register('Alt+CommandOrControl+O', () => {
+        const foregroundProcessPid = Window.getForeground().getPid()
+        console.log('Opt out', foregroundProcessPid)
+        const processPath = processes[foregroundProcessPid]?.filepath
+        if (processPath) store.set('processes', [...store.get('processes') as string[]].filter((processPath) => processPath !== processPath));
+    })
     const win = new BrowserWindow({
         title: 'Main window',
     })
@@ -31,35 +63,56 @@ app.whenReady().then(() => {
     }
 })
 
-const child = fork(path.join(EXTERNALS_DIR, 'process-watcher.js'))
-child.on('message', (processInfo: ProcessEvent) => {
-    if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, [
-        '**/steamapps/**'
-    ])) {
-        // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
-        console.log('Watching target process', processInfo)
-        const { pid } = processInfo.payload
-        let timeout
-        let interval
-        interval = setInterval(() => {
-            const foregroundWindowPID = Window.getForeground().getPid();
-            if (pid === foregroundWindowPID) {
-                clearInterval(interval)
-                clearTimeout(timeout)
-                setTimeout(async () => {
-                    console.log('Scaling', processInfo.payload.process)
+function scaleByPid(pid: number, wait = 10000) {
+    console.log('scale', pid)
+    let timeout
+    let interval
+    interval = setInterval(() => {
+        const foregroundWindowPID = Window.getForeground().getPid();
+        if (pid === foregroundWindowPID) {
+            clearInterval(interval)
+            clearTimeout(timeout)
+            let triggerKeybindTimeout;
+            async function triggerKeybind() {
+                console.log('trigger keybind')
+                if (pid === foregroundWindowPID) {
+                    clearTimeout(triggerKeybindTimeout)
                     const { Key, keyboard } = await import('@nut-tree-fork/nut-js')
                     const keys = [Key.LeftControl, Key.LeftAlt, Key.S]
                     await keyboard.pressKey(...keys)
                     await keyboard.releaseKey(...keys)
-                }, 3000)
+                } else {
+                    triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
+                }
             }
-        }, 1000)
-        setTimeout(
-            () => {
-                clearInterval(interval)
-            },
-            5 * 60 * 1000,
-        )
+            triggerKeybindTimeout = setTimeout(triggerKeybind, wait)
+            setTimeout(
+                () => {
+                    clearTimeout(triggerKeybindTimeout)
+                },
+                5 * 60 * 1000,
+            )
+        }
+    }, 1000)
+    setTimeout(
+        () => {
+            clearInterval(interval)
+        },
+        5 * 60 * 1000,
+    )
+}
+
+const child = fork(path.join(EXTERNALS_DIR, 'process-watcher.js'))
+child.on('message', (processInfo: ProcessEvent) => {
+    if (processInfo.type === 'process-creation') {
+        processes[processInfo.payload.pid] = processInfo.payload
+    } else if (processInfo.type === 'process-deletion') {
+        delete processes[processInfo.payload.pid]
+    }
+    const processesPaths = store.get('processes')
+    if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, processesPaths)) {
+        // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
+        console.log('Scaling', processInfo.payload.process)
+        scaleByPid(processInfo.payload.pid)
     }
 })
