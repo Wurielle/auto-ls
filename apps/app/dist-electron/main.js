@@ -47,14 +47,17 @@ electron.app.setLoginItemSettings({
     '"--hidden"'
   ]
 });
+function getProcessPaths() {
+  return store.get("processes");
+}
 electron.app.whenReady().then(() => {
   electron.globalShortcut.register("Alt+CommandOrControl+I", () => {
     var _a;
     const foregroundProcessPid = winControl.Window.getForeground().getPid();
     console.log("Opt in", foregroundProcessPid);
     const processPath = (_a = processes[foregroundProcessPid]) == null ? void 0 : _a.filepath;
-    const processesPaths = store.get("processes");
-    if (processPath && processesPaths.indexOf(processPath) !== -1) store.set("processes", [...store.get("processes"), processPath]);
+    const processesPaths = getProcessPaths();
+    if (processPath && processesPaths.indexOf(processPath) !== -1) store.set("processes", [...getProcessPaths(), processPath]);
     scaleByPid(foregroundProcessPid, 0);
   });
   electron.globalShortcut.register("Alt+CommandOrControl+O", () => {
@@ -62,7 +65,7 @@ electron.app.whenReady().then(() => {
     const foregroundProcessPid = winControl.Window.getForeground().getPid();
     console.log("Opt out", foregroundProcessPid);
     const processPath = (_a = processes[foregroundProcessPid]) == null ? void 0 : _a.filepath;
-    if (processPath) store.set("processes", [...store.get("processes")].filter((processPath2) => processPath2 !== processPath2));
+    if (processPath) store.set("processes", [...getProcessPaths()].filter((processPath2) => processPath2 !== processPath2));
   });
   const win = new electron.BrowserWindow({
     title: "Main window"
@@ -118,8 +121,8 @@ child.on("message", (processInfo) => {
   } else if (processInfo.type === "process-deletion") {
     delete processes[processInfo.payload.pid];
   }
-  const processesPaths = store.get("processes");
-  if (processInfo.type === "process-creation" && micromatch.isMatch(processInfo.payload.filepath, processesPaths)) {
+  const processesPaths = getProcessPaths();
+  if (processInfo.type === "process-creation" && micromatch.isMatch(processInfo.payload.filepath, processesPaths, {})) {
     console.log("Scaling", processInfo.payload.process);
     scaleByPid(processInfo.payload.pid);
   }

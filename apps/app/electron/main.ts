@@ -35,20 +35,24 @@ app.setLoginItemSettings({
     ]
 })
 
+function getProcessPaths() {
+    return store.get('processes') as string[]
+}
+
 app.whenReady().then(() => {
     globalShortcut.register('Alt+CommandOrControl+I', () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         console.log('Opt in', foregroundProcessPid)
         const processPath = processes[foregroundProcessPid]?.filepath
-        const processesPaths = store.get('processes') as string[]
-        if (processPath && processesPaths.indexOf(processPath) !== -1) store.set('processes', [...store.get('processes') as string[], processPath]);
+        const processesPaths = getProcessPaths()
+        if (processPath && processesPaths.indexOf(processPath) !== -1) store.set('processes', [...getProcessPaths(), processPath]);
         scaleByPid(foregroundProcessPid, 0)
     })
     globalShortcut.register('Alt+CommandOrControl+O', () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         console.log('Opt out', foregroundProcessPid)
         const processPath = processes[foregroundProcessPid]?.filepath
-        if (processPath) store.set('processes', [...store.get('processes') as string[]].filter((processPath) => processPath !== processPath));
+        if (processPath) store.set('processes', [...getProcessPaths()].filter((processPath) => processPath !== processPath));
     })
     const win = new BrowserWindow({
         title: 'Main window',
@@ -109,8 +113,8 @@ child.on('message', (processInfo: ProcessEvent) => {
     } else if (processInfo.type === 'process-deletion') {
         delete processes[processInfo.payload.pid]
     }
-    const processesPaths = store.get('processes')
-    if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, processesPaths)) {
+    const processesPaths = getProcessPaths()
+    if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, processesPaths, {})) {
         // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
         console.log('Scaling', processInfo.payload.process)
         scaleByPid(processInfo.payload.pid)
