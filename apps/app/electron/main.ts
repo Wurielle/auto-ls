@@ -48,12 +48,11 @@ appAutoLauncher.isEnabled().then((isEnabled) => {
     console.error('Failed to check auto-launch status:', err)
 })
 
-const iconPath = path.join(PUBLIC_DIR, 'icons/64x64.png')
 
 let tray: Tray | null = null
 
 function createTray() {
-    tray = new Tray(iconPath)
+    tray = new Tray(path.join(PUBLIC_DIR, 'icons/64x64.png'))
 
     const contextMenu = Menu.buildFromTemplate([
         {
@@ -103,7 +102,7 @@ app.whenReady().then(() => {
     })
 
     window = new BrowserWindow({
-        icon: iconPath,
+        icon: path.join(PUBLIC_DIR, 'icons/256x256.png'),
         show: import.meta.env.DEV,
     })
 
