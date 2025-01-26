@@ -1,0 +1,586 @@
+diff --git a/node_modules/win-control/build/Release/nothing.lib b/node_modules/win-control/build/Release/nothing.lib
+index 5d29283..82013ce 100644
+Binary files a/node_modules/win-control/build/Release/nothing.lib and b/node_modules/win-control/build/Release/nothing.lib differ
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog
+deleted file mode 100644
+index 399c8cb..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog
++++ /dev/null
+@@ -1 +0,0 @@
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\action_after_build\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog
+deleted file mode 100644
+index 8c5d1f1..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog
++++ /dev/null
+@@ -1,3 +0,0 @@
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+-call mkdir "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding" 2>nul & set ERRORLEVEL=0 & copy /Y "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node" "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node"
+-if %errorlevel% neq 0 exit /b %errorlevel%
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog
+deleted file mode 100644
+index ccce0a1..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog
++++ /dev/null
+@@ -1 +0,0 @@
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog
+deleted file mode 100644
+index 672ff96..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog
++++ /dev/null
+@@ -1,2 +0,0 @@
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+-C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\LIB\BINDING\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog
+new file mode 100644
+index 0000000..a5c0168
+--- /dev/null
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog
+@@ -0,0 +1 @@
++C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\action_after_build\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog
+new file mode 100644
+index 0000000..63e4ab1
+--- /dev/null
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog
+@@ -0,0 +1,3 @@
++^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
++call mkdir "F:\dev\playground\auto-ls\node_modules\win-control\lib\binding" 2>nul & set ERRORLEVEL=0 & copy /Y "F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node" "F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node"
++if %errorlevel% neq 0 exit /b %errorlevel%
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog
+new file mode 100644
+index 0000000..380c4d0
+--- /dev/null
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog
+@@ -0,0 +1 @@
++^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog
+new file mode 100644
+index 0000000..e1a1a1a
+--- /dev/null
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog
+@@ -0,0 +1,2 @@
++^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
++F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\LIB\BINDING\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
+similarity index 52%
+rename from node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate
+rename to node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
+index bbe882c..cfb8950 100644
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
+@@ -1,2 +1,2 @@
+ PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
++Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe b/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
+index 34c94c1..5cfc1e1 100644
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
++++ b/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
+@@ -2,10 +2,10 @@
+ <Project>
+   <ProjectOutputs>
+     <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node</FullPath>
++      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node</FullPath>
+     </ProjectOutput>
+     <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\action_after_build</FullPath>
++      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\action_after_build</FullPath>
+     </ProjectOutput>
+   </ProjectOutputs>
+   <ContentFiles />
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj b/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj
+index 34fd9ec..e268348 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj and b/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj
+index 11b12a7..38f8a40 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj and b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj
+index 69d3ab4..25a58d0 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj and b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
+index 2a5c7f7..57f7f7b 100644
+--- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
++++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
+@@ -2,7 +2,7 @@
+ <Project>
+   <ProjectOutputs>
+     <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node</FullPath>
++      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node</FullPath>
+     </ProjectOutput>
+   </ProjectOutputs>
+   <ContentFiles />
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog
+index 8333f5f..eb73635 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog
+index 2fa07a4..4dff32e 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog
+index f651e4e..6e5f600 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
+index 104f168..7cade70 100644
+--- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
++++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
+@@ -1,3 +1,3 @@
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\src\c++\window.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\src\c++\window.obj
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\src\c++\main.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\src\c++\main.obj
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.obj
++F:\dev\playground\auto-ls\node_modules\win-control\src\c++\window.cpp;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\src\c++\window.obj
++F:\dev\playground\auto-ls\node_modules\win-control\src\c++\main.cpp;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\src\c++\main.obj
++C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog
+index e8ec347..ee5cdaf 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog
+index 1fc4d2b..7d30015 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog
+index b18e026..694b88b 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog
+index 23f8e2a..217b8f9 100644
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
+index bbe882c..cfb8950 100644
+--- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
++++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
+@@ -1,2 +1,2 @@
+ PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
++Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
+diff --git a/node_modules/win-control/build/Release/wincontrol.exp b/node_modules/win-control/build/Release/wincontrol.exp
+index 006586e..c82d0e5 100644
+Binary files a/node_modules/win-control/build/Release/wincontrol.exp and b/node_modules/win-control/build/Release/wincontrol.exp differ
+diff --git a/node_modules/win-control/build/Release/wincontrol.iobj b/node_modules/win-control/build/Release/wincontrol.iobj
+index a56dde3..1d95ff2 100644
+Binary files a/node_modules/win-control/build/Release/wincontrol.iobj and b/node_modules/win-control/build/Release/wincontrol.iobj differ
+diff --git a/node_modules/win-control/build/Release/wincontrol.ipdb b/node_modules/win-control/build/Release/wincontrol.ipdb
+index 988ab0a..9d6e09d 100644
+Binary files a/node_modules/win-control/build/Release/wincontrol.ipdb and b/node_modules/win-control/build/Release/wincontrol.ipdb differ
+diff --git a/node_modules/win-control/build/Release/wincontrol.node b/node_modules/win-control/build/Release/wincontrol.node
+index 5f0145a..173011d 100644
+Binary files a/node_modules/win-control/build/Release/wincontrol.node and b/node_modules/win-control/build/Release/wincontrol.node differ
+diff --git a/node_modules/win-control/build/Release/wincontrol.pdb b/node_modules/win-control/build/Release/wincontrol.pdb
+index 4ccaa21..cb680b9 100644
+Binary files a/node_modules/win-control/build/Release/wincontrol.pdb and b/node_modules/win-control/build/Release/wincontrol.pdb differ
+diff --git a/node_modules/win-control/build/action_after_build.vcxproj b/node_modules/win-control/build/action_after_build.vcxproj
+index 3efa0f8..39f7264 100644
+--- a/node_modules/win-control/build/action_after_build.vcxproj
++++ b/node_modules/win-control/build/action_after_build.vcxproj
+@@ -11,7 +11,7 @@
+     </ProjectConfiguration>
+   </ItemGroup>
+   <PropertyGroup Label="Globals">
+-    <ProjectGuid>{7752DA78-F0ED-4D86-90BB-9C7133618BE8}</ProjectGuid>
++    <ProjectGuid>{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}</ProjectGuid>
+     <Keyword>Win32Proj</Keyword>
+     <RootNamespace>action_after_build</RootNamespace>
+     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+@@ -132,14 +132,14 @@
+   <ItemGroup>
+     <CustomBuild Include="$(OutDir)\wincontrol.node">
+       <FileType>Document</FileType>
+-      <Command>call mkdir &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;$(OutDir)wincontrol.node&quot; &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
+-      <Message>Copying $(OutDir)/wincontrol.node to C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding</Message>
+-      <Outputs>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node</Outputs>
++      <Command>call mkdir &quot;F:\dev\playground\auto-ls\node_modules\win-control\lib\binding&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;$(OutDir)wincontrol.node&quot; &quot;F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
++      <Message>Copying $(OutDir)/wincontrol.node to F:\dev\playground\auto-ls\node_modules\win-control\lib\binding</Message>
++      <Outputs>F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node</Outputs>
+     </CustomBuild>
+   </ItemGroup>
+   <ItemGroup>
+     <ProjectReference Include="wincontrol.vcxproj">
+-      <Project>{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}</Project>
++      <Project>{7C965828-ED58-82A8-014A-DCD9D21C2F4C}</Project>
+       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+     </ProjectReference>
+   </ItemGroup>
+diff --git a/node_modules/win-control/build/binding.sln b/node_modules/win-control/build/binding.sln
+index 2e67ac2..b92302b 100644
+--- a/node_modules/win-control/build/binding.sln
++++ b/node_modules/win-control/build/binding.sln
+@@ -1,45 +1,45 @@
+ Microsoft Visual Studio Solution File, Format Version 12.00
+ # Visual Studio 2015
+-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(..)", "..\..", "{36257327-00FE-FF6D-A8D9-AFEE3537DAF0}"
+-EndProject
+-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(node-addon-api)", "..\..\node-addon-api", "{0210C4AF-85AE-3908-99A8-88A7B4D41FC8}"
+-EndProject
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "..\node-addon-api\nothing.vcxproj", "{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}"
+-EndProject
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "action_after_build", "action_after_build.vcxproj", "{7752DA78-F0ED-4D86-90BB-9C7133618BE8}"
++Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "action_after_build", "action_after_build.vcxproj", "{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}"
+ 	ProjectSection(ProjectDependencies) = postProject
+-		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F} = {24C1427C-E6F1-3CA0-02DB-E57A42C9124F}
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C} = {7C965828-ED58-82A8-014A-DCD9D21C2F4C}
+ 	EndProjectSection
+ EndProject
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wincontrol", "wincontrol.vcxproj", "{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}"
++Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "node_modules\node-addon-api\nothing.vcxproj", "{F49F7B51-5357-042A-7C43-9CBF28A2D033}"
++EndProject
++Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wincontrol", "wincontrol.vcxproj", "{7C965828-ED58-82A8-014A-DCD9D21C2F4C}"
+ 	ProjectSection(ProjectDependencies) = postProject
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1} = {B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033} = {F49F7B51-5357-042A-7C43-9CBF28A2D033}
+ 	EndProjectSection
+ EndProject
++Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(node_modules)", "..\node_modules", "{9D350B9E-06FB-960D-859F-B43C9597383A}"
++EndProject
++Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(node-addon-api)", "..\node_modules\node-addon-api", "{AF891C37-E709-9CCC-0D50-0CCCC8CCC563}"
++EndProject
+ Global
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+ 		Release|x64 = Release|x64
+ 		Debug|x64 = Debug|x64
+ 	EndGlobalSection
+ 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+-		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Release|x64.ActiveCfg = Release|x64
+-		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Release|x64.Build.0 = Release|x64
+-		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Debug|x64.ActiveCfg = Debug|x64
+-		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Debug|x64.Build.0 = Debug|x64
+-		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Release|x64.ActiveCfg = Release|x64
+-		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Release|x64.Build.0 = Release|x64
+-		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Debug|x64.ActiveCfg = Debug|x64
+-		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Debug|x64.Build.0 = Debug|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.ActiveCfg = Release|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.Build.0 = Release|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.ActiveCfg = Debug|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.Build.0 = Debug|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.ActiveCfg = Release|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.Build.0 = Release|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Debug|x64.ActiveCfg = Debug|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Debug|x64.Build.0 = Debug|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.ActiveCfg = Release|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.Build.0 = Release|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Debug|x64.ActiveCfg = Debug|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Debug|x64.Build.0 = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.ActiveCfg = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.Build.0 = Debug|x64
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+ 	EndGlobalSection
+ 	GlobalSection(NestedProjects) = preSolution
+-		{0210C4AF-85AE-3908-99A8-88A7B4D41FC8} = {36257327-00FE-FF6D-A8D9-AFEE3537DAF0}
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1} = {0210C4AF-85AE-3908-99A8-88A7B4D41FC8}
++		{AF891C37-E709-9CCC-0D50-0CCCC8CCC563} = {9D350B9E-06FB-960D-859F-B43C9597383A}
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033} = {AF891C37-E709-9CCC-0D50-0CCCC8CCC563}
+ 	EndGlobalSection
+ EndGlobal
+diff --git a/node_modules/win-control/build/config.gypi b/node_modules/win-control/build/config.gypi
+index 8bd8fb4..acaef2f 100644
+--- a/node_modules/win-control/build/config.gypi
++++ b/node_modules/win-control/build/config.gypi
+@@ -429,18 +429,17 @@
+     "standalone_static_library": 1,
+     "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
+     "fallback_to_build": "true",
+-    "module": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x\\node_modules\\win-control\\lib\\binding\\wincontrol.node",
++    "module": "F:\\dev\\playground\\auto-ls\\node_modules\\win-control\\lib\\binding\\wincontrol.node",
+     "module_name": "wincontrol",
+-    "module_path": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x\\node_modules\\win-control\\lib\\binding",
++    "module_path": "F:\\dev\\playground\\auto-ls\\node_modules\\win-control\\lib\\binding",
+     "napi_version": "9",
+     "node_abi_napi": "napi",
+     "node_napi_label": "node-v115",
+     "cache": "C:\\Users\\Wuriko\\AppData\\Local\\npm-cache",
+-    "force": "true",
+     "globalconfig": "C:\\Program Files\\nodejs\\etc\\npmrc",
+     "global_prefix": "C:\\Program Files\\nodejs",
+     "init_module": "C:\\Users\\Wuriko\\.npm-init.js",
+-    "local_prefix": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x",
++    "local_prefix": "F:\\dev\\playground\\auto-ls",
+     "node_gyp": "C:\\Users\\Wuriko\\AppData\\Roaming\\nvm\\v20.18.2\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
+     "npm_version": "10.8.2",
+     "prefix": "C:\\Program Files\\nodejs",
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj
+similarity index 50%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj
+index 1e1a70a..502591e 100644
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.lib.recipe b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.lib.recipe
+similarity index 100%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.lib.recipe
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.lib.recipe
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
+similarity index 71%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
+index bb74f65..d30f7f9 100644
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
+similarity index 98%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
+index 3af0241..b04219a 100644
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog
+new file mode 100644
+index 0000000..4f0af74
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
+new file mode 100644
+index 0000000..44fa366
+--- /dev/null
++++ b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
+@@ -0,0 +1,2 @@
++F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api\nothing.c;F:\dev\playground\auto-ls\node_modules\win-control\build\node_modules\node-addon-api\Release\obj\nothing\node_modules\node-addon-api\nothing.obj
++C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;F:\dev\playground\auto-ls\node_modules\win-control\build\node_modules\node-addon-api\Release\obj\nothing\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog
+new file mode 100644
+index 0000000..9321915
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog
+new file mode 100644
+index 0000000..cb19660
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog
+new file mode 100644
+index 0000000..5e0fe07
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
+similarity index 52%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
+index bbe882c..cfb8950 100644
+--- a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
++++ b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
+@@ -1,2 +1,2 @@
+ PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
++Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
+similarity index 97%
+rename from node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
+rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
+index 27fc2d5..4afeeae 100644
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj differ
+diff --git a/node_modules/win-control/node-addon-api/node_api.sln b/node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
+similarity index 62%
+rename from node_modules/win-control/node-addon-api/node_api.sln
+rename to node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
+index 2a856e8..9f670a0 100644
+--- a/node_modules/win-control/node-addon-api/node_api.sln
++++ b/node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
+@@ -1,6 +1,6 @@
+ Microsoft Visual Studio Solution File, Format Version 12.00
+ # Visual Studio 2015
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "nothing.vcxproj", "{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}"
++Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "nothing.vcxproj", "{F49F7B51-5357-042A-7C43-9CBF28A2D033}"
+ EndProject
+ Global
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+@@ -8,10 +8,10 @@ Global
+ 		Debug|x64 = Debug|x64
+ 	EndGlobalSection
+ 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.ActiveCfg = Release|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.Build.0 = Release|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.ActiveCfg = Debug|x64
+-		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.Build.0 = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.ActiveCfg = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.Build.0 = Debug|x64
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+diff --git a/node_modules/win-control/node-addon-api/nothing.vcxproj b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
+similarity index 96%
+rename from node_modules/win-control/node-addon-api/nothing.vcxproj
+rename to node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
+index 0a00792..000df12 100644
+--- a/node_modules/win-control/node-addon-api/nothing.vcxproj
++++ b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
+@@ -11,7 +11,7 @@
+     </ProjectConfiguration>
+   </ItemGroup>
+   <PropertyGroup Label="Globals">
+-    <ProjectGuid>{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}</ProjectGuid>
++    <ProjectGuid>{F49F7B51-5357-042A-7C43-9CBF28A2D033}</ProjectGuid>
+     <Keyword>Win32Proj</Keyword>
+     <RootNamespace>nothing</RootNamespace>
+     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+@@ -33,7 +33,7 @@
+   </ImportGroup>
+   <PropertyGroup Label="UserMacros"/>
+   <PropertyGroup>
+-    <ExecutablePath>$(ExecutablePath);$(MSBuildProjectDirectory)\..\..\node-addon-api\bin\;$(MSBuildProjectDirectory)\..\..\node-addon-api\bin\</ExecutablePath>
++    <ExecutablePath>$(ExecutablePath);$(MSBuildProjectDirectory)\..\..\..\node_modules\node-addon-api\bin\;$(MSBuildProjectDirectory)\..\..\..\node_modules\node-addon-api\bin\</ExecutablePath>
+     <IntDir>$(Configuration)\obj\$(ProjectName)\</IntDir>
+     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+@@ -127,11 +127,11 @@
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+   <ItemGroup>
+-    <None Include="..\..\node-addon-api\node_api.gyp"/>
++    <None Include="..\..\..\node_modules\node-addon-api\node_api.gyp"/>
+   </ItemGroup>
+   <ItemGroup>
+-    <ClCompile Include="..\..\node-addon-api\nothing.c">
+-      <ObjectFileName>$(IntDir)\node-addon-api\nothing.obj</ObjectFileName>
++    <ClCompile Include="..\..\..\node_modules\node-addon-api\nothing.c">
++      <ObjectFileName>$(IntDir)\node_modules\node-addon-api\nothing.obj</ObjectFileName>
+     </ClCompile>
+     <ClCompile Include="C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
+   </ItemGroup>
+diff --git a/node_modules/win-control/node-addon-api/nothing.vcxproj.filters b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj.filters
+similarity index 77%
+rename from node_modules/win-control/node-addon-api/nothing.vcxproj.filters
+rename to node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj.filters
+index 0f1e4b6..ace47aa 100644
+--- a/node_modules/win-control/node-addon-api/nothing.vcxproj.filters
++++ b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj.filters
+@@ -7,7 +7,13 @@
+     <Filter Include="..\..">
+       <UniqueIdentifier>{739DB09A-CC57-A953-A6CF-F64FA08E4FA7}</UniqueIdentifier>
+     </Filter>
+-    <Filter Include="..\..\node-addon-api">
++    <Filter Include="..\..\..">
++      <UniqueIdentifier>{739DB09A-CC57-A953-A6CF-F64FA08E4FA7}</UniqueIdentifier>
++    </Filter>
++    <Filter Include="..\..\..\node_modules">
++      <UniqueIdentifier>{56DF7A98-063D-FB9D-485C-089023B4C16A}</UniqueIdentifier>
++    </Filter>
++    <Filter Include="..\..\..\node_modules\node-addon-api">
+       <UniqueIdentifier>{A353D9AF-FDFE-F893-56AE-2F252738A960}</UniqueIdentifier>
+     </Filter>
+     <Filter Include="C:">
+@@ -52,19 +58,25 @@
+     <Filter Include="..\..">
+       <UniqueIdentifier>{739DB09A-CC57-A953-A6CF-F64FA08E4FA7}</UniqueIdentifier>
+     </Filter>
+-    <Filter Include="..\..\node-addon-api">
++    <Filter Include="..\..\..">
++      <UniqueIdentifier>{739DB09A-CC57-A953-A6CF-F64FA08E4FA7}</UniqueIdentifier>
++    </Filter>
++    <Filter Include="..\..\..\node_modules">
++      <UniqueIdentifier>{56DF7A98-063D-FB9D-485C-089023B4C16A}</UniqueIdentifier>
++    </Filter>
++    <Filter Include="..\..\..\node_modules\node-addon-api">
+       <UniqueIdentifier>{A353D9AF-FDFE-F893-56AE-2F252738A960}</UniqueIdentifier>
+     </Filter>
+   </ItemGroup>
+   <ItemGroup>
+-    <ClCompile Include="..\..\node-addon-api\nothing.c">
+-      <Filter>..\..\node-addon-api</Filter>
++    <ClCompile Include="..\..\..\node_modules\node-addon-api\nothing.c">
++      <Filter>..\..\..\node_modules\node-addon-api</Filter>
+     </ClCompile>
+     <ClCompile Include="C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc">
+       <Filter>C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src</Filter>
+     </ClCompile>
+-    <None Include="..\..\node-addon-api\node_api.gyp">
+-      <Filter>..\..\node-addon-api</Filter>
++    <None Include="..\..\..\node_modules\node-addon-api\node_api.gyp">
++      <Filter>..\..\..\node_modules\node-addon-api</Filter>
+     </None>
+   </ItemGroup>
+ </Project>
+diff --git a/node_modules/win-control/build/wincontrol.vcxproj b/node_modules/win-control/build/wincontrol.vcxproj
+index 15333c4..ee8b2c1 100644
+--- a/node_modules/win-control/build/wincontrol.vcxproj
++++ b/node_modules/win-control/build/wincontrol.vcxproj
+@@ -11,7 +11,7 @@
+     </ProjectConfiguration>
+   </ItemGroup>
+   <PropertyGroup Label="Globals">
+-    <ProjectGuid>{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}</ProjectGuid>
++    <ProjectGuid>{7C965828-ED58-82A8-014A-DCD9D21C2F4C}</ProjectGuid>
+     <Keyword>Win32Proj</Keyword>
+     <RootNamespace>wincontrol</RootNamespace>
+     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+@@ -48,7 +48,7 @@
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+       <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
+       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+@@ -85,13 +85,13 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+       <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+@@ -131,7 +131,7 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+@@ -148,8 +148,8 @@
+     <ClCompile Include="C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
+   </ItemGroup>
+   <ItemGroup>
+-    <ProjectReference Include="..\node-addon-api\nothing.vcxproj">
+-      <Project>{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}</Project>
++    <ProjectReference Include="node_modules\node-addon-api\nothing.vcxproj">
++      <Project>{F49F7B51-5357-042A-7C43-9CBF28A2D033}</Project>
+       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+     </ProjectReference>
+   </ItemGroup>
+diff --git a/node_modules/win-control/lib/binding/wincontrol.node b/node_modules/win-control/lib/binding/wincontrol.node
+index 5f0145a..173011d 100644
+Binary files a/node_modules/win-control/lib/binding/wincontrol.node and b/node_modules/win-control/lib/binding/wincontrol.node differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog
+deleted file mode 100644
+index 7c9af8b..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog and /dev/null differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
+deleted file mode 100644
+index 67c3057..0000000
+--- a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
++++ /dev/null
+@@ -1,2 +0,0 @@
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api\nothing.c;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\node-addon-api\Release\obj\nothing\node-addon-api\nothing.obj
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\node-addon-api\Release\obj\nothing\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog
+deleted file mode 100644
+index 7dbcb92..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog and /dev/null differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog
+deleted file mode 100644
+index b871b73..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog and /dev/null differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog
+deleted file mode 100644
+index 893f4e0..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog and /dev/null differ
+diff --git a/node_modules/win-control/src/c++/window.hpp b/node_modules/win-control/src/c++/window.hpp
+index 97eaa71..f9f0de8 100644
+--- a/node_modules/win-control/src/c++/window.hpp
++++ b/node_modules/win-control/src/c++/window.hpp
+@@ -14,7 +14,7 @@ public:
+   static Napi::Value GetByPid(const Napi::CallbackInfo &info);
+   static Napi::Object Init(Napi::Env env, Napi::Object exports);
+ 
+-  static BOOL CALLBACK Window::EnumWindowsCallback(HWND, LPARAM);
++  static BOOL CALLBACK EnumWindowsCallback(HWND, LPARAM);
+ 
+   Napi::Value SetForeground(const Napi::CallbackInfo &info);
+   Napi::Value SetPosition(const Napi::CallbackInfo& info);

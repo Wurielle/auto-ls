@@ -1,13 +1,12 @@
 import { app, BrowserWindow, globalShortcut } from 'electron'
-import path from 'node:path'
 import { fork } from 'child_process'
-import {EXTERNALS_DIR} from './const'
 import micromatch from 'micromatch'
 import { Window } from 'win-control'
-const appFolder = path.dirname(process.execPath)
-const updateExe = path.resolve(appFolder, '..', 'Update.exe')
-const exeName = path.basename(process.execPath)
 import Store from 'electron-store';
+import { Tray, Menu } from 'electron'
+import path from 'path'
+import { PUBLIC_DIR } from './const'
+import AutoLaunch from 'auto-launch'
 
 type ProcessEvent = {
     type: 'process-creation' | 'process-deletion'
@@ -26,13 +25,54 @@ const store = new Store();
 if (!store.get('processes')) {
     store.set('processes', []);
 }
-app.setLoginItemSettings({
-    openAtLogin: true,
-    path: updateExe,
-    args: [
-        '--processStart', `"${exeName}"`,
-        '--process-start-args', '"--hidden"'
-    ]
+
+let window: BrowserWindow
+
+const appAutoLauncher = new AutoLaunch({
+    name: 'Auto Lossless Scaling',
+    path: process.execPath,
+    isHidden: true,
+})
+
+appAutoLauncher.isEnabled().then((isEnabled) => {
+    if (!isEnabled) {
+        appAutoLauncher.enable().catch((err) => {
+            console.error('Failed to enable auto-launch:', err)
+        })
+    }
+}).catch((err) => {
+    console.error('Failed to check auto-launch status:', err)
+})
+
+const iconPath = path.join(PUBLIC_DIR, 'icons/64x64.png')
+
+let tray: Tray | null = null
+
+function createTray() {
+    tray = new Tray(iconPath)
+
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Restart',
+            click: () => {
+                app.relaunch()
+                app.quit()
+            },
+        },
+        {
+            label: 'Quit',
+            click: () => {
+                app.quit()
+            },
+        }
+    ])
+    tray.on('click', () => window?.show())
+    tray.setToolTip('Auto Lossless Scaling')
+    tray.setContextMenu(contextMenu)
+}
+
+app.whenReady().then(() => {
+    createTray()
 })
 
 function getProcessPaths() {
@@ -54,17 +94,22 @@ app.whenReady().then(() => {
         const processPath = processes[foregroundProcessPid]?.filepath
         if (processPath) store.set('processes', [...getProcessPaths()].filter((processPath) => processPath !== processPath));
     })
-    const win = new BrowserWindow({
-        title: 'Main window',
+
+    window = new BrowserWindow({
+        icon: iconPath,
+        show: import.meta.env.DEV,
     })
 
-    // You can use `process.env.VITE_DEV_SERVER_URL` when the vite command is called `serve`
     if (process.env.VITE_DEV_SERVER_URL) {
-        win.loadURL(process.env.VITE_DEV_SERVER_URL)
+        window.loadURL(process.env.VITE_DEV_SERVER_URL)
     } else {
-        // Load your file
-        win.loadFile('dist/index.html');
+        window.loadFile('dist/index.html');
     }
+    
+    window.on('close', (e) => {
+        e.preventDefault() // Prevent the default behavior of quitting the application
+        window.hide() // Hide the window instead of closing it
+    })
 })
 
 function scaleByPid(pid: number, wait = 10000) {
