@@ -1,193 +1,264 @@
 diff --git a/node_modules/win-control/build/Release/nothing.lib b/node_modules/win-control/build/Release/nothing.lib
-index 5d29283..82013ce 100644
+index de52304..ef6e5e1 100644
 Binary files a/node_modules/win-control/build/Release/nothing.lib and b/node_modules/win-control/build/Release/nothing.lib differ
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/Cl.items.tlog
 deleted file mode 100644
-index 399c8cb..0000000
---- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/Cl.items.tlog
+index 0921d19..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/Cl.items.tlog
 +++ /dev/null
 @@ -1 +0,0 @@
--C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\action_after_build\win_delay_load_hook.obj
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\obj\action_after_build\win_delay_load_hook.obj
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.command.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.command.1.tlog
 deleted file mode 100644
-index 8c5d1f1..0000000
---- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.command.1.tlog
+index 8cdd4ba..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.command.1.tlog
 +++ /dev/null
 @@ -1,3 +0,0 @@
--^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
--call mkdir "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding" 2>nul & set ERRORLEVEL=0 & copy /Y "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node" "C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node"
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-1672MXLKAE7I1Q4N\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+-call mkdir "C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding" 2>nul & set ERRORLEVEL=0 & copy /Y "C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\wincontrol.node" "C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding\wincontrol.node"
 -if %errorlevel% neq 0 exit /b %errorlevel%
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.read.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.read.1.tlog
 deleted file mode 100644
-index ccce0a1..0000000
---- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.read.1.tlog
+index 8acc84d..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.read.1.tlog
 +++ /dev/null
 @@ -1 +0,0 @@
--^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-1672MXLKAE7I1Q4N\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.write.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.write.1.tlog
 deleted file mode 100644
-index 672ff96..0000000
---- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/CustomBuild.write.1.tlog
+index 6a86819..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/CustomBuild.write.1.tlog
 +++ /dev/null
 @@ -1,2 +0,0 @@
--^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
--C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-26536JHWK6RXI774X\NODE_MODULES\WIN-CONTROL\LIB\BINDING\WINCONTROL.NODE
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog
-new file mode 100644
-index 0000000..a5c0168
---- /dev/null
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/Cl.items.tlog
-@@ -0,0 +1 @@
-+C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\action_after_build\win_delay_load_hook.obj
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog
-new file mode 100644
-index 0000000..63e4ab1
---- /dev/null
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.command.1.tlog
-@@ -0,0 +1,3 @@
-+^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
-+call mkdir "F:\dev\playground\auto-ls\node_modules\win-control\lib\binding" 2>nul & set ERRORLEVEL=0 & copy /Y "F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node" "F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node"
-+if %errorlevel% neq 0 exit /b %errorlevel%
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog
-new file mode 100644
-index 0000000..380c4d0
---- /dev/null
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.read.1.tlog
-@@ -0,0 +1 @@
-+^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog
-new file mode 100644
-index 0000000..e1a1a1a
---- /dev/null
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/CustomBuild.write.1.tlog
-@@ -0,0 +1,2 @@
-+^F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
-+F:\DEV\PLAYGROUND\AUTO-LS\NODE_MODULES\WIN-CONTROL\LIB\BINDING\WINCONTROL.NODE
-diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
-similarity index 52%
-rename from node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate
-rename to node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
-index bbe882c..cfb8950 100644
---- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.7752DA78.tlog/action_after_build.lastbuildstate
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_a.D0B1DC7D.tlog/action_after_build.lastbuildstate
-@@ -1,2 +1,2 @@
- PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
--Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
-+Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
+-^C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-1672MXLKAE7I1Q4N\NODE_MODULES\WIN-CONTROL\BUILD\RELEASE\WINCONTROL.NODE
+-C:\USERS\WURIKO\APPDATA\LOCAL\TEMP\TMP-1672MXLKAE7I1Q4N\NODE_MODULES\WIN-CONTROL\LIB\BINDING\WINCONTROL.NODE
+diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/action_after_build.lastbuildstate b/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/action_after_build.lastbuildstate
+deleted file mode 100644
+index bd2ef6e..0000000
+--- a/node_modules/win-control/build/Release/obj/action_after_build/action_a.1824ADA0.tlog/action_after_build.lastbuildstate
++++ /dev/null
+@@ -1,2 +0,0 @@
+-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\|
 diff --git a/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe b/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
-index 34c94c1..5cfc1e1 100644
+deleted file mode 100644
+index 6c19c00..0000000
 --- a/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
-+++ b/node_modules/win-control/build/Release/obj/action_after_build/action_after_build.recipe
-@@ -2,10 +2,10 @@
- <Project>
-   <ProjectOutputs>
-     <ProjectOutput>
--      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node</FullPath>
-+      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node</FullPath>
-     </ProjectOutput>
-     <ProjectOutput>
--      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\action_after_build</FullPath>
-+      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\action_after_build</FullPath>
-     </ProjectOutput>
-   </ProjectOutputs>
-   <ContentFiles />
++++ /dev/null
+@@ -1,14 +0,0 @@
+-﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project>
+-  <ProjectOutputs>
+-    <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\wincontrol.node</FullPath>
+-    </ProjectOutput>
+-    <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\action_after_build</FullPath>
+-    </ProjectOutput>
+-  </ProjectOutputs>
+-  <ContentFiles />
+-  <SatelliteDlls />
+-  <NonRecipeFileRefs />
+-</Project>
+\ No newline at end of file
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj b/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj
-index 34fd9ec..e268348 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj and b/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj differ
+deleted file mode 100644
+index 4f6163d..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/Users/Wuriko/AppData/Roaming/nvm/v20.18.2/node_modules/npm/node_modules/node-gyp/src/win_delay_load_hook.obj and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj
-index 11b12a7..38f8a40 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj and b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj differ
+deleted file mode 100644
+index 476a468..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/main.obj and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj
-index 69d3ab4..25a58d0 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj and b/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj differ
+deleted file mode 100644
+index 71ab6e3..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/src/c++/window.obj and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
-index 2a5c7f7..57f7f7b 100644
+deleted file mode 100644
+index 23604ff..0000000
 --- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
-+++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.node.recipe
-@@ -2,7 +2,7 @@
- <Project>
-   <ProjectOutputs>
-     <ProjectOutput>
--      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\wincontrol.node</FullPath>
-+      <FullPath>F:\dev\playground\auto-ls\node_modules\win-control\build\Release\wincontrol.node</FullPath>
-     </ProjectOutput>
-   </ProjectOutputs>
-   <ContentFiles />
++++ /dev/null
+@@ -1,11 +0,0 @@
+-﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project>
+-  <ProjectOutputs>
+-    <ProjectOutput>
+-      <FullPath>C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\wincontrol.node</FullPath>
+-    </ProjectOutput>
+-  </ProjectOutputs>
+-  <ContentFiles />
+-  <SatelliteDlls />
+-  <NonRecipeFileRefs />
+-</Project>
+\ No newline at end of file
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog
-index 8333f5f..eb73635 100644
+index 92eacaa..46b134b 100644
 Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.command.1.tlog differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog
-index 2fa07a4..4dff32e 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog differ
+deleted file mode 100644
+index 070a86c..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.read.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog
-index f651e4e..6e5f600 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog differ
+deleted file mode 100644
+index f240624..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/CL.write.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
-index 104f168..7cade70 100644
+deleted file mode 100644
+index 7e261f3..0000000
 --- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
-+++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/Cl.items.tlog
-@@ -1,3 +1,3 @@
--C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\src\c++\window.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\src\c++\window.obj
--C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\src\c++\main.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\src\c++\main.obj
--C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\Release\obj\wincontrol\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.obj
-+F:\dev\playground\auto-ls\node_modules\win-control\src\c++\window.cpp;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\src\c++\window.obj
-+F:\dev\playground\auto-ls\node_modules\win-control\src\c++\main.cpp;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\src\c++\main.obj
-+C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;F:\dev\playground\auto-ls\node_modules\win-control\build\Release\obj\wincontrol\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.obj
++++ /dev/null
+@@ -1,3 +0,0 @@
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\src\c++\window.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\obj\wincontrol\src\c++\window.obj
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\src\c++\main.cpp;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\obj\wincontrol\src\c++\main.obj
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\Release\obj\wincontrol\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.obj
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog
-index e8ec347..ee5cdaf 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog differ
+deleted file mode 100644
+index 2069245..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.command.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog
-index 1fc4d2b..7d30015 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog differ
+deleted file mode 100644
+index 64b9f98..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.read.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog
-index b18e026..694b88b 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog differ
+deleted file mode 100644
+index 44b7247..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog
-index 23f8e2a..217b8f9 100644
-Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog and b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog differ
+deleted file mode 100644
+index 156f296..0000000
+Binary files a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/link.write.2u.tlog and /dev/null differ
+diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/unsuccessfulbuild b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/unsuccessfulbuild
+new file mode 100644
+index 0000000..e69de29
 diff --git a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
-index bbe882c..cfb8950 100644
+index bd2ef6e..cfb8950 100644
 --- a/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
 +++ b/node_modules/win-control/build/Release/obj/wincontrol/wincontrol.tlog/wincontrol.lastbuildstate
 @@ -1,2 +1,2 @@
  PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
--Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\|
 +Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
 diff --git a/node_modules/win-control/build/Release/wincontrol.exp b/node_modules/win-control/build/Release/wincontrol.exp
-index 006586e..c82d0e5 100644
-Binary files a/node_modules/win-control/build/Release/wincontrol.exp and b/node_modules/win-control/build/Release/wincontrol.exp differ
+deleted file mode 100644
+index ec2a2c5..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.exp and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/wincontrol.iobj b/node_modules/win-control/build/Release/wincontrol.iobj
-index a56dde3..1d95ff2 100644
-Binary files a/node_modules/win-control/build/Release/wincontrol.iobj and b/node_modules/win-control/build/Release/wincontrol.iobj differ
+deleted file mode 100644
+index 10ecd2f..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.iobj and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/wincontrol.ipdb b/node_modules/win-control/build/Release/wincontrol.ipdb
-index 988ab0a..9d6e09d 100644
-Binary files a/node_modules/win-control/build/Release/wincontrol.ipdb and b/node_modules/win-control/build/Release/wincontrol.ipdb differ
+deleted file mode 100644
+index 05cd0dc..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.ipdb and /dev/null differ
+diff --git a/node_modules/win-control/build/Release/wincontrol.lib b/node_modules/win-control/build/Release/wincontrol.lib
+deleted file mode 100644
+index 1e235a4..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.lib and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/wincontrol.node b/node_modules/win-control/build/Release/wincontrol.node
-index 5f0145a..173011d 100644
-Binary files a/node_modules/win-control/build/Release/wincontrol.node and b/node_modules/win-control/build/Release/wincontrol.node differ
+deleted file mode 100644
+index e381745..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.node and /dev/null differ
 diff --git a/node_modules/win-control/build/Release/wincontrol.pdb b/node_modules/win-control/build/Release/wincontrol.pdb
-index 4ccaa21..cb680b9 100644
-Binary files a/node_modules/win-control/build/Release/wincontrol.pdb and b/node_modules/win-control/build/Release/wincontrol.pdb differ
+deleted file mode 100644
+index b8ad44f..0000000
+Binary files a/node_modules/win-control/build/Release/wincontrol.pdb and /dev/null differ
 diff --git a/node_modules/win-control/build/action_after_build.vcxproj b/node_modules/win-control/build/action_after_build.vcxproj
-index 3efa0f8..39f7264 100644
+index 6b2e02d..0001db2 100644
 --- a/node_modules/win-control/build/action_after_build.vcxproj
 +++ b/node_modules/win-control/build/action_after_build.vcxproj
 @@ -11,7 +11,7 @@
      </ProjectConfiguration>
    </ItemGroup>
    <PropertyGroup Label="Globals">
--    <ProjectGuid>{7752DA78-F0ED-4D86-90BB-9C7133618BE8}</ProjectGuid>
+-    <ProjectGuid>{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}</ProjectGuid>
 +    <ProjectGuid>{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}</ProjectGuid>
      <Keyword>Win32Proj</Keyword>
      <RootNamespace>action_after_build</RootNamespace>
      <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+@@ -42,8 +42,8 @@
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
+       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+@@ -54,7 +54,7 @@
+       <OmitFramePointers>false</OmitFramePointers>
+       <Optimization>Disabled</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+       <StringPooling>true</StringPooling>
+       <SuppressStartupBanner>true</SuppressStartupBanner>
+@@ -66,7 +66,7 @@
+       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -76,14 +76,14 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+       <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+@@ -96,7 +96,7 @@
+       <OmitFramePointers>true</OmitFramePointers>
+       <Optimization>Full</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+       <StringPooling>true</StringPooling>
+@@ -109,7 +109,7 @@
+       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -119,8 +119,8 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=action_after_build;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+   <ItemGroup>
 @@ -132,14 +132,14 @@
    <ItemGroup>
      <CustomBuild Include="$(OutDir)\wincontrol.node">
        <FileType>Document</FileType>
--      <Command>call mkdir &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;$(OutDir)wincontrol.node&quot; &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
--      <Message>Copying $(OutDir)/wincontrol.node to C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding</Message>
--      <Outputs>C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\lib\binding\wincontrol.node</Outputs>
+-      <Command>call mkdir &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;$(OutDir)wincontrol.node&quot; &quot;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding\wincontrol.node&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
+-      <Message>Copying $(OutDir)/wincontrol.node to C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding</Message>
+-      <Outputs>C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\lib\binding\wincontrol.node</Outputs>
 +      <Command>call mkdir &quot;F:\dev\playground\auto-ls\node_modules\win-control\lib\binding&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;$(OutDir)wincontrol.node&quot; &quot;F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
 +      <Message>Copying $(OutDir)/wincontrol.node to F:\dev\playground\auto-ls\node_modules\win-control\lib\binding</Message>
 +      <Outputs>F:\dev\playground\auto-ls\node_modules\win-control\lib\binding\wincontrol.node</Outputs>
@@ -195,13 +266,13 @@ index 3efa0f8..39f7264 100644
    </ItemGroup>
    <ItemGroup>
      <ProjectReference Include="wincontrol.vcxproj">
--      <Project>{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}</Project>
+-      <Project>{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}</Project>
 +      <Project>{7C965828-ED58-82A8-014A-DCD9D21C2F4C}</Project>
        <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
      </ProjectReference>
    </ItemGroup>
 diff --git a/node_modules/win-control/build/binding.sln b/node_modules/win-control/build/binding.sln
-index 2e67ac2..b92302b 100644
+index 4eb353f..624231b 100644
 --- a/node_modules/win-control/build/binding.sln
 +++ b/node_modules/win-control/build/binding.sln
 @@ -1,45 +1,45 @@
@@ -211,21 +282,21 @@ index 2e67ac2..b92302b 100644
 -EndProject
 -Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "(node-addon-api)", "..\..\node-addon-api", "{0210C4AF-85AE-3908-99A8-88A7B4D41FC8}"
 -EndProject
--Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "..\node-addon-api\nothing.vcxproj", "{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}"
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "..\node-addon-api\nothing.vcxproj", "{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}"
 -EndProject
--Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "action_after_build", "action_after_build.vcxproj", "{7752DA78-F0ED-4D86-90BB-9C7133618BE8}"
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "action_after_build", "action_after_build.vcxproj", "{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}"
 +Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "action_after_build", "action_after_build.vcxproj", "{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}"
  	ProjectSection(ProjectDependencies) = postProject
--		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F} = {24C1427C-E6F1-3CA0-02DB-E57A42C9124F}
+-		{3A5ABA62-4C72-6194-8711-DE1F5F5F0116} = {3A5ABA62-4C72-6194-8711-DE1F5F5F0116}
 +		{7C965828-ED58-82A8-014A-DCD9D21C2F4C} = {7C965828-ED58-82A8-014A-DCD9D21C2F4C}
  	EndProjectSection
  EndProject
--Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wincontrol", "wincontrol.vcxproj", "{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}"
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wincontrol", "wincontrol.vcxproj", "{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}"
 +Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "node_modules\node-addon-api\nothing.vcxproj", "{F49F7B51-5357-042A-7C43-9CBF28A2D033}"
 +EndProject
 +Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wincontrol", "wincontrol.vcxproj", "{7C965828-ED58-82A8-014A-DCD9D21C2F4C}"
  	ProjectSection(ProjectDependencies) = postProject
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1} = {B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7} = {AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033} = {F49F7B51-5357-042A-7C43-9CBF28A2D033}
  	EndProjectSection
  EndProject
@@ -235,92 +306,186 @@ index 2e67ac2..b92302b 100644
 +EndProject
  Global
  	GlobalSection(SolutionConfigurationPlatforms) = preSolution
- 		Release|x64 = Release|x64
+-		Release|x64 = Release|x64
  		Debug|x64 = Debug|x64
++		Release|x64 = Release|x64
  	EndGlobalSection
  	GlobalSection(ProjectConfigurationPlatforms) = postSolution
--		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Release|x64.ActiveCfg = Release|x64
--		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Release|x64.Build.0 = Release|x64
--		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Debug|x64.ActiveCfg = Debug|x64
--		{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}.Debug|x64.Build.0 = Debug|x64
--		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Release|x64.ActiveCfg = Release|x64
--		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Release|x64.Build.0 = Release|x64
--		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Debug|x64.ActiveCfg = Debug|x64
--		{7752DA78-F0ED-4D86-90BB-9C7133618BE8}.Debug|x64.Build.0 = Debug|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.ActiveCfg = Release|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.Build.0 = Release|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.ActiveCfg = Debug|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.Build.0 = Debug|x64
-+		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.ActiveCfg = Release|x64
-+		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.Build.0 = Release|x64
+-		{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}.Release|x64.ActiveCfg = Release|x64
+-		{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}.Release|x64.Build.0 = Release|x64
+-		{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}.Debug|x64.ActiveCfg = Debug|x64
+-		{1824ADA0-69A9-2BF3-8887-BDCAAD4DA363}.Debug|x64.Build.0 = Debug|x64
+-		{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}.Release|x64.ActiveCfg = Release|x64
+-		{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}.Release|x64.Build.0 = Release|x64
+-		{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}.Debug|x64.ActiveCfg = Debug|x64
+-		{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}.Debug|x64.Build.0 = Debug|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Release|x64.ActiveCfg = Release|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Release|x64.Build.0 = Release|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Debug|x64.ActiveCfg = Debug|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Debug|x64.Build.0 = Debug|x64
 +		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Debug|x64.ActiveCfg = Debug|x64
 +		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Debug|x64.Build.0 = Debug|x64
-+		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.ActiveCfg = Release|x64
-+		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.Build.0 = Release|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.ActiveCfg = Release|x64
++		{7C965828-ED58-82A8-014A-DCD9D21C2F4C}.Release|x64.Build.0 = Release|x64
 +		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Debug|x64.ActiveCfg = Debug|x64
 +		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Debug|x64.Build.0 = Debug|x64
-+		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
-+		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.ActiveCfg = Release|x64
++		{D0B1DC7D-5BCE-C161-B2C9-FB18395363B5}.Release|x64.Build.0 = Release|x64
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.ActiveCfg = Debug|x64
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.Build.0 = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
  	EndGlobalSection
  	GlobalSection(SolutionProperties) = preSolution
  		HideSolutionNode = FALSE
  	EndGlobalSection
  	GlobalSection(NestedProjects) = preSolution
 -		{0210C4AF-85AE-3908-99A8-88A7B4D41FC8} = {36257327-00FE-FF6D-A8D9-AFEE3537DAF0}
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1} = {0210C4AF-85AE-3908-99A8-88A7B4D41FC8}
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7} = {0210C4AF-85AE-3908-99A8-88A7B4D41FC8}
 +		{AF891C37-E709-9CCC-0D50-0CCCC8CCC563} = {9D350B9E-06FB-960D-859F-B43C9597383A}
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033} = {AF891C37-E709-9CCC-0D50-0CCCC8CCC563}
  	EndGlobalSection
  EndGlobal
 diff --git a/node_modules/win-control/build/config.gypi b/node_modules/win-control/build/config.gypi
-index 8bd8fb4..acaef2f 100644
+index a931cfc..87db4b5 100644
 --- a/node_modules/win-control/build/config.gypi
 +++ b/node_modules/win-control/build/config.gypi
-@@ -429,18 +429,17 @@
+@@ -10,8 +10,10 @@
+     "msvs_windows_target_platform_version": "10.0.22000.0"
+   },
+   "variables": {
++    "arm_fpu": "neon",
+     "asan": 0,
+-    "clang": 0,
++    "build_v8_with_gn": "false",
++    "built_with_electron": 1,
+     "coverage": "false",
+     "dcheck_always_on": 0,
+     "debug_nghttp2": "false",
+@@ -32,7 +34,6 @@
+     "libdir": "lib",
+     "llvm_version": "0.0",
+     "napi_build_version": "0",
+-    "nasm_version": "2.16",
+     "node_builtin_shareable_builtins": [
+       "deps/cjs-module-lexer/lexer.js",
+       "deps/cjs-module-lexer/dist/lexer.js",
+@@ -365,10 +366,10 @@
+       "lib/worker_threads.js",
+       "lib/zlib.js"
+     ],
+-    "node_module_version": 115,
++    "node_module_version": 132,
+     "node_no_browser_globals": "false",
+     "node_prefix": "\\usr\\local",
+-    "node_release_urlbase": "https://nodejs.org/download/release/",
++    "node_release_urlbase": "",
+     "node_shared": "false",
+     "node_shared_ada": "false",
+     "node_shared_brotli": "false",
+@@ -386,14 +387,15 @@
+     "node_tag": "",
+     "node_target_type": "executable",
+     "node_use_bundled_v8": "true",
+-    "node_use_node_code_cache": "true",
+-    "node_use_node_snapshot": "true",
++    "node_use_node_code_cache": "false",
++    "node_use_node_snapshot": "false",
+     "node_use_openssl": "true",
+     "node_use_v8_platform": "true",
+     "node_with_ltcg": "true",
+     "node_without_node_options": "false",
+     "node_write_snapshot_as_array_literals": "true",
+     "openssl_is_fips": "false",
++    "openssl_no_asm": 1,
+     "openssl_quic": "true",
+     "ossfuzz": "false",
+     "shlib_suffix": "so.115",
+@@ -401,7 +403,8 @@
+     "target_arch": "x64",
+     "ubsan": 0,
+     "use_prefix_to_find_headers": "false",
+-    "v8_enable_31bit_smis_on_64bit_arch": 0,
++    "using_electron_config_gypi": 1,
++    "v8_enable_31bit_smis_on_64bit_arch": 1,
+     "v8_enable_extensible_ro_snapshot": 0,
+     "v8_enable_gdbjit": 0,
+     "v8_enable_hugepage": 0,
+@@ -411,10 +414,9 @@
+     "v8_enable_lite_mode": 0,
+     "v8_enable_maglev": 0,
+     "v8_enable_object_print": 1,
+-    "v8_enable_pointer_compression": 0,
+-    "v8_enable_sandbox": 0,
+-    "v8_enable_shared_ro_heap": 1,
+-    "v8_enable_short_builtin_calls": 1,
++    "v8_enable_pointer_compression": 1,
++    "v8_enable_sandbox": 1,
++    "v8_enable_shared_ro_heap": 0,
+     "v8_enable_v8_checks": 0,
+     "v8_enable_webassembly": 1,
+     "v8_no_strict_aliasing": 1,
+@@ -423,28 +425,35 @@
+     "v8_random_seed": 0,
+     "v8_trace_maps": 0,
+     "v8_use_siphash": 1,
+-    "want_separate_host_toolset": 0,
+-    "nodedir": "C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2",
++    "want_separate_host_toolset": 1,
++    "nodedir": "C:\\Users\\Wuriko\\.electron-gyp\\34.0.1",
+     "python": "C:\\Python310\\python.exe",
      "standalone_static_library": 1,
      "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
      "fallback_to_build": "true",
--    "module": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x\\node_modules\\win-control\\lib\\binding\\wincontrol.node",
+-    "module": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-1672MxLkae7I1q4N\\node_modules\\win-control\\lib\\binding\\wincontrol.node",
 +    "module": "F:\\dev\\playground\\auto-ls\\node_modules\\win-control\\lib\\binding\\wincontrol.node",
      "module_name": "wincontrol",
--    "module_path": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x\\node_modules\\win-control\\lib\\binding",
+-    "module_path": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-1672MxLkae7I1q4N\\node_modules\\win-control\\lib\\binding",
 +    "module_path": "F:\\dev\\playground\\auto-ls\\node_modules\\win-control\\lib\\binding",
      "napi_version": "9",
      "node_abi_napi": "napi",
-     "node_napi_label": "node-v115",
+-    "node_napi_label": "node-v115",
++    "node_napi_label": "electron-v34.0",
++    "build_from_source": "false",
      "cache": "C:\\Users\\Wuriko\\AppData\\Local\\npm-cache",
 -    "force": "true",
++    "disturl": "https://electronjs.org/headers",
      "globalconfig": "C:\\Program Files\\nodejs\\etc\\npmrc",
      "global_prefix": "C:\\Program Files\\nodejs",
      "init_module": "C:\\Users\\Wuriko\\.npm-init.js",
--    "local_prefix": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-26536JHWk6RxI774x",
+-    "local_prefix": "C:\\Users\\Wuriko\\AppData\\Local\\Temp\\tmp-1672MxLkae7I1q4N",
 +    "local_prefix": "F:\\dev\\playground\\auto-ls",
      "node_gyp": "C:\\Users\\Wuriko\\AppData\\Roaming\\nvm\\v20.18.2\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
      "npm_version": "10.8.2",
++    "platform": "win32",
      "prefix": "C:\\Program Files\\nodejs",
-diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj
-similarity index 50%
-rename from node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj
-rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj
-index 1e1a70a..502591e 100644
-Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj differ
++    "runtime": "electron",
++    "target": "34.0.1",
++    "target_libc": "unknown",
++    "target_platform": "win32",
++    "update_binary": "true",
+     "userconfig": "C:\\Users\\Wuriko\\.npmrc",
+-    "user_agent": "npm/10.8.2 node/v20.18.2 win32 x64 workspaces/false"
++    "user_agent": "npm/10.8.2 node/v20.18.2 win32 x64 workspaces/true"
+   }
+ }
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj
+new file mode 100644
+index 0000000..22ca0d8
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/node_modules/node-addon-api/nothing.obj differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.lib.recipe b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.lib.recipe
 similarity index 100%
 rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.lib.recipe
 rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.lib.recipe
-diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
-similarity index 71%
-rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
-rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
-index bb74f65..d30f7f9 100644
-Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
+new file mode 100644
+index 0000000..5728605
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
 similarity index 98%
 rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
 rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog
-index 3af0241..b04219a 100644
+index 5ef291d..b04219a 100644
 Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.read.1.tlog differ
 diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog
 new file mode 100644
@@ -347,64 +512,63 @@ new file mode 100644
 index 0000000..5e0fe07
 Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
-similarity index 52%
+similarity index 53%
 rename from node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
 rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
-index bbe882c..cfb8950 100644
+index bd2ef6e..cfb8950 100644
 --- a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
 +++ b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/nothing.tlog/nothing.lastbuildstate
 @@ -1,2 +1,2 @@
  PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
--Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\build\|
+-Release|x64|C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\build\|
 +Release|x64|F:\dev\playground\auto-ls\node_modules\win-control\build\|
-diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
-similarity index 97%
-rename from node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
-rename to node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
-index 27fc2d5..4afeeae 100644
-Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj differ
+diff --git a/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
+new file mode 100644
+index 0000000..39dec2d
+Binary files /dev/null and b/node_modules/win-control/build/node_modules/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj differ
 diff --git a/node_modules/win-control/node-addon-api/node_api.sln b/node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
 similarity index 62%
 rename from node_modules/win-control/node-addon-api/node_api.sln
 rename to node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
-index 2a856e8..9f670a0 100644
+index 1da2552..9cf1109 100644
 --- a/node_modules/win-control/node-addon-api/node_api.sln
 +++ b/node_modules/win-control/build/node_modules/node-addon-api/node_api.sln
-@@ -1,6 +1,6 @@
+@@ -1,17 +1,17 @@
  Microsoft Visual Studio Solution File, Format Version 12.00
  # Visual Studio 2015
--Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "nothing.vcxproj", "{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}"
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "nothing.vcxproj", "{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}"
 +Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nothing", "nothing.vcxproj", "{F49F7B51-5357-042A-7C43-9CBF28A2D033}"
  EndProject
  Global
  	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-@@ -8,10 +8,10 @@ Global
+-		Release|x64 = Release|x64
  		Debug|x64 = Debug|x64
++		Release|x64 = Release|x64
  	EndGlobalSection
  	GlobalSection(ProjectConfigurationPlatforms) = postSolution
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.ActiveCfg = Release|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Release|x64.Build.0 = Release|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.ActiveCfg = Debug|x64
--		{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}.Debug|x64.Build.0 = Debug|x64
-+		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
-+		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Release|x64.ActiveCfg = Release|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Release|x64.Build.0 = Release|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Debug|x64.ActiveCfg = Debug|x64
+-		{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}.Debug|x64.Build.0 = Debug|x64
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.ActiveCfg = Debug|x64
 +		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Debug|x64.Build.0 = Debug|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.ActiveCfg = Release|x64
++		{F49F7B51-5357-042A-7C43-9CBF28A2D033}.Release|x64.Build.0 = Release|x64
  	EndGlobalSection
  	GlobalSection(SolutionProperties) = preSolution
  		HideSolutionNode = FALSE
 diff --git a/node_modules/win-control/node-addon-api/nothing.vcxproj b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
-similarity index 96%
+similarity index 62%
 rename from node_modules/win-control/node-addon-api/nothing.vcxproj
 rename to node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
-index 0a00792..000df12 100644
+index 26fbb01..18957c3 100644
 --- a/node_modules/win-control/node-addon-api/nothing.vcxproj
 +++ b/node_modules/win-control/build/node_modules/node-addon-api/nothing.vcxproj
 @@ -11,7 +11,7 @@
      </ProjectConfiguration>
    </ItemGroup>
    <PropertyGroup Label="Globals">
--    <ProjectGuid>{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}</ProjectGuid>
+-    <ProjectGuid>{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}</ProjectGuid>
 +    <ProjectGuid>{F49F7B51-5357-042A-7C43-9CBF28A2D033}</ProjectGuid>
      <Keyword>Win32Proj</Keyword>
      <RootNamespace>nothing</RootNamespace>
@@ -418,7 +582,80 @@ index 0a00792..000df12 100644
      <IntDir>$(Configuration)\obj\$(ProjectName)\</IntDir>
      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-@@ -127,11 +127,11 @@
+@@ -43,8 +43,8 @@
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
+       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+@@ -55,7 +55,7 @@
+       <OmitFramePointers>false</OmitFramePointers>
+       <Optimization>Disabled</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+       <StringPooling>true</StringPooling>
+       <SuppressStartupBanner>true</SuppressStartupBanner>
+@@ -68,7 +68,7 @@
+       <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -78,14 +78,14 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ResourceCompile>
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+     <ClCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
+       <BufferSecurityCheck>true</BufferSecurityCheck>
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+       <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+@@ -98,7 +98,7 @@
+       <OmitFramePointers>true</OmitFramePointers>
+       <Optimization>Full</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+       <StringPooling>true</StringPooling>
+@@ -112,7 +112,7 @@
+       <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -122,16 +122,16 @@
+       <TargetMachine>MachineX64</TargetMachine>
+     </Link>
+     <ResourceCompile>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=nothing;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
      </ResourceCompile>
    </ItemDefinitionGroup>
    <ItemGroup>
@@ -487,90 +724,145 @@ index 0f1e4b6..ace47aa 100644
    </ItemGroup>
  </Project>
 diff --git a/node_modules/win-control/build/wincontrol.vcxproj b/node_modules/win-control/build/wincontrol.vcxproj
-index 15333c4..ee8b2c1 100644
+index e36510b..530afd5 100644
 --- a/node_modules/win-control/build/wincontrol.vcxproj
 +++ b/node_modules/win-control/build/wincontrol.vcxproj
 @@ -11,7 +11,7 @@
      </ProjectConfiguration>
    </ItemGroup>
    <PropertyGroup Label="Globals">
--    <ProjectGuid>{24C1427C-E6F1-3CA0-02DB-E57A42C9124F}</ProjectGuid>
+-    <ProjectGuid>{3A5ABA62-4C72-6194-8711-DE1F5F5F0116}</ProjectGuid>
 +    <ProjectGuid>{7C965828-ED58-82A8-014A-DCD9D21C2F4C}</ProjectGuid>
      <Keyword>Win32Proj</Keyword>
      <RootNamespace>wincontrol</RootNamespace>
      <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
-@@ -48,7 +48,7 @@
+@@ -48,8 +48,8 @@
    </PropertyGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
      <ClCompile>
--      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-+      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-       <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
        <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
        <BufferSecurityCheck>true</BufferSecurityCheck>
-@@ -85,13 +85,13 @@
+       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+@@ -61,7 +61,7 @@
+       <OmitFramePointers>false</OmitFramePointers>
+       <Optimization>Disabled</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+       <StringPooling>true</StringPooling>
+       <SuppressStartupBanner>true</SuppressStartupBanner>
+@@ -73,7 +73,7 @@
+       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -85,14 +85,14 @@
        <TargetMachine>MachineX64</TargetMachine>
      </Link>
      <ResourceCompile>
--      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-+      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
      </ResourceCompile>
    </ItemDefinitionGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
      <ClCompile>
--      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-+      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-       <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <AdditionalOptions>/Zc:__cplusplus -std:c++17 %(AdditionalOptions)</AdditionalOptions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <AdditionalOptions>/Zc:__cplusplus -std:c++20 %(AdditionalOptions)</AdditionalOptions>
        <BufferSecurityCheck>true</BufferSecurityCheck>
        <DebugInformationFormat>OldStyle</DebugInformationFormat>
-@@ -131,7 +131,7 @@
+       <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+@@ -106,7 +106,7 @@
+       <OmitFramePointers>true</OmitFramePointers>
+       <Optimization>Full</Optimization>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+       <StringPooling>true</StringPooling>
+@@ -119,7 +119,7 @@
+       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
+     </Lib>
+     <Link>
+-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\AppData\\Local\\node-gyp\\Cache\\20.18.2\\x64\\node.lib&quot;</AdditionalDependencies>
++      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Wuriko\\.electron-gyp\\34.0.1\\x64\\node.lib&quot;</AdditionalDependencies>
+       <AdditionalOptions>/LTCG:INCREMENTAL /ignore:4199 %(AdditionalOptions)</AdditionalOptions>
+       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
+       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+@@ -131,8 +131,8 @@
        <TargetMachine>MachineX64</TargetMachine>
      </Link>
      <ResourceCompile>
--      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-+      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <AdditionalIncludeDirectories>C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\include\node;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\src;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\config;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\openssl\openssl\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\uv\include;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\zlib;C:\Users\Wuriko\AppData\Local\node-gyp\Cache\20.18.2\deps\v8\include;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <AdditionalIncludeDirectories>C:\Users\Wuriko\.electron-gyp\34.0.1\include\node;C:\Users\Wuriko\.electron-gyp\34.0.1\src;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\config;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\openssl\openssl\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\uv\include;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\zlib;C:\Users\Wuriko\.electron-gyp\34.0.1\deps\v8\include;F:\dev\playground\auto-ls\node_modules\win-control\node_modules\node-addon-api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
++      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=wincontrol;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_COMPRESS_POINTERS;V8_COMPRESS_POINTERS_IN_ISOLATE_CAGE;V8_31BIT_SMIS_ON_64BIT_ARCH;V8_ENABLE_SANDBOX;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;NAPI_DISABLE_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
      </ResourceCompile>
    </ItemDefinitionGroup>
+   <ItemGroup>
 @@ -148,8 +148,8 @@
      <ClCompile Include="C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
    </ItemGroup>
    <ItemGroup>
 -    <ProjectReference Include="..\node-addon-api\nothing.vcxproj">
--      <Project>{B3EAB331-6786-C73A-72A0-B6D3DA00BEC1}</Project>
+-      <Project>{AD2BE79A-2DB5-C36E-E8B0-F4F75BFEF2D7}</Project>
 +    <ProjectReference Include="node_modules\node-addon-api\nothing.vcxproj">
 +      <Project>{F49F7B51-5357-042A-7C43-9CBF28A2D033}</Project>
        <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
      </ProjectReference>
    </ItemGroup>
 diff --git a/node_modules/win-control/lib/binding/wincontrol.node b/node_modules/win-control/lib/binding/wincontrol.node
-index 5f0145a..173011d 100644
+index e381745..9ff88f7 100644
 Binary files a/node_modules/win-control/lib/binding/wincontrol.node and b/node_modules/win-control/lib/binding/wincontrol.node differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj b/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj
+deleted file mode 100644
+index b6f28f4..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/node-addon-api/nothing.obj and /dev/null differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog
+deleted file mode 100644
+index e889548..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.command.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog
 deleted file mode 100644
-index 7c9af8b..0000000
+index 0fa9532..0000000
 Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/CL.write.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
 deleted file mode 100644
-index 67c3057..0000000
+index 9275de7..0000000
 --- a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Cl.items.tlog
 +++ /dev/null
 @@ -1,2 +0,0 @@
--C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\node-addon-api\nothing.c;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\node-addon-api\Release\obj\nothing\node-addon-api\nothing.obj
--C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-26536JHWk6RxI774x\node_modules\win-control\node-addon-api\Release\obj\nothing\win_delay_load_hook.obj
+-C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\node-addon-api\nothing.c;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\node-addon-api\Release\obj\nothing\node-addon-api\nothing.obj
+-C:\Users\Wuriko\AppData\Roaming\nvm\v20.18.2\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc;C:\Users\Wuriko\AppData\Local\Temp\tmp-1672MxLkae7I1q4N\node_modules\win-control\node-addon-api\Release\obj\nothing\win_delay_load_hook.obj
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog
 deleted file mode 100644
-index 7dbcb92..0000000
+index 5f12367..0000000
 Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.read.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog
 deleted file mode 100644
-index b871b73..0000000
+index 85f70f6..0000000
 Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib-link.write.1.tlog and /dev/null differ
 diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog b/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog
 deleted file mode 100644
-index 893f4e0..0000000
+index 73bd2db..0000000
 Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/nothing.tlog/Lib.command.1.tlog and /dev/null differ
+diff --git a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj b/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj
+deleted file mode 100644
+index e1c21f2..0000000
+Binary files a/node_modules/win-control/node-addon-api/Release/obj/nothing/win_delay_load_hook.obj and /dev/null differ
 diff --git a/node_modules/win-control/src/c++/window.hpp b/node_modules/win-control/src/c++/window.hpp
 index 97eaa71..f9f0de8 100644
 --- a/node_modules/win-control/src/c++/window.hpp
