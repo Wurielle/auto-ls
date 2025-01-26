@@ -8,6 +8,10 @@ import path from 'path'
 import { PUBLIC_DIR } from './const'
 import AutoLaunch from 'auto-launch'
 
+if (!app.requestSingleInstanceLock()) {
+    app.quit();
+}
+
 type ProcessEvent = {
     type: 'process-creation' | 'process-deletion'
     payload: {
@@ -69,6 +73,9 @@ function createTray() {
     tray.on('click', () => window?.show())
     tray.setToolTip('Auto Lossless Scaling')
     tray.setContextMenu(contextMenu)
+    app.on('before-quit', () => {
+        tray.removeAllListeners()
+    })
 }
 
 app.whenReady().then(() => {
@@ -109,6 +116,9 @@ app.whenReady().then(() => {
     window.on('close', (e) => {
         e.preventDefault() // Prevent the default behavior of quitting the application
         window.hide() // Hide the window instead of closing it
+    })
+    app.on('before-quit', () => {
+        window.removeAllListeners()
     })
 })
 
@@ -164,4 +174,7 @@ child.on('message', (processInfo: ProcessEvent) => {
         console.log('Scaling', processInfo.payload.process)
         scaleByPid(processInfo.payload.pid)
     }
+})
+app.on('before-quit', () => {
+    child.kill()
 })
