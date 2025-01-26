@@ -80,15 +80,11 @@ export default defineConfig(({ mode }) => {
     const rollupOptions = {
         external,
     }
-    const plugins = () => [vue(), tsconfigPaths()]
+    const plugins = () => [tsconfigPaths()]
     return {
-        css: {
-            postcss: {
-                plugins: [tailwind(), autoprefixer()],
-            },
-        },
         plugins: [
             ...plugins(),
+            vue(),
             electron({
                 main: {
                     // Shortcut of `build.lib.entry`

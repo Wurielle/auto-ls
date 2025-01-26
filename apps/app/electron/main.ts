@@ -45,7 +45,7 @@ app.whenReady().then(() => {
         console.log('Opt in', foregroundProcessPid)
         const processPath = processes[foregroundProcessPid]?.filepath
         const processesPaths = getProcessPaths()
-        if (processPath && processesPaths.indexOf(processPath) !== -1) store.set('processes', [...getProcessPaths(), processPath]);
+        if (processPath && processesPaths.indexOf(processPath) === -1) store.set('processes', [...getProcessPaths(), processPath]);
         scaleByPid(foregroundProcessPid, 0)
     })
     globalShortcut.register('Alt+CommandOrControl+O', () => {
@@ -106,7 +106,7 @@ function scaleByPid(pid: number, wait = 10000) {
     )
 }
 
-const child = fork(path.join(EXTERNALS_DIR, 'process-watcher.js'))
+const child = fork(require.resolve('process-watcher'))
 child.on('message', (processInfo: ProcessEvent) => {
     if (processInfo.type === 'process-creation') {
         processes[processInfo.payload.pid] = processInfo.payload
