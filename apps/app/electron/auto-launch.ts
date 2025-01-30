@@ -1,9 +1,23 @@
 import { exec } from 'child_process';
+import path from 'path'
+import * as fs from 'node:fs'
+import { EXTERNALS_DIR } from './const'
 
 const taskName = 'Launch Auto Lossless Scaling on Startup';
 const execPath = process.execPath;
 
-const command = `schtasks /Create /TN "${taskName}" /TR "powershell -ExecutionPolicy Bypass -WindowStyle Hidden -Command Start-Process '${execPath}' -Verb RunAs" /SC ONLOGON /RL HIGHEST /F`;
+const batPath = path.join(EXTERNALS_DIR, 'startup.bat');
+const batContent = `
+@echo off
+powershell -Command "Start-Process '${execPath.replaceAll('\\', '\\\\')}' -Verb RunAs"
+exit
+`
+
+fs.writeFileSync(batPath, batContent, 'utf8');
+
+const command = `schtasks /Create /TN "${taskName}" /TR '"${batPath}"' /SC ONLOGON /RL HIGHEST /F`;
+
+console.log(command)
 
 exec(command, (err, stdout, stderr) => {
     if (err) {
