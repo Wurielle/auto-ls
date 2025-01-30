@@ -4,6 +4,7 @@ import { createWindow } from './window'
 import { createTray } from './tray'
 import { processes, scaleByPid } from './lossless-scaling'
 import { getProcessesPaths, setProcessesPaths } from './store'
+import { notify } from './notifications'
 
 app.whenReady().then(() => {
     const { window } = createWindow()
@@ -15,11 +16,23 @@ app.whenReady().then(() => {
         const processesPaths = getProcessesPaths()
         if (processPath && processesPaths.indexOf(processPath) === -1) setProcessesPaths([...getProcessesPaths(), processPath]);
         scaleByPid(foregroundProcessPid, 0)
+
+        notify({
+            title: 'Opting process in',
+            body: `${processes[foregroundProcessPid]?.process} will now automatically scale`
+        })
     })
     globalShortcut.register('Alt+CommandOrControl+O', () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         console.log('Opt out', foregroundProcessPid)
         const processPath = processes[foregroundProcessPid]?.filepath
-        if (processPath) setProcessesPaths([...getProcessesPaths()].filter((processPath) => processPath !== processPath));
+        if (processPath) {
+            setProcessesPaths([...getProcessesPaths()].filter((processPath) => processPath !== processPath));
+
+            notify({
+                title: 'Opting process out',
+                body: `${ processes[foregroundProcessPid]?.process } will no longer automatically scale`
+            })
+        }
     })
 })

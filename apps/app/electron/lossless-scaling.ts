@@ -3,6 +3,7 @@ import { Window } from 'win-control'
 import { getProcessesPaths } from './store'
 import { app } from 'electron'
 import micromatch from 'micromatch'
+import { notify } from './notifications'
 
 type ProcessEvent = {
     type: 'process-creation' | 'process-deletion'
@@ -18,7 +19,7 @@ type ProcessEvent = {
  */
 export const processes: Record<string, ProcessEvent['payload']> = {}
 
-export function scaleByPid(pid: number, wait = 10000) {
+export function scaleByPid(pid: number, wait = 3000) {
     console.log('scale', pid)
     let timeout
     let interval
@@ -69,6 +70,10 @@ child.on('message', (processInfo: ProcessEvent) => {
         // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
         console.log('Scaling', processInfo.payload.process)
         scaleByPid(processInfo.payload.pid)
+        notify({
+            title: 'Process detected',
+            body: `${processInfo.payload.process} will be scaled soon`,
+        })
     }
 })
 app.on('before-quit', () => {
