@@ -29,6 +29,9 @@ module.exports = {
     allowToChangeInstallationDirectory: false,
     deleteAppDataOnUninstall: false,
   },
+  win: {
+    requestedExecutionLevel: 'requireAdministrator'
+  },
   appId: 'com.nhs.auto-lossless-scaling',
   // generateUpdatesFilesForAllChannels: true,
   // eslint-disable-next-line no-template-curly-in-string
