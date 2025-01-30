@@ -3,26 +3,51 @@ import path from 'path'
 import * as fs from 'node:fs'
 import { EXTERNALS_DIR } from './const'
 
-const taskName = 'Launch Auto Lossless Scaling on Startup';
-const execPath = process.execPath;
+function  registerTask (options: {
+    name: string
+    batchPath: string
+}) {
+    const {name, batchPath} = options
+    exec(`schtasks /Create /TN "${name}" /TR '"${batchPath}"' /SC ONLOGON /RL HIGHEST /F`, (err, stdout, stderr) => {
+        if (err) {
+            console.error('Failed to create scheduled task:', stderr);
+        } else {
+            console.log('Scheduled task created for startup (hidden console):', stdout);
+        }
+    });
+}
 
-const batPath = path.join(EXTERNALS_DIR, 'startup.bat');
-const batContent = `
-@echo off
-powershell -Command "Start-Process '${execPath.replaceAll('\\', '\\\\')}' -Verb RunAs"
+function  registerAppAutoLaunch (execPath: string) {
+    const batchPath = path.join(EXTERNALS_DIR, 'run-as-admin.bat');
+    const batchContent = `@echo off
+powershell -Command "Start-Process '${execPath.split('\\').join('\\\\')}' -Verb RunAs"
 exit
 `
+    fs.writeFileSync(batchPath, batchContent, 'utf8');
 
-fs.writeFileSync(batPath, batContent, 'utf8');
+    registerTask({
+        name: 'Auto Lossless Scaling - Run as Admin',
+        batchPath: batchPath
+    })
+}
 
-const command = `schtasks /Create /TN "${taskName}" /TR '"${batPath}"' /SC ONLOGON /RL HIGHEST /F`;
+function  registerLosslessScalingAutoLaunch (execPath: string) {
+    const batchPath = path.join(EXTERNALS_DIR, 'run-lossless-scaling-as-admin.bat');
+    const batchContent = `@echo off
+powershell -Command "Start-Process '${execPath.split('\\').join('\\\\')}' -Verb RunAs"
+exit
+`
+    fs.writeFileSync(batchPath, batchContent, 'utf8');
 
-console.log(command)
+    registerTask({
+        name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
+        batchPath: batchPath
+    })
+}
 
-exec(command, (err, stdout, stderr) => {
-    if (err) {
-        console.error('Failed to create scheduled task:', stderr);
-    } else {
-        console.log('Scheduled task created for startup (hidden console):', stdout);
-    }
-});
+try  {
+    registerAppAutoLaunch(process.execPath)
+    registerLosslessScalingAutoLaunch("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Lossless Scaling\\LosslessScaling.exe")
+} catch (e) {
+    console.log(`Couldn't register auto launch task`)
+}
