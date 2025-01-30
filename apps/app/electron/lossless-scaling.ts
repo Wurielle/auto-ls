@@ -20,7 +20,6 @@ type ProcessEvent = {
 export const processes: Record<string, ProcessEvent['payload']> = {}
 
 export function scaleByPid(pid: number, wait = 3000) {
-    console.log('scale', pid)
     let timeout
     let interval
     interval = setInterval(() => {
@@ -30,7 +29,6 @@ export function scaleByPid(pid: number, wait = 3000) {
             clearTimeout(timeout)
             let triggerKeybindTimeout;
             async function triggerKeybind() {
-                console.log('trigger keybind')
                 if (pid === foregroundWindowPID) {
                     clearTimeout(triggerKeybindTimeout)
                     const { Key, keyboard } = await import('@nut-tree-fork/nut-js')
@@ -68,7 +66,6 @@ child.on('message', (processInfo: ProcessEvent) => {
     const processesPaths = getProcessesPaths()
     if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, processesPaths, {})) {
         // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
-        console.log('Scaling', processInfo.payload.process)
         scaleByPid(processInfo.payload.pid)
         notify({
             title: 'Process detected',

@@ -12,7 +12,7 @@ function  registerTask (options: {
         if (err) {
             console.error('Failed to create scheduled task:', stderr);
         } else {
-            console.log('Scheduled task created for startup (hidden console):', stdout);
+            console.log('Scheduled task created for startup:', stdout);
         }
     });
 }
