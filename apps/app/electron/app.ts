@@ -5,8 +5,11 @@ import { createTray } from './tray'
 import { processes, scaleByPid } from './lossless-scaling'
 import { getProcessesPaths, setProcessesPaths } from './store'
 import { notify } from './notifications'
-
 app.whenReady().then(() => {
+    if (process.platform === 'win32')
+    {
+        app.setAppUserModelId('com.nhs.auto-lossless-scaling');
+    }
     const { window } = createWindow()
     createTray({window})
     globalShortcut.register('Alt+CommandOrControl+I', () => {

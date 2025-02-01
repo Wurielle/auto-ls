@@ -30,7 +30,9 @@ module.exports = {
     deleteAppDataOnUninstall: false,
   },
   win: {
-    requestedExecutionLevel: 'requireAdministrator'
+    appId: 'com.nhs.auto-lossless-scaling',
+    requestedExecutionLevel: 'requireAdministrator',
+    icon: "public/icons/icon.ico",
   },
   appId: 'com.nhs.auto-lossless-scaling',
   // generateUpdatesFilesForAllChannels: true,
