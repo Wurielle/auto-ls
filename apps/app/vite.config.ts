@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import react from '@vitejs/plugin-react-swc'
 import electron from 'vite-plugin-electron/simple'
 import { fileURLToPath, URL } from 'node:url'
-import autoprefixer from 'autoprefixer'
-import tailwind from 'tailwindcss'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { builtinModules } from 'node:module'
 
@@ -31,31 +29,10 @@ export function getNodeExternal() {
     return [...builtinModules, ...builtinModules.map((name) => `node:${ name }`)]
 }
 
-const formats: LibraryOptions['formats'] = ['cjs', 'es']
 
-export const getFormats: () => LibraryOptions['formats'] = () => {
-    return formats
-}
-
-export function getFileName(format: ModuleFormat, entryName: string) {
-    return `${ entryName }.${
-        {
-            cjs: 'cjs',
-            es: 'js',
-            amd: '',
-            commonjs: '',
-            esm: '',
-            iife: '',
-            systemjs: '',
-            system: '',
-            umd: '',
-            module: '',
-        }[format]
-    }`
-}
 
 export default defineConfig(({ mode }) => {
-    const packagesToOmit = []
+    const packagesToOmit: string[] = []
     const omitPackages = (keys: string[]) =>
         keys.filter((key) => !packagesToOmit.includes(key))
     const externalPackages = [
@@ -84,7 +61,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             ...plugins(),
-            vue(),
+            react(),
             electron({
                 main: {
                     // Shortcut of `build.lib.entry`
