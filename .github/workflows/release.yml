@@ -63,7 +63,7 @@ jobs:
                 run: npm ci
 
             -   name: Build Electron app
-                run: npm run electron:build
+                run: npm run build
                 working-directory: apps/app
 
             -   name: Cleanup Electron dist
