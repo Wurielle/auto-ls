@@ -1,0 +1,29 @@
+name: Tag release
+on:
+    push:
+        branches:
+            - main
+            - pre/rc
+            - beta
+            - alpha
+
+jobs:
+    tag-release:
+        name: Tag release
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+                    token: ${{ secrets.ACCOUNT_TOKEN }}
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v4
+                with:
+                    node-version: 'lts/*'
+
+            -   name: Release
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: npx semantic-release
