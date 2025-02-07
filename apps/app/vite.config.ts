@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import electron from 'vite-plugin-electron/simple'
-import { fileURLToPath, URL } from 'node:url'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { builtinModules } from 'node:module'
 
@@ -48,12 +47,6 @@ export default defineConfig(({ mode }) => {
         ),
         ...(mode === 'development' ? getRootExternal() : []),
     ]
-    const resolve = {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
-        },
-        extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    }
     const rollupOptions = {
         external,
     }
@@ -67,7 +60,6 @@ export default defineConfig(({ mode }) => {
                     // Shortcut of `build.lib.entry`
                     entry: 'electron/main.ts',
                     vite: {
-                        resolve,
                         build: {
                             rollupOptions,
                         },
@@ -82,6 +74,5 @@ export default defineConfig(({ mode }) => {
                 renderer: {},
             }),
         ],
-        resolve,
     }
 })
