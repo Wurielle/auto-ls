@@ -1,0 +1,13 @@
+diff --git a/node_modules/win-control/src/c++/window.hpp b/node_modules/win-control/src/c++/window.hpp
+index 97eaa71..f9f0de8 100644
+--- a/node_modules/win-control/src/c++/window.hpp
++++ b/node_modules/win-control/src/c++/window.hpp
+@@ -14,7 +14,7 @@ public:
+   static Napi::Value GetByPid(const Napi::CallbackInfo &info);
+   static Napi::Object Init(Napi::Env env, Napi::Object exports);
+ 
+-  static BOOL CALLBACK Window::EnumWindowsCallback(HWND, LPARAM);
++  static BOOL CALLBACK EnumWindowsCallback(HWND, LPARAM);
+ 
+   Napi::Value SetForeground(const Napi::CallbackInfo &info);
+   Napi::Value SetPosition(const Napi::CallbackInfo& info);

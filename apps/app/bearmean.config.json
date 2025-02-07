@@ -1,0 +1,8 @@
+{
+  "tsconfigPath": "./tsconfig.json",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/utils",
+    "tokens": "@/tokens"
+  }
+}
