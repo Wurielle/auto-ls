@@ -12,5 +12,8 @@
     "postinstall": "npx patch-package"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@tanstack/react-query": "^5.66.0"
+  }
 }

@@ -8,8 +8,10 @@ import { InputGroup } from '@/components/ui/input-group.tsx'
 import { FileUploadRoot, FileUploadTrigger } from '@/components/ui/file-upload.tsx'
 import { Icon } from "@chakra-ui/react"
 import { MdTimer } from "react-icons/md"
+import { useGetProcessesQuery } from '@/queries.ts'
 
 function App() {
+    const {data: processesData} = useGetProcessesQuery()
   return (
       <Container>
       <Box py={"48px"} divideY={"1px"}>
@@ -43,7 +45,7 @@ function App() {
           <Stack py={'6'}>
               <Grid gap={'6'}>
                   {
-                      Array.from({ length: 16 }).map((_, i) => (
+                      processesData?.map((path, i) => (
                           <Grid.Col key={i} span={12} mdSpan={6} lgSpan={4} xlSpan={3}>
                               <Card.Root>
                                   <Card.Body gap="2">
@@ -52,7 +54,14 @@ function App() {
                                               <Button variant="outline">Edit</Button>
                                       </Group>
                                       <Group justify={'between'}>
-                                          <Card.Title>Nue Camp</Card.Title>
+                                          <Card.Title>{path.split('\\').pop().replace('.exe', '')}</Card.Title>
+                                      </Group>
+                                  </Card.Body>
+                                  <Card.Footer>
+                                      <Group justify={'between'} grow>
+                                          <Card.Description>
+                                              5 minutes ago
+                                          </Card.Description>
                                           <Card.Description>
                                               <Group>
                                                   <Icon>
@@ -62,11 +71,6 @@ function App() {
                                               </Group>
                                           </Card.Description>
                                       </Group>
-                                  </Card.Body>
-                                  <Card.Footer>
-                                      <Card.Description>
-                                          5 minutes ago
-                                      </Card.Description>
                                   </Card.Footer>
                               </Card.Root>
                           </Grid.Col>

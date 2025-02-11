@@ -4,6 +4,11 @@ import { app, BrowserWindow } from 'electron'
 
 export function createWindow(): { window: BrowserWindow } {
     const window = new BrowserWindow({
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
+            nodeIntegration: false,
+        },
         icon: path.join(PUBLIC_DIR, 'icons/256x256.png'),
         show: !!process.env.VITE_DEV_SERVER_URL,
     })

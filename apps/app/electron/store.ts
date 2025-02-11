@@ -1,4 +1,5 @@
 import Store from 'electron-store'
+import { ipcMain } from 'electron';
 
 export const store = new Store();
 if (!store.get('processes')) {
@@ -12,3 +13,12 @@ export function getProcessesPaths() {
 export function setProcessesPaths(paths: string[]) {
     return store.set('processes', paths);
 }
+
+ipcMain.handle('electron-store-get', (event, key) => {
+    return store.get(key);
+});
+
+ipcMain.handle('electron-store-set', (event, key, value) => {
+    store.set(key, value);
+    return true;
+});
