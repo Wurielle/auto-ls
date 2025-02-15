@@ -1,24 +1,59 @@
 import Store from 'electron-store'
 import { ipcMain } from 'electron';
+import get from 'lodash.get'
+import set from 'lodash.set'
+import { emitter } from './events'
 
-export const store = new Store();
-if (!store.get('processes')) {
-    store.set('processes', []);
+export const store = new Store({
+    defaults: {
+        store: {
+            processes: [],
+            defaultTimeout: 5000,
+            lsExecutablePath: '',
+        }
+    }
+});
+
+export function setStoreValue(path: string, value: any) {
+    const storeValue = store.get('store') || {};
+    const newStoreValue = set(storeValue, path, value);
+    store.set('store', newStoreValue);
+    emitter.emit('store-update', { type: path, value, storeValue: newStoreValue });
 }
 
-export function getProcessesPaths() {
-    return store.get('processes') as string[]
+export function getStoreValue<V>(path: string): V | null {
+    const storeValue = store.get('store') || {};
+    return get(storeValue, path);
 }
 
-export function setProcessesPaths(paths: string[]) {
-    return store.set('processes', paths);
+export type StoreProcess = {
+    path: string;
+    lastScaledAt: string;
+    scaleTimeout: number;
+}
+
+export function getProcess(path: string): StoreProcess {
+    return (getStoreValue<StoreProcess[]>('processes') || []).find((p) => p.path === path);
+}
+
+export function addProcess(path: StoreProcess['path']) {
+    const paths: StoreProcess[] = getStoreValue('processes') || [];
+    const processIndex = paths.findIndex((p) => p.path === path);
+    if (processIndex === -1) {
+        const newPaths: StoreProcess[] = [ {
+            path,
+            lastScaledAt: new Date().toISOString(),
+            scaleTimeout: getStoreValue('defaultTimeout'),
+        }, ...paths]
+            setStoreValue('processes', newPaths);
+    }
 }
 
 ipcMain.handle('electron-store-get', (event, key) => {
-    return store.get(key);
+    return getStoreValue(key);
 });
 
 ipcMain.handle('electron-store-set', (event, key, value) => {
-    store.set(key, value);
+    setStoreValue(key, value);
     return true;
 });

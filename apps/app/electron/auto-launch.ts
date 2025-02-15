@@ -2,6 +2,9 @@ import { exec } from 'child_process';
 import path from 'path'
 import * as fs from 'node:fs'
 import { EXTERNALS_DIR } from './const'
+import { getStoreValue, setStoreValue } from './store'
+import { app } from 'electron'
+import { existsSync } from 'node:fs'
 
 function  registerTask (options: {
     name: string
@@ -45,9 +48,26 @@ exit
     })
 }
 
-try  {
-    registerAppAutoLaunch(process.execPath)
-    registerLosslessScalingAutoLaunch("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Lossless Scaling\\LosslessScaling.exe")
-} catch (e) {
-    console.log(`Couldn't register auto launch task`)
-}
+
+
+app.on('ready', () => {
+    const defaultLSExecutablePath = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Lossless Scaling\\LosslessScaling.exe'
+    if (!getStoreValue('lsExecutablePath')) {
+        if(existsSync(defaultLSExecutablePath)) {
+            setStoreValue('lsExecutablePath', defaultLSExecutablePath)
+        }
+    }
+
+    try  {
+        registerAppAutoLaunch(process.execPath)
+        if (getStoreValue('lsExecutablePath')) {
+            if(existsSync(getStoreValue('lsExecutablePath'))) {
+                registerLosslessScalingAutoLaunch(getStoreValue('lsExecutablePath'))
+            } else {
+                setStoreValue('lsExecutablePath', '')
+            }
+        }
+    } catch (e) {
+        console.log(`Couldn't register auto launch task`)
+    }
+})

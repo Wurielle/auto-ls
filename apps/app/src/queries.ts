@@ -8,3 +8,12 @@ export const useGetProcessesQuery = () => {
         }
     })
 }
+
+export const useGetLSExecutablePathQuery = () => {
+    return useQuery({
+        queryKey: ['ls-executable-path'],
+        queryFn() {
+            return electronStore.get('lsExecutablePath');
+        }
+    })
+}
