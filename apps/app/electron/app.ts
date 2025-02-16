@@ -5,6 +5,7 @@ import { createTray } from './tray'
 import { processes, scaleByPid } from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
+import { Key } from '@nut-tree-fork/nut-js'
 
 app.whenReady().then(() => {
     if (process.platform === 'win32') {
@@ -43,5 +44,9 @@ app.whenReady().then(() => {
             ],
         })
         return res.filePaths[0]
+    })
+
+    ipcMain.handle('electron-utils-get-shortcut-keys', async (event, key, value) => {
+        return Key
     })
 })

@@ -1,6 +1,6 @@
 import { Container, Grid, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Box, Button, Card, Icon, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Card, createListCollection, Icon, Input, Text } from '@chakra-ui/react'
 import logo64 from '@/assets/icons/64x64.png'
 import pkg from '~/package.json'
 import { Field } from '@/components/ui/field.tsx'
@@ -12,9 +12,11 @@ import {
     useGetLSExecutablePathQuery,
     useGetProcessesQuery,
     useGetProcessQuery,
+    useGetShortcutKeysQuery,
+    useGetShortcutQuery,
 } from '@/queries.ts'
 import moment from 'moment'
-import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
+import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import {
     DialogBody,
@@ -25,6 +27,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from "@/components/ui/select"
 
 function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -73,6 +76,80 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                 <DialogCloseTrigger/>
             </DialogContent>
         </DialogRoot>)
+}
+
+function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
+    const { data: keys = {} } = useGetShortcutKeysQuery()
+    const { data: shortcut = [] } = useGetShortcutQuery(id)
+    const collection = useMemo(() => createListCollection({
+        items: Object.entries(keys).filter(([, v]) => typeof v === 'string').map(([key, value]) => ({
+            label: value,
+            value: Number(key),
+        })),
+    }), [keys])
+    const [value1, setValue1] = useState<string[]>([])
+    const [value2, setValue2] = useState<string[]>([])
+    const [value3, setValue3] = useState<string[]>([])
+    useEffect(() => {
+        setValue1([shortcut[0]])
+        setValue2([shortcut[1]])
+        setValue3([shortcut[2]])
+    }, [shortcut])
+    useEffect(() => {
+        electronStore.set(id, [(value1[0]), (value2[0]), (value3[0])].filter(Boolean).map((v) => Number(v)))
+    }, [value1, value2, value3])
+    return (
+        <Stack gap={ 6 } grow>
+            <Text fontWeight={ 'medium' } textStyle={ 'sm' }>{ title }</Text>
+            <Group grow>
+                <InputGroup flexGrow={ 1 }>
+                    <SelectRoot value={ value1 } onValueChange={ (details) => setValue1(details.value) }
+                                collection={ collection }>
+                        <SelectTrigger>
+                            <SelectValueText/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            { collection.items.map((key) => (
+                                <SelectItem item={ key } key={ key.value }>
+                                    { key.label }
+                                </SelectItem>
+                            )) }
+                        </SelectContent>
+                    </SelectRoot>
+                </InputGroup>
+                <InputGroup flexGrow={ 1 }>
+                    <SelectRoot value={ value2 } onValueChange={ (details) => setValue2(details.value) }
+                                collection={ collection }>
+                        <SelectTrigger>
+                            <SelectValueText/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            { collection.items.map((key) => (
+                                <SelectItem item={ key } key={ key.value }>
+                                    { key.label }
+                                </SelectItem>
+                            )) }
+                        </SelectContent>
+                    </SelectRoot>
+                </InputGroup>
+                <InputGroup flexGrow={ 1 }>
+                    <SelectRoot value={ value3 } onValueChange={ (details) => setValue3(details.value) }
+                                collection={ collection }>
+                        <SelectTrigger>
+                            <SelectValueText/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            { collection.items.map((key) => (
+                                <SelectItem item={ key } key={ key.value }>
+                                    { key.label }
+                                </SelectItem>
+                            )) }
+                        </SelectContent>
+                    </SelectRoot>
+                </InputGroup>
+            </Group>
+        </Stack>
+    )
 }
 
 function App() {
@@ -138,6 +215,9 @@ function App() {
                             </Field>
                         )
                     }
+                    <Group>
+                        <ShortcutFormGroup id={ 'lsScaleShortcut' } title={ 'Lossless Scaling Scale Shortcut' }/>
+                    </Group>
                 </Stack>
                 <Stack py={ '6' }>
                     <Grid gap={ '6' }>

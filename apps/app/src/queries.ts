@@ -35,3 +35,21 @@ export const useGetDefaultTimeoutQuery = () => {
         },
     })
 }
+
+export const useGetShortcutKeysQuery = () => {
+    return useQuery({
+        queryKey: ['shortcut-keys'],
+        queryFn() {
+            return electronUtils.getShortcutKeys()
+        },
+    })
+}
+
+export const useGetShortcutQuery = (id: string) => {
+    return useQuery({
+        queryKey: ['shortcut', id],
+        queryFn() {
+            return electronStore.get('lsScaleShortcut')
+        },
+    })
+}

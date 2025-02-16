@@ -14,3 +14,9 @@ contextBridge.exposeInMainWorld('electronDialog', {
         return await ipcRenderer.invoke('electron-dialog-get-ls-executable-path')
     },
 })
+
+contextBridge.exposeInMainWorld('electronUtils', {
+    getShortcutKeys: async () => {
+        return await ipcRenderer.invoke('electron-utils-get-shortcut-keys')
+    },
+})
