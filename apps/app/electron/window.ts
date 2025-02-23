@@ -12,7 +12,6 @@ export function createWindow(): { window: BrowserWindow } {
         icon: path.join(PUBLIC_DIR, 'icons/256x256.png'),
         show: !!process.env.VITE_DEV_SERVER_URL,
     })
-    window.maximize()
 
     if (process.env.VITE_DEV_SERVER_URL) {
         window.loadURL(process.env.VITE_DEV_SERVER_URL)
