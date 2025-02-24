@@ -1,0 +1,28 @@
+const { contextBridge, ipcRenderer } = require('electron')
+
+contextBridge.exposeInMainWorld('electronStore', {
+    get: async (key) => {
+        return await ipcRenderer.invoke('electron-store-get', key)
+    },
+    set: async (key, value) => {
+        return await ipcRenderer.invoke('electron-store-set', key, value)
+    },
+})
+
+contextBridge.exposeInMainWorld('electronDialog', {
+    getLSExecutablePath: async () => {
+        return await ipcRenderer.invoke('electron-dialog-get-ls-executable-path')
+    },
+})
+
+contextBridge.exposeInMainWorld('electronUtils', {
+    getShortcutKeys: async () => {
+        return await ipcRenderer.invoke('electron-utils-get-shortcut-keys')
+    },
+})
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    onEvent: (channel, callback) => {
+        ipcRenderer.on(channel, (_event, ...args) => callback(...args))
+    },
+})
