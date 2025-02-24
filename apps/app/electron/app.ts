@@ -6,6 +6,7 @@ import { processes, scaleByPid } from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
+import { emitter } from './events'
 
 app.whenReady().then(() => {
     if (process.platform === 'win32') {
@@ -48,5 +49,11 @@ app.whenReady().then(() => {
 
     ipcMain.handle('electron-utils-get-shortcut-keys', async (event, key, value) => {
         return Key
+    })
+
+    emitter.on('store-update', () => {
+        if (window && !window.isDestroyed()) {
+            window.webContents.send('store-update')
+        }
     })
 })

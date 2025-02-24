@@ -20,3 +20,9 @@ contextBridge.exposeInMainWorld('electronUtils', {
         return await ipcRenderer.invoke('electron-utils-get-shortcut-keys')
     },
 })
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    onEvent: (channel, callback) => {
+        ipcRenderer.on(channel, (_event, ...args) => callback(...args))
+    },
+})

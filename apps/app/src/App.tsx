@@ -28,6 +28,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from "@/components/ui/select"
+import orderBy from 'lodash/orderBy'
 
 function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -49,9 +50,6 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
             motionPreset="slide-in-bottom"
             unmountOnExit={ true }
             lazyMount={ true }
-            onOpenChange={ ({ open }) => {
-                if (!open) queryClient.refetchQueries()
-            } }
         >
             <DialogTrigger asChild>
                 { children }
@@ -153,14 +151,13 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
 }
 
 function App() {
-    const { data: processesData } = useGetProcessesQuery()
+    const { data: processesData = [] } = useGetProcessesQuery()
     const { data: lsExecutablePathData } = useGetLSExecutablePathQuery()
     const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useGetDefaultTimeoutQuery()
-    const queryClient = useQueryClient()
+    const orderedProcesses = useMemo(() => orderBy(processesData, 'lastScaledAt', 'desc'), [processesData])
     const updateLSExecutablePath = useCallback((path: string) => {
         if (path) {
             electronStore.set('lsExecutablePath', path)
-            queryClient.refetchQueries()
         }
     }, [])
     const updateDefaultTimeout = useCallback((value: number) => {
@@ -222,7 +219,7 @@ function App() {
                 <Stack py={ '6' }>
                     <Grid gap={ '6' }>
                         {
-                            processesData?.map((process, i) => (
+                            orderedProcesses.map((process, i) => (
                                 <Grid.Col key={ i } span={ 12 } mdSpan={ 6 } lgSpan={ 4 } xlSpan={ 3 }>
                                     <Card.Root>
                                         <Card.Body gap="2">

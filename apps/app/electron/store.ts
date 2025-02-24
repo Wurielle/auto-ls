@@ -9,7 +9,7 @@ export const store = new Store({
     defaults: {
         store: {
             processes: [],
-            defaultTimeout: 5000,
+            defaultTimeout: 10000,
             lsExecutablePath: '',
             lsScaleShortcut: [Key.LeftControl, Key.LeftAlt, Key.S],
             optInShortcut: [Key.LeftControl, Key.LeftAlt, Key.I],

@@ -12,7 +12,6 @@ export const useGetProcessQuery = (path: string) => {
     return useQuery({
         queryKey: ['processes', path],
         async queryFn() {
-            console.log(await electronStore.get('processes'))
             return (await electronStore.get('processes')).find((p) => p.path === path)
         },
     })
