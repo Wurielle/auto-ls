@@ -38,7 +38,7 @@ exit
 function registerLosslessScalingAutoLaunch(execPath: string) {
     const batchPath = path.join(EXTERNALS_DIR, 'run-lossless-scaling-as-admin.bat')
     const batchContent = `@echo off
-powershell -Command "Start-Process '${ execPath.split('\\').join('\\\\') }' -Verb RunAs"
+powershell -Command "Start-Process '${ execPath.split('\\').join('\\\\') }' -Verb RunAs -WindowStyle Minimized"
 exit
 `
     fs.writeFileSync(batchPath, batchContent, 'utf8')
