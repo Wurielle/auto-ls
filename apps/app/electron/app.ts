@@ -10,6 +10,13 @@ import { emitter } from './events'
 import * as fs from 'node:fs'
 import path from 'path'
 import extractFileIcon from "extract-file-icon"
+import { autoUpdater } from "electron-updater"
+
+autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall()
+})
+
+autoUpdater.checkForUpdates()
 
 const iconsDir = path.join(app.getPath("userData"), "icons")
 
