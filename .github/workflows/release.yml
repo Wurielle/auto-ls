@@ -79,7 +79,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_paths: '["./apps/app/dist_electron*"]'
+          asset_paths: '["./apps/app/dist_electron/*"]'
 
       - name: Rollback Release
         if: failure()
