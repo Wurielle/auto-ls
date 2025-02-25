@@ -22,12 +22,19 @@ function registerTask(options: {
 }
 
 function registerAppAutoLaunch(execPath: string) {
-    const batchPath = path.join(EXTERNALS_DIR, 'run-as-admin.bat')
+    const batFileName = 'run-as-admin.bat'
+    const vbsFileName = 'run-as-admin.vbs'
+    const batchPath = path.join(EXTERNALS_DIR, batFileName)
+    const vbsPath = path.join(EXTERNALS_DIR, vbsFileName)
     const batchContent = `@echo off
 powershell -Command "Start-Process '${ execPath.split('\\').join('\\\\') }' -Verb RunAs"
 exit
 `
+    const vbsContent = `Set WshShell = CreateObject("WScript.Shell")
+WshShell.Run "${batFileName}", 0, False`
+
     fs.writeFileSync(batchPath, batchContent, 'utf8')
+    fs.writeFileSync(vbsPath, vbsContent, 'utf8')
 
     registerTask({
         name: 'Auto Lossless Scaling - Run as Admin',
@@ -36,12 +43,19 @@ exit
 }
 
 function registerLosslessScalingAutoLaunch(execPath: string) {
-    const batchPath = path.join(EXTERNALS_DIR, 'run-lossless-scaling-as-admin.bat')
+    const batFileName = 'run-lossless-scaling-as-admin.bat'
+    const vbsFileName = 'run-lossless-scaling-as-admin.vbs'
+    const batchPath = path.join(EXTERNALS_DIR, batFileName)
+    const vbsPath = path.join(EXTERNALS_DIR, vbsFileName)
     const batchContent = `@echo off
-powershell -Command "Start-Process '${ execPath.split('\\').join('\\\\') }' -Verb RunAs"
+powershell -Command "Start-Process '${ execPath.split('\\').join('\\\\') }' -Verb RunAs -WindowStyle Minimized"
 exit
 `
+    const vbsContent = `Set WshShell = CreateObject("WScript.Shell")
+WshShell.Run "${batFileName}", 0, False`
+
     fs.writeFileSync(batchPath, batchContent, 'utf8')
+    fs.writeFileSync(vbsPath, vbsContent, 'utf8')
 
     registerTask({
         name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
