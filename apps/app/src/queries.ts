@@ -52,3 +52,12 @@ export const useGetShortcutQuery = (id: string) => {
         },
     })
 }
+
+export const useGetIconsPathQuery = () => {
+    return useQuery({
+        queryKey: ['icons-path'],
+        queryFn() {
+            return electronApi.getIconsPath()
+        },
+    })
+}

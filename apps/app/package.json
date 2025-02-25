@@ -14,6 +14,7 @@
   "dependencies": {
     "@nut-tree-fork/nut-js": "^4.2.4",
     "electron-store": "^8.2.0",
+    "extract-file-icon": "^0.3.2",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "micromatch": "^4.0.8",
