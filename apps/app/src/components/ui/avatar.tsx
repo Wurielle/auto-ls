@@ -38,14 +38,13 @@ interface AvatarFallbackProps extends ChakraAvatar.FallbackProps {
 
 const AvatarFallback = React.forwardRef<HTMLDivElement, AvatarFallbackProps>(
   function AvatarFallback(props, ref) {
-    const { name, icon, children, ...rest } = props
+    const { name = null, icon, children = null, ...rest } = props
+      console.log(name, children, icon)
     return (
       <ChakraAvatar.Fallback ref={ref} {...rest}>
         {children}
         {name != null && children == null && <>{getInitials(name)}</>}
-        {name == null && children == null && (
-          <ChakraAvatar.Icon asChild={!!icon}>{icon}</ChakraAvatar.Icon>
-        )}
+        {name == null && children == null && icon}
       </ChakraAvatar.Fallback>
     )
   },

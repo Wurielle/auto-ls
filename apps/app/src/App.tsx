@@ -7,6 +7,7 @@ import { Field } from '@/components/ui/field.tsx'
 import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/components/ui/number-input"
 import { MdTimer } from "react-icons/md"
+import { IoGameController } from "react-icons/io5"
 import {
     useGetDefaultTimeoutQuery,
     useGetIconsPathQuery,
@@ -18,7 +19,6 @@ import {
 } from '@/queries.ts'
 import moment from 'moment'
 import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
 import {
     DialogBody,
     DialogCloseTrigger,
@@ -39,7 +39,6 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
     const { data: process, isSuccess: isProcessFetchSuccess } = useGetProcessQuery(path)
     const { data: processes, isSuccess: isProcessesFetchSuccess } = useGetProcessesQuery()
     const [scaleTimeout, setScaleTimeout] = useState<number>(timeout)
-    const queryClient = useQueryClient()
     useEffect(() => {
         if (isProcessFetchSuccess && isProcessesFetchSuccess) {
             electronStore.set('processes', [...processes.filter((p) => p.path !== path), { ...process, scaleTimeout }])
@@ -227,6 +226,7 @@ function App() {
                                         <Card.Body gap="2">
                                             <Group justify={ 'between' }>
                                                 <Avatar
+                                                    icon={<Icon><IoGameController /></Icon>}
                                                     shape={ 'rounded' }
                                                     src={ `file://${ iconsPath }/${ process.path.split('\\').pop().replace('.exe', '') }.png` }/>
                                                 <ProcessModal
