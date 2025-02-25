@@ -9,6 +9,7 @@ import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/component
 import { MdTimer } from "react-icons/md"
 import {
     useGetDefaultTimeoutQuery,
+    useGetIconsPathQuery,
     useGetLSExecutablePathQuery,
     useGetProcessesQuery,
     useGetProcessQuery,
@@ -170,6 +171,7 @@ function App() {
     useEffect(() => {
         if (isDefaultTimeoutFetched) updateDefaultTimeout(defaultTimeout || defaultTimeoutData)
     }, [updateDefaultTimeout, defaultTimeout, isDefaultTimeoutFetched, defaultTimeoutData])
+    const { data: iconsPath } = useGetIconsPathQuery()
     return (
         <Container>
             <Box py={ "48px" } divideY={ "1px" }>
@@ -224,7 +226,9 @@ function App() {
                                     <Card.Root>
                                         <Card.Body gap="2">
                                             <Group justify={ 'between' }>
-                                                <Avatar shape={ 'rounded' } src={ logo64 }/>
+                                                <Avatar
+                                                    shape={ 'rounded' }
+                                                    src={ `file://${ iconsPath }/${ process.path.split('\\').pop().replace('.exe', '') }.png` }/>
                                                 <ProcessModal
                                                     title={ process.path.split('\\').pop().replace('.exe', '') }
                                                     path={ process.path } timeout={ process.scaleTimeout }>

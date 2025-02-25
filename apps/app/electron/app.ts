@@ -7,6 +7,35 @@ import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } fr
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
 import { emitter } from './events'
+import * as fs from 'node:fs'
+import path from 'path'
+import extractFileIcon from "extract-file-icon"
+import { autoUpdater } from "electron-updater"
+
+autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall()
+})
+
+autoUpdater.checkForUpdates()
+
+const iconsDir = path.join(app.getPath("userData"), "icons")
+
+function extractProcessIcon(exePath: string) {
+    const iconPath = `${ iconsDir }/${ exePath.split('\\').pop().replace('.exe', '') }.png`
+
+    if (!fs.existsSync(iconsDir)) {
+        fs.mkdirSync(iconsDir, { recursive: true })
+    }
+    if (!fs.existsSync(iconPath)) {
+        try {
+            const iconBuffer = extractFileIcon(exePath, 64)
+            fs.writeFileSync(iconPath, iconBuffer)
+        } catch (error) {
+            console.error("Failed to extract icon:", error)
+            return null
+        }
+    }
+}
 
 app.whenReady().then(() => {
     if (process.platform === 'win32') {
@@ -17,7 +46,10 @@ app.whenReady().then(() => {
     globalShortcut.register('Alt+CommandOrControl+I', () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         const processPath = processes[foregroundProcessPid]?.filepath
-        if (processPath && !getProcess(processPath)) addProcess(processPath)
+        if (processPath && !getProcess(processPath)) {
+            extractProcessIcon(processPath)
+            addProcess(processPath)
+        }
         scaleByPid(foregroundProcessPid, 0)
 
         notify({
@@ -38,7 +70,7 @@ app.whenReady().then(() => {
         }
     })
 
-    ipcMain.handle('electron-dialog-get-ls-executable-path', async (event, key, value) => {
+    ipcMain.handle('electron-dialog-get-ls-executable-path', async () => {
         const res = await dialog.showOpenDialog({
             filters: [
                 { name: 'Executable', extensions: ['exe'] },
@@ -47,8 +79,12 @@ app.whenReady().then(() => {
         return res.filePaths[0]
     })
 
-    ipcMain.handle('electron-utils-get-shortcut-keys', async (event, key, value) => {
+    ipcMain.handle('electron-utils-get-shortcut-keys', async () => {
         return Key
+    })
+
+    ipcMain.handle('electron-api-get-icons-path', async () => {
+        return iconsDir
     })
 
     emitter.on('store-update', () => {

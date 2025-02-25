@@ -1,6 +1,7 @@
 {
   "name": "auto-lossless-scaling",
   "productName": "Auto Lossless Scaling",
+  "repository": "https://github.com/Wurielle/auto-lossless-scaling",
   "private": true,
   "version": "0.0.0",
   "main": "dist-electron/main.js",
@@ -14,6 +15,8 @@
   "dependencies": {
     "@nut-tree-fork/nut-js": "^4.2.4",
     "electron-store": "^8.2.0",
+    "electron-updater": "^6.3.9",
+    "extract-file-icon": "^0.3.2",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "micromatch": "^4.0.8",
