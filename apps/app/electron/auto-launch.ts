@@ -7,14 +7,16 @@ import { getStoreValue, setStoreValue } from './store'
 import { app } from 'electron'
 import { emitter } from './events'
 
-export const appBatFileName = 'run-as-admin.bat'
-export const appVBSFileName = 'run-as-admin.vbs'
-export const appBatPath = path.join(EXTERNALS_DIR, appBatFileName)
-export const appVBSPath = path.join(EXTERNALS_DIR, appVBSFileName)
+/* if I put the files inside a folder that isn't directly from getPath the vbs files stop working? */
+const fileTargetDir = path.join(app.getPath('documents'))
+export const appBatFileName = 'run-auto-lossless-scaling-as-admin.bat'
+export const appVBSFileName = 'run-auto-lossless-scaling-as-admin.vbs'
+export const appBatPath = path.join(fileTargetDir, appBatFileName)
+export const appVBSPath = path.join(fileTargetDir, appVBSFileName)
 export const lsBatFileName = 'run-lossless-scaling-as-admin.bat'
 export const lsVBSFileName = 'run-lossless-scaling-as-admin.vbs'
-export const lsBatPath = path.join(EXTERNALS_DIR, lsBatFileName)
-export const lsVBSPath = path.join(EXTERNALS_DIR, lsVBSFileName)
+export const lsBatPath = path.join(fileTargetDir, lsBatFileName)
+export const lsVBSPath = path.join(fileTargetDir, lsVBSFileName)
 
 function createBatContent(filename: string, minimized = false) {
     return `@echo off
@@ -30,6 +32,14 @@ currentDir = FSO.GetParentFolderName(WScript.ScriptFullName)
 batchFile = currentDir & "\\${ filename }"
 
 WshShell.Run batchFile, 0, False`
+}
+
+function createFile(filePath: string, content: string) {
+    const dir = path.dirname(filePath)
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(filePath, content, 'utf8')
 }
 
 function registerTask(options: {
@@ -50,8 +60,8 @@ function registerAppAutoLaunch(execPath: string) {
     const batContent = createBatContent(execPath.split('\\').join('\\\\'))
     const vbsContent = createVBSContent(appBatFileName)
 
-    fs.writeFileSync(appBatPath, batContent, 'utf8')
-    fs.writeFileSync(appVBSPath, vbsContent, 'utf8')
+    createFile(appBatPath, batContent)
+    createFile(appVBSPath, vbsContent)
 
     registerTask({
         name: 'Auto Lossless Scaling - Run as Admin',
@@ -63,8 +73,8 @@ function registerLosslessScalingAutoLaunch(execPath: string) {
     const batContent = createBatContent(execPath.split('\\').join('\\\\'), true)
     const vbsContent = createVBSContent(lsBatFileName)
 
-    fs.writeFileSync(lsBatPath, batContent, 'utf8')
-    fs.writeFileSync(lsVBSPath, vbsContent, 'utf8')
+    createFile(lsBatPath, batContent)
+    createFile(lsVBSPath, vbsContent)
 
     registerTask({
         name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
