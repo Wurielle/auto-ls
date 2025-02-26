@@ -33,7 +33,6 @@ module.exports = {
         appId: 'com.nhs.auto-lossless-scaling',
         requestedExecutionLevel: 'requireAdministrator',
         icon: "public/icons/icon.ico",
-        publish: ["github"],
     },
     appId: 'com.nhs.auto-lossless-scaling',
     // generateUpdatesFilesForAllChannels: true,
@@ -42,4 +41,5 @@ module.exports = {
     // publish: ['github'],
     electronVersion: getElectronVersion(),
     extraFiles: ['./resources/**'],
+    publish: ["github"],
 }
