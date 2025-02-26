@@ -1,3 +1,4 @@
+import './logs'
 import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
