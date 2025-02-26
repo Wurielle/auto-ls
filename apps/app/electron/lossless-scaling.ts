@@ -1,9 +1,23 @@
-import { fork } from 'child_process'
+import { exec, fork } from 'child_process'
 import { Window } from 'win-control'
 import { getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { app } from 'electron'
 import micromatch from 'micromatch'
 import { notify } from './notifications'
+import { lsVBSPath } from './auto-launch'
+
+async function isProcessRunning(processName: string) {
+    const psList = (await import('ps-list')).default
+    const processes = await psList()
+    return processes.some(p => p.name.includes(processName))
+}
+
+async function launchLosslessScaling() {
+    const isLSRunning = await isProcessRunning((getStoreValue('lsExecutablePath') as string).split('\\').pop())
+    if (!isLSRunning) {
+        exec(`"wscript" "${ lsVBSPath }"`)
+    }
+}
 
 type ProcessEvent = {
     type: 'process-creation' | 'process-deletion'
@@ -19,7 +33,8 @@ type ProcessEvent = {
  */
 export const processes: Record<string, ProcessEvent['payload']> = {}
 
-export function scaleByPid(pid: number, wait = 3000) {
+export async function scaleByPid(pid: number, wait = 3000) {
+    await launchLosslessScaling()
     let timeout
     let interval
     interval = setInterval(() => {
@@ -81,6 +96,11 @@ child.on('message', (processInfo: ProcessEvent) => {
         setStoreValue('processes', updatedStoreProcesses)
     }
 })
+
+app.on('ready', () => {
+    launchLosslessScaling()
+})
+
 app.on('before-quit', () => {
     child.kill()
 })
