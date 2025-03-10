@@ -47,7 +47,7 @@ export async function scaleByPid(pid: number, wait = 3000) {
             async function triggerKeybind() {
                 if (pid === foregroundWindowPID) {
                     clearTimeout(triggerKeybindTimeout)
-                    const { Key, keyboard } = await import('@nut-tree-fork/nut-js')
+                    const { keyboard } = await import('@nut-tree-fork/nut-js')
                     const keys = getStoreValue('lsScaleShortcut')
                     await keyboard.pressKey(...keys)
                     await keyboard.releaseKey(...keys)
@@ -83,7 +83,8 @@ child.on('message', (processInfo: ProcessEvent) => {
     const storeProcesses: StoreProcess[] = getStoreValue('processes') || []
     if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, storeProcesses.map((p) => p.path), {})) {
         // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
-        scaleByPid(processInfo.payload.pid)
+        const storeProcess = storeProcesses.find(p => p.path === processInfo.payload.filepath)
+        scaleByPid(processInfo.payload.pid, storeProcess.scaleTimeout)
         notify({
             title: 'Process detected',
             body: `${ processInfo.payload.process } will be scaled soon`,
