@@ -24,6 +24,6 @@ createRoot(document.getElementById('root')!).render(
 )
 
 
-window.electronAPI.onEvent('store-update', () => {
+window.electronApi.onEvent('store-update', () => {
     queryClient.refetchQueries()
 })
