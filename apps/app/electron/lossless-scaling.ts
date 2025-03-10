@@ -33,7 +33,7 @@ type ProcessEvent = {
  */
 export const processes: Record<string, ProcessEvent['payload']> = {}
 
-export async function scaleByPid(pid: number, wait = 3000) {
+export async function scaleByPid(pid: number, wait?: number) {
     await launchLosslessScaling()
     let timeout
     let interval
@@ -56,7 +56,7 @@ export async function scaleByPid(pid: number, wait = 3000) {
                 }
             }
 
-            triggerKeybindTimeout = setTimeout(triggerKeybind, wait)
+            triggerKeybindTimeout = setTimeout(triggerKeybind, wait || getStoreValue('defaultTimeout'))
             setTimeout(
                 () => {
                     clearTimeout(triggerKeybindTimeout)
@@ -84,7 +84,7 @@ child.on('message', (processInfo: ProcessEvent) => {
     if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, storeProcesses.map((p) => p.path), {})) {
         // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
         const storeProcess = storeProcesses.find(p => p.path === processInfo.payload.filepath)
-        scaleByPid(processInfo.payload.pid, storeProcess.scaleTimeout)
+        scaleByPid(processInfo.payload.pid, storeProcess?.scaleTimeout)
         notify({
             title: 'Process detected',
             body: `${ processInfo.payload.process } will be scaled soon`,
