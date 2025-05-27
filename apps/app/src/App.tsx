@@ -78,7 +78,7 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
 
 function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
     const { data: keys = {} } = useGetShortcutKeysQuery()
-    const { data: shortcut = [] } = useGetShortcutQuery(id)
+    const { data: shortcut } = useGetShortcutQuery(id)
     const collection = useMemo(() => createListCollection({
         items: Object.entries(keys).filter(([, v]) => typeof v === 'string').map(([key, value]) => ({
             label: value,
@@ -89,18 +89,22 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
     const [value2, setValue2] = useState<string[]>([])
     const [value3, setValue3] = useState<string[]>([])
     useEffect(() => {
+        if (!shortcut) return
         setValue1([shortcut[0]])
         setValue2([shortcut[1]])
         setValue3([shortcut[2]])
     }, [shortcut])
     useEffect(() => {
-        electronStore.set(id, [(value1[0]), (value2[0]), (value3[0])].filter(Boolean).map((v) => Number(v)))
-    }, [value1, value2, value3])
+        if ([value1, value2, value3].every((v) => v.length === 1)) {
+            const newShortcut = [value1[0], value2[0], value3[0]].filter(Number.isInteger).map((v) => Number(v))
+            electronStore.set(id, newShortcut)
+        }
+    }, [value1, value2, value3, shortcut])
     return (
         <Stack gap={ 6 } grow>
             <Text fontWeight={ 'medium' } textStyle={ 'sm' }>{ title }</Text>
             <Group grow>
-                <InputGroup flexGrow={ 1 }>
+                <InputGroup flexGrow={ 1 } flexShrink={0} width={'1/3'}>
                     <SelectRoot value={ value1 } onValueChange={ (details) => setValue1(details.value) }
                                 collection={ collection }>
                         <SelectTrigger>
@@ -115,7 +119,7 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
                         </SelectContent>
                     </SelectRoot>
                 </InputGroup>
-                <InputGroup flexGrow={ 1 }>
+                <InputGroup flexGrow={ 1 } flexShrink={0} width={'1/3'}>
                     <SelectRoot value={ value2 } onValueChange={ (details) => setValue2(details.value) }
                                 collection={ collection }>
                         <SelectTrigger>
@@ -130,7 +134,7 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
                         </SelectContent>
                     </SelectRoot>
                 </InputGroup>
-                <InputGroup flexGrow={ 1 }>
+                <InputGroup flexGrow={ 1 } flexShrink={0} width={'1/3'}>
                     <SelectRoot value={ value3 } onValueChange={ (details) => setValue3(details.value) }
                                 collection={ collection }>
                         <SelectTrigger>
