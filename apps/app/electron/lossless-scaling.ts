@@ -12,7 +12,7 @@ async function isProcessRunning(processName: string) {
     return processes.some(p => p.name.includes(processName))
 }
 
-async function launchLosslessScaling() {
+export async function launchLosslessScaling() {
     const isLSRunning = await isProcessRunning((getStoreValue('lsExecutablePath') as string).split('\\').pop())
     if (!isLSRunning) {
         exec(`"wscript" "${ lsVBSPath }"`)
@@ -96,10 +96,6 @@ child.on('message', (processInfo: ProcessEvent) => {
         }, ...storeProcesses.filter((p) => p.path !== detectedProcess.path)]
         setStoreValue('processes', updatedStoreProcesses)
     }
-})
-
-app.on('ready', () => {
-    launchLosslessScaling()
 })
 
 app.on('before-quit', () => {

@@ -3,7 +3,7 @@ import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { processes, scaleByPid } from './lossless-scaling'
+import { launchLosslessScaling, processes, scaleByPid } from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
@@ -39,8 +39,9 @@ function extractProcessIcon(exePath: string) {
 }
 
 async function isExplorerRunning() {
-    const runningProcesses = await (await import('ps-list')).default()
-    const explorerProcess =runningProcesses.find(p => p.name === 'explorer.exe')
+    const psList = (await import('ps-list')).default
+    const processes = await psList()
+    const explorerProcess = processes.find(p => p.name === 'explorer.exe')
     return !!explorerProcess
 }
 
@@ -57,6 +58,7 @@ app.whenReady().then(async () => {
     if (process.platform === 'win32') {
         app.setAppUserModelId('com.nhs.auto-lossless-scaling')
     }
+    await launchLosslessScaling()
     const { window } = createWindow()
     createTray({ window })
     globalShortcut.register('Alt+CommandOrControl+I', () => {

@@ -76,10 +76,10 @@ function registerLosslessScalingAutoLaunch(execPath: string) {
     createFile(lsBatPath, batContent)
     createFile(lsVBSPath, vbsContent)
 
-    registerTask({
-        name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
-        vbsPath: lsVBSPath,
-    })
+    // registerTask({
+    //     name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
+    //     vbsPath: lsVBSPath,
+    // })
 }
 
 
