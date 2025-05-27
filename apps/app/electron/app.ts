@@ -48,6 +48,8 @@ async function waitForExplorer() {
     while (!(await isExplorerRunning())) {
         await new Promise(resolve => setTimeout(resolve, 1000))
     }
+    // safely wait for explorer to start properly
+    await new Promise(resolve => setTimeout(resolve, 10000))
 }
 
 app.whenReady().then(async () => {
