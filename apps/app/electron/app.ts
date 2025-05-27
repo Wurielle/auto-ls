@@ -38,7 +38,20 @@ function extractProcessIcon(exePath: string) {
     }
 }
 
-app.whenReady().then(() => {
+async function isExplorerRunning() {
+    const runningProcesses = await (await import('ps-list')).default()
+    const explorerProcess =runningProcesses.find(p => p.name === 'explorer.exe')
+    return !!explorerProcess
+}
+
+async function waitForExplorer() {
+    while (!(await isExplorerRunning())) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+}
+
+app.whenReady().then(async () => {
+    await waitForExplorer()
     if (process.platform === 'win32') {
         app.setAppUserModelId('com.nhs.auto-lossless-scaling')
     }
@@ -93,4 +106,4 @@ app.whenReady().then(() => {
             window.webContents.send('store-update')
         }
     })
-})
+}).catch(console.error)
