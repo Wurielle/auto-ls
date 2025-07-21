@@ -13,7 +13,7 @@ import {
     useGetIconsPathQuery,
     useGetLSExecutablePathQuery,
     useGetProcessesQuery,
-    useGetProcessQuery,
+    useGetProcessQuery, useGetRivaTunerExecutablePathQuery,
     useGetShortcutKeysQuery,
     useGetShortcutQuery,
 } from '@/queries.ts'
@@ -157,11 +157,17 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
 function App() {
     const { data: processesData = [] } = useGetProcessesQuery()
     const { data: lsExecutablePathData } = useGetLSExecutablePathQuery()
+    const { data: rivaTunerExecutablePathData } = useGetRivaTunerExecutablePathQuery()
     const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useGetDefaultTimeoutQuery()
     const orderedProcesses = useMemo(() => orderBy(processesData, 'lastScaledAt', 'desc'), [processesData])
     const updateLSExecutablePath = useCallback((path: string) => {
         if (path) {
             electronStore.set('lsExecutablePath', path)
+        }
+    }, [])
+    const updateRivaTunerExecutablePath = useCallback((path: string) => {
+        if (path) {
+            electronStore.set('rivaTunerExecutablePath', path)
         }
     }, [])
     const updateDefaultTimeout = useCallback((value: number) => {
@@ -199,6 +205,19 @@ function App() {
                             }
                         >
                             <Input placeholder="LosslessScaling.exe" value={ lsExecutablePathData }/>
+                        </InputGroup>
+                    </Field>
+                    <Field invalid label="RivaTuner Path (optional)">
+                        <InputGroup
+                            width={ "full" }
+                            endElement={
+                                <Button variant="subtle" size="2xs"
+                                        onClick={ () => electronDialog.getRivaTunerExecutablePath().then(updateRivaTunerExecutablePath) }>
+                                    Browse
+                                </Button>
+                            }
+                        >
+                            <Input placeholder="RTSS.exe" value={ rivaTunerExecutablePathData }/>
                         </InputGroup>
                     </Field>
                     {

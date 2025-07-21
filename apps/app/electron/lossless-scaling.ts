@@ -5,21 +5,86 @@ import { app } from 'electron'
 import micromatch from 'micromatch'
 import { notify } from './notifications'
 import { lsVBSPath } from './auto-launch'
+import * as path from 'path'
+import * as fsp from 'fs/promises'
+import * as convert from 'xml-js';
+import cloneDeep from 'lodash/cloneDeep'
+import { registerRivaTunerProfile } from './riva-tuner'
 
-async function isProcessRunning(processName: string) {
+export async function isProcessRunning(processName: string) {
     const psList = (await import('ps-list')).default
     const processes = await psList()
     return processes.some(p => p.name.includes(processName))
 }
 
-export async function launchLosslessScaling() {
-    const isLSRunning = await isProcessRunning((getStoreValue('lsExecutablePath') as string).split('\\').pop())
+export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
+    await stopLosslessScaling()
+    const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
+    const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')
+    const json = convert.xml2json(fileContent, {compact: true, spaces: 4})
+    const jsonObj = JSON.parse(json)
+    if (!Array.isArray(jsonObj.Settings.GameProfiles.Profile)) {
+        jsonObj.Settings.GameProfiles.Profile = [
+            jsonObj.Settings.GameProfiles.Profile,
+        ]
+    }
+
+    const profiles = jsonObj.Settings.GameProfiles.Profile
+
+    const autoLSProfileName = 'Auto Lossless Scaling'
+    let autoLSProfile = profiles.find(p => p.Title._text === autoLSProfileName)
+    if (!autoLSProfile) {
+        const defaultProfile = profiles[0]
+        autoLSProfile = { ...cloneDeep(defaultProfile), Title: { _text: autoLSProfileName }}
+        profiles.push(autoLSProfile)
+    }
+
+    let processProfile = profiles.find(p => p.Title._text === processInfo.process)
+    if (!processProfile) {
+        processProfile = { ...cloneDeep(autoLSProfile), Title: { _text: processInfo.process }}
+        profiles.push(processProfile)
+    }
+
+    profiles[0] = processProfile
+
+    const xml = convert.json2xml(JSON.stringify(jsonObj), {compact: true, ignoreComment: true, spaces: 4})
+    await fsp.writeFile(lsConfigFilePath, xml, 'utf8')
+    await startLosslessScaling()
+}
+
+export async function stopLosslessScaling() {
+    const executableName = (getStoreValue('lsExecutablePath') as string).split('\\').pop();
+    const isLSRunning = await isProcessRunning(executableName);
+
+    if (isLSRunning) {
+        const { default: psList } = await import('ps-list');
+        const processes = await psList();
+        const lsProcess = processes.find(p => p.name.includes(executableName));
+
+        if (lsProcess && lsProcess.pid) {
+            try {
+                process.kill(lsProcess.pid);
+                return true;
+            } catch (error) {
+                console.error(`Failed to kill Lossless Scaling process: ${error}`);
+                return false;
+            }
+        }
+    }
+
+    return false; // Process wasn't running or couldn't be found
+}
+
+
+export async function startLosslessScaling() {
+    const executableName = (getStoreValue('lsExecutablePath') as string).split('\\').pop();
+    const isLSRunning = await isProcessRunning(executableName)
     if (!isLSRunning) {
         exec(`"wscript" "${ lsVBSPath }"`)
     }
 }
 
-type ProcessEvent = {
+export type ProcessEvent = {
     type: 'process-creation' | 'process-deletion'
     payload: {
         pid: number
@@ -34,7 +99,10 @@ type ProcessEvent = {
 export const processes: Record<string, ProcessEvent['payload']> = {}
 
 export async function scaleByPid(pid: number, wait?: number) {
-    await launchLosslessScaling()
+    const processInfo = processes[pid]
+    if (!processInfo) return
+    await applyLosslessScalingProfile(processInfo)
+    await registerRivaTunerProfile(processInfo)
     let timeout
     let interval
     interval = setInterval(() => {

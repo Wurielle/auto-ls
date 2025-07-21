@@ -26,6 +26,15 @@ export const useGetLSExecutablePathQuery = () => {
     })
 }
 
+export const useGetRivaTunerExecutablePathQuery = () => {
+    return useQuery({
+        queryKey: ['riva-tuner-executable-path'],
+        queryFn() {
+            return electronStore.get('rivaTunerExecutablePath')
+        },
+    })
+}
+
 export const useGetDefaultTimeoutQuery = () => {
     return useQuery({
         queryKey: ['default-timeout'],

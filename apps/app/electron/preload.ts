@@ -13,6 +13,9 @@ contextBridge.exposeInMainWorld('electronDialog', {
     async getLSExecutablePath() {
         return await ipcRenderer.invoke('electron-dialog-get-ls-executable-path')
     },
+    async getRivaTunerExecutablePath() {
+        return await ipcRenderer.invoke('electron-dialog-get-riva-tuner-executable-path')
+    },
 })
 
 contextBridge.exposeInMainWorld('electronUtils', {
