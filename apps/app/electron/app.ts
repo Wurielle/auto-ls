@@ -3,7 +3,13 @@ import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { applyLosslessScalingProfile, startLosslessScaling, processes, scaleByPid } from './lossless-scaling'
+import {
+    applyLosslessScalingProfile,
+    startLosslessScaling,
+    processes,
+    scaleByPid,
+    stopLosslessScaling,
+} from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
@@ -93,7 +99,7 @@ app.whenReady().then(async () => {
             })
         }
     })
-    globalShortcut.register('Alt+CommandOrControl+O', () => {
+    globalShortcut.register('Alt+CommandOrControl+O', async () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         const processPath = processes[foregroundProcessPid]?.filepath
         if (processPath) {
@@ -109,6 +115,8 @@ app.whenReady().then(async () => {
                 body: `The requested process needs to be restarted`,
             })
         }
+        await stopLosslessScaling()
+        await startLosslessScaling()
     })
 
     ipcMain.handle('electron-dialog-get-ls-executable-path', async () => {
