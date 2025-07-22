@@ -212,7 +212,7 @@ function App() {
                         </InputGroup>
                     </Field>
                     <Field label="Enable RivaTuner integration (Optional)" orientation="horizontal">
-                        <Switch.Root value={enableRivaTuner} onCheckedChange={({checked}) => updateEnableRivaTuner(checked) }>
+                        <Switch.Root checked={enableRivaTuner} onCheckedChange={({checked}) => updateEnableRivaTuner(checked) }>
                             <Switch.HiddenInput />
                             <Switch.Control>
                                 <Switch.Thumb />
