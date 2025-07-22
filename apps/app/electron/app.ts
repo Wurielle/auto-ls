@@ -103,7 +103,7 @@ app.whenReady().then(async () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         const processPath = processes[foregroundProcessPid]?.filepath
         if (processPath) {
-            setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((processPath) => processPath !== processPath))
+            setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
 
             notify({
                 title: 'Opting process out',
