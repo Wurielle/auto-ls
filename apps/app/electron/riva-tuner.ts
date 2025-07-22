@@ -7,9 +7,10 @@ import * as fsp from 'fs/promises'
 import { existsSync } from 'fs'
 
 export async function startRivaTuner() {
+    const isEnabled = getStoreValue('enableRivaTuner')
+    if (!isEnabled) return
     const executableName = (getStoreValue('rivaTunerExecutablePath') as string).split('\\').pop();
     const isRunning = await isProcessRunning(executableName)
-
 
     console.log('Starting RivaTuner', { executableName, isRunning: isRunning })
     if (!isRunning) {
@@ -21,6 +22,8 @@ export async function startRivaTuner() {
 }
 
 export async function stopRivaTuner() {
+    const isEnabled = getStoreValue('enableRivaTuner')
+    if (!isEnabled) return
     const executableName = (getStoreValue('rivaTunerExecutablePath') as string).split('\\').pop();
     const { default: psList } = await import('ps-list');
     const processes = await psList();

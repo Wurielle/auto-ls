@@ -11,6 +11,7 @@ export const store = new Store({
             processes: [],
             defaultTimeout: 10000,
             lsExecutablePath: '',
+            enableRivaTuner: false,
             rivaTunerExecutablePath: '',
             lsScaleShortcut: [Key.LeftControl, Key.LeftAlt, Key.S],
             optInShortcut: [Key.LeftControl, Key.LeftAlt, Key.I],
