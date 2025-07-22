@@ -15,8 +15,12 @@ export const appBatPath = path.join(fileTargetDir, appBatFileName)
 export const appVBSPath = path.join(fileTargetDir, appVBSFileName)
 export const lsBatFileName = 'run-lossless-scaling-as-admin.bat'
 export const lsVBSFileName = 'run-lossless-scaling-as-admin.vbs'
+export const rivaTunerBatFileName = 'run-riva-tuner-as-admin.bat'
+export const rivaTunerVBSFileName = 'run-riva-tuner-as-admin.vbs'
 export const lsBatPath = path.join(fileTargetDir, lsBatFileName)
 export const lsVBSPath = path.join(fileTargetDir, lsVBSFileName)
+export const rivaTunerBatPath = path.join(fileTargetDir, rivaTunerBatFileName)
+export const rivaTunerVBSPath = path.join(fileTargetDir, rivaTunerVBSFileName)
 
 function createBatContent(filename: string, minimized = false) {
     return `@echo off
@@ -69,6 +73,19 @@ function registerAppAutoLaunch(execPath: string) {
     })
 }
 
+function registerRivaTunerAutoLaunch(execPath: string) {
+    const batContent = createBatContent(execPath.split('\\').join('\\\\'), true)
+    const vbsContent = createVBSContent(rivaTunerBatFileName)
+
+    createFile(rivaTunerBatPath, batContent)
+    createFile(rivaTunerVBSPath, vbsContent)
+
+    // registerTask({
+    //     name: 'Auto Lossless Scaling - Run RivaTuner as Admin',
+    //     vbsPath: rivaTunerVBSPath,
+    // })
+}
+
 function registerLosslessScalingAutoLaunch(execPath: string) {
     const batContent = createBatContent(execPath.split('\\').join('\\\\'), true)
     const vbsContent = createVBSContent(lsBatFileName)
@@ -91,13 +108,29 @@ app.on('ready', () => {
         }
     }
 
+    const defaultRivatunerExecutablePath = 'C:\\Program Files (x86)\\RivaTuner Statistics Server\\RTSS.exe'
+    if (!getStoreValue('rivaTunerExecutablePath')) {
+        if (existsSync(defaultRivatunerExecutablePath)) {
+            setStoreValue('rivaTunerExecutablePath', defaultRivatunerExecutablePath)
+        }
+    }
+
     try {
         registerAppAutoLaunch(process.execPath)
+
         if (getStoreValue('lsExecutablePath')) {
             if (existsSync(getStoreValue('lsExecutablePath'))) {
                 registerLosslessScalingAutoLaunch(getStoreValue('lsExecutablePath'))
             } else {
                 setStoreValue('lsExecutablePath', '')
+            }
+        }
+
+        if (getStoreValue('rivaTunerExecutablePath')) {
+            if (existsSync(getStoreValue('rivaTunerExecutablePath'))) {
+                registerRivaTunerAutoLaunch(getStoreValue('rivaTunerExecutablePath'))
+            } else {
+                setStoreValue('rivaTunerExecutablePath', '')
             }
         }
     } catch (e) {
