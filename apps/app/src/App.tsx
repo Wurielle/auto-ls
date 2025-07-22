@@ -1,6 +1,6 @@
 import { Container, Grid, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Box, Button, Card, createListCollection, Icon, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Card, createListCollection, Icon, Input, Switch, Text } from '@chakra-ui/react'
 import logo64 from '@/assets/icons/64x64.png'
 import pkg from '~/package.json'
 import { Field } from '@/components/ui/field.tsx'
@@ -9,11 +9,11 @@ import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/component
 import { MdTimer } from "react-icons/md"
 import { IoGameController } from "react-icons/io5"
 import {
-    useGetDefaultTimeoutQuery,
+    useGetDefaultTimeoutQuery, useGetEnableRivaTunerQuery,
     useGetIconsPathQuery,
     useGetLSExecutablePathQuery,
     useGetProcessesQuery,
-    useGetProcessQuery,
+    useGetProcessQuery, useGetRivaTunerExecutablePathQuery,
     useGetShortcutKeysQuery,
     useGetShortcutQuery,
 } from '@/queries.ts'
@@ -59,7 +59,7 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                     <DialogTitle>{ title }</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                    <Field invalid label="Scaling Timeout">
+                    <Field label="Scaling timeout">
                         <InputGroup
                             width={ "full" }
                         >
@@ -157,11 +157,21 @@ function ShortcutFormGroup({ id, title }: { id: string, title: string }) {
 function App() {
     const { data: processesData = [] } = useGetProcessesQuery()
     const { data: lsExecutablePathData } = useGetLSExecutablePathQuery()
+    const { data: enableRivaTuner } = useGetEnableRivaTunerQuery()
+    const { data: rivaTunerExecutablePathData } = useGetRivaTunerExecutablePathQuery()
     const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useGetDefaultTimeoutQuery()
     const orderedProcesses = useMemo(() => orderBy(processesData, 'lastScaledAt', 'desc'), [processesData])
     const updateLSExecutablePath = useCallback((path: string) => {
         if (path) {
             electronStore.set('lsExecutablePath', path)
+        }
+    }, [])
+    const updateEnableRivaTuner = useCallback((value: boolean) => {
+            electronStore.set('enableRivaTuner', value)
+    }, [])
+    const updateRivaTunerExecutablePath = useCallback((path: string) => {
+        if (path) {
+            electronStore.set('rivaTunerExecutablePath', path)
         }
     }, [])
     const updateDefaultTimeout = useCallback((value: number) => {
@@ -188,7 +198,7 @@ function App() {
                     </Group>
                 </Stack>
                 <Stack py={ '6' } gap={ '6' }>
-                    <Field invalid label="Lossless Scaling Path">
+                    <Field label="Lossless Scaling executable path">
                         <InputGroup
                             width={ "full" }
                             endElement={
@@ -201,9 +211,33 @@ function App() {
                             <Input placeholder="LosslessScaling.exe" value={ lsExecutablePathData }/>
                         </InputGroup>
                     </Field>
+                    <Field label="Enable RivaTuner integration (Optional)" orientation="horizontal">
+                        <Switch.Root value={enableRivaTuner} onCheckedChange={({checked}) => updateEnableRivaTuner(checked) }>
+                            <Switch.HiddenInput />
+                            <Switch.Control>
+                                <Switch.Thumb />
+                            </Switch.Control>
+                            <Switch.Label />
+                        </Switch.Root>
+                    </Field>
+                    {enableRivaTuner && (
+                        <Field label="RivaTuner executable path">
+                            <InputGroup
+                                width={ "full" }
+                                endElement={
+                                    <Button variant="subtle" size="2xs"
+                                            onClick={ () => electronDialog.getRivaTunerExecutablePath().then(updateRivaTunerExecutablePath) }>
+                                        Browse
+                                    </Button>
+                                }
+                            >
+                                <Input placeholder="RTSS.exe" value={ rivaTunerExecutablePathData }/>
+                            </InputGroup>
+                        </Field>
+                    )}
                     {
                         isDefaultTimeoutFetched && (
-                            <Field invalid label="Default Scaling Timeout (ms)">
+                            <Field label="Default scaling timeout (ms)">
                                 <InputGroup
                                     width={ "full" }
                                 >
@@ -218,7 +252,7 @@ function App() {
                         )
                     }
                     <Group>
-                        <ShortcutFormGroup id={ 'lsScaleShortcut' } title={ 'Lossless Scaling Scale Shortcut' }/>
+                        <ShortcutFormGroup id={ 'lsScaleShortcut' } title={ 'Lossless Scaling scale shortcut' }/>
                     </Group>
                 </Stack>
                 <Stack py={ '6' }>

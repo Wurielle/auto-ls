@@ -3,7 +3,13 @@ import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { launchLosslessScaling, processes, scaleByPid } from './lossless-scaling'
+import {
+    applyLosslessScalingProfile,
+    startLosslessScaling,
+    processes,
+    scaleByPid,
+    stopLosslessScaling,
+} from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
@@ -12,6 +18,7 @@ import * as fs from 'node:fs'
 import path from 'path'
 import extractFileIcon from "extract-file-icon"
 import { autoUpdater } from "electron-updater"
+import { startRivaTuner, registerRivaTunerProfile } from './riva-tuner'
 
 autoUpdater.on('update-downloaded', () => {
     autoUpdater.quitAndInstall()
@@ -58,37 +65,70 @@ app.whenReady().then(async () => {
     if (process.platform === 'win32') {
         app.setAppUserModelId('com.nhs.auto-lossless-scaling')
     }
-    await launchLosslessScaling()
+    await startLosslessScaling()
+    await startRivaTuner()
     const { window } = createWindow()
     createTray({ window })
+    if (process.env.NODE_ENV === 'development') {
+        globalShortcut.register('Alt+CommandOrControl+D', () => {
+            const foregroundProcessPid = Window.getForeground().getPid()
+            const processInfo = processes[foregroundProcessPid]
+            // applyLosslessScalingProfile(processInfo)
+            registerRivaTunerProfile(processInfo)
+        })
+    }
     globalShortcut.register('Alt+CommandOrControl+I', () => {
         const foregroundProcessPid = Window.getForeground().getPid()
-        const processPath = processes[foregroundProcessPid]?.filepath
-        if (processPath && !getProcess(processPath)) {
-            extractProcessIcon(processPath)
-            addProcess(processPath)
-        }
-        scaleByPid(foregroundProcessPid, 0)
+        const processInfo = processes[foregroundProcessPid]
+        if (processInfo) {
+            const processPath = processInfo.filepath
+            if (processPath && !getProcess(processPath)) {
+                extractProcessIcon(processPath)
+                addProcess(processPath)
+            }
+            scaleByPid(foregroundProcessPid, 0)
 
-        notify({
-            title: 'Opting process in',
-            body: `${ processes[foregroundProcessPid]?.process } will now automatically scale`,
-        })
+            notify({
+                title: 'Opting process in',
+                body: `${ processInfo.process } will now automatically scale`,
+            })
+        } else {
+            notify({
+                title: 'Process not detected',
+                body: `The requested process needs to be restarted`,
+            })
+        }
     })
-    globalShortcut.register('Alt+CommandOrControl+O', () => {
+    globalShortcut.register('Alt+CommandOrControl+O', async () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         const processPath = processes[foregroundProcessPid]?.filepath
         if (processPath) {
-            setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((processPath) => processPath !== processPath))
+            setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
 
             notify({
                 title: 'Opting process out',
                 body: `${ processes[foregroundProcessPid]?.process } will no longer automatically scale`,
             })
+        } else {
+            notify({
+                title: 'Process not detected',
+                body: `The requested process needs to be restarted`,
+            })
         }
+        await stopLosslessScaling()
+        await startLosslessScaling()
     })
 
     ipcMain.handle('electron-dialog-get-ls-executable-path', async () => {
+        const res = await dialog.showOpenDialog({
+            filters: [
+                { name: 'Executable', extensions: ['exe'] },
+            ],
+        })
+        return res.filePaths[0]
+    })
+
+    ipcMain.handle('electron-dialog-get-riva-tuner-executable-path', async () => {
         const res = await dialog.showOpenDialog({
             filters: [
                 { name: 'Executable', extensions: ['exe'] },
