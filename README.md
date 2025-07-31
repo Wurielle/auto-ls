@@ -24,7 +24,7 @@ Auto LS provides 2 new shortcuts:
 
 Whenever a process is opted in, Auto LS will watch the creation of this process in the future, start LS and start scaling when the process is created. 
 
-By opting in, a new profile is created in LS and, optionally, a new profile in RivaTuner (which is based on your default RivaTuner Profile). This allows you to only fiddle with the framerate limit and your framegen multiplier once. Evey time you launch a game that has been opted in, Auto LS will launch LS and RivaTuner and scale the game without you having to do anything.
+By opting in, a new profile is created in LS and, optionally, a new profile in RivaTuner (which is based on your default RivaTuner Profile). This allows you to only fiddle with the framerate limit and your framegen multiplier once. Every time you launch a game that has been opted in, Auto LS will launch LS and RivaTuner and scale the game without you having to do anything.
 
 ## How to use
 
