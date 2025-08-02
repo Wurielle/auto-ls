@@ -8,6 +8,7 @@ import { Key } from '@nut-tree-fork/nut-js'
 export const store = new Store({
     defaults: {
         store: {
+            autoUpdate: true,
             processes: [],
             defaultTimeout: 10000,
             lsExecutablePath: '',
@@ -27,8 +28,9 @@ export function setStoreValue(path: string, value: any) {
     emitter.emit('store-update', { type: path, value, storeValue: newStoreValue })
 }
 
-export function getStoreValue<V>(path: string): V | null {
+export function getStoreValue<V>(path?: string): V | null {
     const storeValue = store.get('store') || {}
+    if (!path) return storeValue
     return get(storeValue, path)
 }
 
