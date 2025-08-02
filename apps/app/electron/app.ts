@@ -1,15 +1,10 @@
 import './logs'
+import './auto-updater'
 import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import {
-    applyLosslessScalingProfile,
-    startLosslessScaling,
-    processes,
-    scaleByPid,
-    stopLosslessScaling,
-} from './lossless-scaling'
+import { processes, scaleByPid, startLosslessScaling, stopLosslessScaling } from './lossless-scaling'
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
@@ -17,14 +12,7 @@ import { emitter } from './events'
 import * as fs from 'node:fs'
 import path from 'path'
 import extractFileIcon from "extract-file-icon"
-import { autoUpdater } from "electron-updater"
-import { startRivaTuner, registerRivaTunerProfile } from './riva-tuner'
-
-autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall()
-})
-
-autoUpdater.checkForUpdates()
+import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
 
 const iconsDir = path.join(app.getPath("userData"), "icons")
 

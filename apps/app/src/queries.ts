@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useGetProcessesQuery = () => {
     return useQuery({
@@ -76,6 +76,23 @@ export const useGetIconsPathQuery = () => {
         queryKey: ['icons-path'],
         queryFn() {
             return electronApi.getIconsPath()
+        },
+    })
+}
+
+export const useSettingsPropertyQuery = (path: string) => {
+    return useQuery({
+        queryKey: ['settings', path],
+        queryFn() {
+            return electronStore.get(path)
+        },
+    })
+}
+
+export const useSettingsPropertyMutation = <V>(path: string) => {
+    return useMutation({
+        mutationFn(value: V) {
+            return electronStore.set(path, value)
         },
     })
 }
