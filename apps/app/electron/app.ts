@@ -4,8 +4,8 @@ import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { processes, scaleByPid, startLosslessScaling, stopLosslessScaling } from './lossless-scaling'
-import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
+import { processes, scaleByPid, startLosslessScaling } from './lossless-scaling'
+import { addProcess, getProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
 import { emitter } from './events'
@@ -13,6 +13,7 @@ import * as fs from 'node:fs'
 import path from 'path'
 import extractFileIcon from "extract-file-icon"
 import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
+import { optOutProcess } from './auto-lossless-scaling'
 
 const iconsDir = path.join(app.getPath("userData"), "icons")
 
@@ -90,21 +91,7 @@ app.whenReady().then(async () => {
     globalShortcut.register('Alt+CommandOrControl+O', async () => {
         const foregroundProcessPid = Window.getForeground().getPid()
         const processPath = processes[foregroundProcessPid]?.filepath
-        if (processPath) {
-            setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
-
-            notify({
-                title: 'Opting process out',
-                body: `${ processes[foregroundProcessPid]?.process } will no longer automatically scale`,
-            })
-        } else {
-            notify({
-                title: 'Process not detected',
-                body: `The requested process needs to be restarted`,
-            })
-        }
-        await stopLosslessScaling()
-        await startLosslessScaling()
+        await optOutProcess(processPath)
     })
 
     ipcMain.handle('electron-dialog-get-ls-executable-path', async () => {
@@ -131,6 +118,10 @@ app.whenReady().then(async () => {
 
     ipcMain.handle('electron-api-get-icons-path', async () => {
         return iconsDir
+    })
+
+    ipcMain.handle('als-opt-out-process', async (_, path: string) => {
+        return await optOutProcess(path)
     })
 
     emitter.on('store-update', () => {

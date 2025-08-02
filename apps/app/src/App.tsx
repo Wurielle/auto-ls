@@ -1,6 +1,6 @@
 import { Container, Grid, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Box, Button, Card, createListCollection, Icon, Input, Switch, Text } from '@chakra-ui/react'
+import { Box, Button, Card, createListCollection, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
 import logo64 from '@/assets/icons/64x64.png'
 import pkg from '~/package.json'
 import { Field } from '@/components/ui/field.tsx'
@@ -22,9 +22,12 @@ import {
 import moment from 'moment'
 import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
 import {
+    DialogActionTrigger,
+    DialogBackdrop,
     DialogBody,
     DialogCloseTrigger,
     DialogContent,
+    DialogFooter,
     DialogHeader,
     DialogRoot,
     DialogTitle,
@@ -33,6 +36,7 @@ import {
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from "@/components/ui/select"
 import orderBy from 'lodash/orderBy'
 import { AutoUpdateFormField } from '@/components/forms/auto-update-form-field.tsx'
+import { useMutation } from '@tanstack/react-query'
 
 function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -47,6 +51,12 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
             electronStore.set('processes', [...processes.filter((p) => p.path !== path), { ...process, scaleTimeout }])
         }
     }, [path, process, scaleTimeout, isProcessFetchSuccess, isProcessesFetchSuccess])
+
+    const { isPending, mutate } = useMutation({
+        mutationFn() {
+            return ALS.optOutProcess(path)
+        },
+    })
     return (
         <DialogRoot
             placement={ 'center' }
@@ -62,17 +72,46 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                     <DialogTitle>{ title }</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                    <Field label="Scaling timeout">
-                        <InputGroup
-                            width={ "full" }
-                        >
-                            <NumberInputRoot width={ 'full' } value={ scaleTimeout.toString() } min={ 1000 }
-                                             onValueChange={ (details) => setScaleTimeout(details.valueAsNumber) }>
-                                <NumberInputLabel/>
-                                <NumberInputField/>
-                            </NumberInputRoot>
-                        </InputGroup>
-                    </Field>
+                    <Stack gap={ '6' }>
+                        <Field label="Scaling timeout">
+                            <InputGroup
+                                width={ "full" }
+                            >
+                                <NumberInputRoot width={ 'full' } value={ scaleTimeout.toString() } min={ 1000 }
+                                                 onValueChange={ (details) => setScaleTimeout(details.valueAsNumber) }>
+                                    <NumberInputLabel/>
+                                    <NumberInputField/>
+                                </NumberInputRoot>
+                            </InputGroup>
+                        </Field>
+                        <DialogRoot>
+                            <DialogTrigger asChild>
+                                <Button variant={ 'ghost' }>Remove</Button>
+                            </DialogTrigger>
+                            <Portal>
+                                <DialogBackdrop/>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Remove "{ title }" profiles?</DialogTitle>
+                                    </DialogHeader>
+                                    <DialogBody>
+                                        <p>
+                                            You're about to remove every profile created for "{ title }", do
+                                            you want to continue?
+                                        </p>
+                                    </DialogBody>
+                                    <DialogFooter>
+                                        <DialogActionTrigger asChild>
+                                            <Button variant="outline">Cancel</Button>
+                                        </DialogActionTrigger>
+                                        <Button loading={ isPending } disabled={ isPending }
+                                                onClick={ mutate }>Confirm</Button>
+                                    </DialogFooter>
+                                    <DialogCloseTrigger/>
+                                </DialogContent>
+                            </Portal>
+                        </DialogRoot>
+                    </Stack>
                 </DialogBody>
                 <DialogCloseTrigger/>
             </DialogContent>

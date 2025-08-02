@@ -3,9 +3,9 @@ import { Switch } from '@chakra-ui/react'
 import { useSettingsPropertyMutation, useSettingsPropertyQuery } from '@/queries.ts'
 
 export function AutoUpdateFormField() {
-    const key = 'autoUpdate'
-    const { data: value, isFetched } = useSettingsPropertyQuery(key)
-    const { mutate } = useSettingsPropertyMutation(key)
+    const path = 'autoUpdate'
+    const { data: value, isFetched } = useSettingsPropertyQuery(path)
+    const { mutate } = useSettingsPropertyMutation(path)
     return isFetched && (
         <Field label="Enable auto update" orientation="horizontal">
             <Switch.Root

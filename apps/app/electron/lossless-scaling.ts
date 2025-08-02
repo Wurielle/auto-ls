@@ -52,6 +52,28 @@ export async function applyLosslessScalingProfile(processInfo: ProcessEvent['pay
     await startLosslessScaling()
 }
 
+export async function removeLosslessScalingProfile(name: string) {
+    await stopLosslessScaling()
+    const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
+    const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')
+    const json = convert.xml2json(fileContent, { compact: true, spaces: 4 })
+    const jsonObj = JSON.parse(json)
+    if (!Array.isArray(jsonObj.Settings.GameProfiles.Profile)) {
+        return
+    }
+
+    const profiles = jsonObj.Settings.GameProfiles.Profile
+    const profileIndex = profiles.findIndex(p => p.Title._text === name)
+
+    if (profileIndex > -1) {
+        jsonObj.Settings.GameProfiles.Profile.splice(profileIndex, 1)
+    }
+
+    const xml = convert.json2xml(JSON.stringify(jsonObj), { compact: true, ignoreComment: true, spaces: 4 })
+    await fsp.writeFile(lsConfigFilePath, xml, 'utf8')
+    await startLosslessScaling()
+}
+
 export async function stopLosslessScaling() {
     const executableName = (getStoreValue('lsExecutablePath') as string).split('\\').pop()
     const isRunning = await isProcessRunning(executableName)
@@ -88,6 +110,7 @@ export async function startLosslessScaling() {
     while (!(await isProcessRunning(executableName))) {
         await new Promise(resolve => setTimeout(resolve, 100))
     }
+    await new Promise(resolve => setTimeout(resolve, 3000))
 }
 
 export type ProcessEvent = {
@@ -126,14 +149,21 @@ export async function scaleByPid(pid: number, wait?: number) {
     interval = autoClearInterval(() => {
         const foregroundWindowPID = Window.getForeground().getPid()
 
-        console.log('Checking for initial focus', { pid, foregroundWindowPID: Window.getForeground().getPid() }, pid === Window.getForeground().getPid())
+        console.log('Checking for initial focus', {
+            pid,
+            foregroundWindowPID: Window.getForeground().getPid(),
+        }, pid === Window.getForeground().getPid())
         if (pid === Window.getForeground().getPid()) {
             clearInterval(interval)
             clearTimeout(timeout)
             let triggerKeybindTimeout: NodeJS.Timeout | undefined
 
             async function triggerKeybind() {
-                console.log('Checking for focus after provided delay', { pid, foregroundWindowPID: Window.getForeground().getPid(), waited: wait }, pid === Window.getForeground().getPid())
+                console.log('Checking for focus after provided delay', {
+                    pid,
+                    foregroundWindowPID: Window.getForeground().getPid(),
+                    waited: wait,
+                }, pid === Window.getForeground().getPid())
                 if (pid === Window.getForeground().getPid()) {
                     console.log('Scaling', {
                         pid,
