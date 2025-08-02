@@ -32,3 +32,15 @@ contextBridge.exposeInMainWorld('electronApi', {
         return await ipcRenderer.invoke('electron-api-get-icons-path')
     },
 })
+
+contextBridge.exposeInMainWorld('AutoUpdater', {
+    async checkForUpdates() {
+        return await ipcRenderer.invoke('auto-updater.checkForUpdates')
+    },
+})
+
+contextBridge.exposeInMainWorld('ALS', {
+    async optOutProcess(path: string) {
+        return await ipcRenderer.invoke('als-opt-out-process', path)
+    },
+})
