@@ -18,15 +18,15 @@ export async function isProcessRunning(processName: string) {
 }
 
 export async function isProcessWindowOpen(pid: number) {
-    const { openWindows } = await import('get-windows')
-    const windows = await openWindows()
-    return !!windows.find((window) => window.owner.processId === pid)
+    return !!Window.getByPid(pid)?.getDimensions()
 }
 
 async function waitForProcessWindow(pid: number) {
     while (!(await isProcessWindowOpen(pid))) {
+        console.log(`[Process Window] ⌛ Waiting for process window creation: ${pid}`)
         await new Promise(resolve => setTimeout(resolve, 1000))
     }
+    console.log(`[Process Window] ✅ Process window created: ${pid}`)
 }
 
 export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
@@ -120,9 +120,11 @@ export async function startLosslessScaling() {
         exec(`"wscript" "${ lsVBSPath }"`)
     }
     while (!(await isProcessRunning(executableName))) {
+        console.log(`[Lossless Scaling] ⌛ Waiting for process creation`)
         await new Promise(resolve => setTimeout(resolve, 100))
     }
     await new Promise(resolve => setTimeout(resolve, 3000))
+    console.log(`[Lossless Scaling] ✅ Process created`)
 }
 
 export type ProcessEvent = {
