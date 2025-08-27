@@ -17,6 +17,18 @@ export async function isProcessRunning(processName: string) {
     return processes.some(p => p.name.includes(processName))
 }
 
+export async function isProcessWindowOpen(pid: number) {
+    const { openWindows } = await import('get-windows')
+    const windows = await openWindows()
+    return !!windows.find((window) => window.owner.processId === pid)
+}
+
+async function waitForProcessWindow(pid: number) {
+    while (!(await isProcessWindowOpen(pid))) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+}
+
 export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
     await stopLosslessScaling()
     const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
@@ -140,13 +152,19 @@ function autoClearInterval(callback: () => void, ms: number, clearAfter: number 
 }
 
 export async function scaleByPid(pid: number, wait?: number) {
-    const processInfo = processes[pid]
-    if (!processInfo) return
-    await applyLosslessScalingProfile(processInfo)
-    await registerRivaTunerProfile(processInfo)
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
+    const processInfo = processes[pid]
+    if (!processInfo) return
+
+    await Promise.all([
+        applyLosslessScalingProfile(processInfo),
+        registerRivaTunerProfile(processInfo),
+        waitForProcessWindow(pid),
+    ])
+
     interval = autoClearInterval(() => {
+        Window.getByPid(pid).setForeground()
         const foregroundWindowPID = Window.getForeground().getPid()
 
         console.log('Checking for initial focus', {
@@ -159,6 +177,7 @@ export async function scaleByPid(pid: number, wait?: number) {
             let triggerKeybindTimeout: NodeJS.Timeout | undefined
 
             async function triggerKeybind() {
+                Window.getByPid(pid).setForeground()
                 console.log('Checking for focus after provided delay', {
                     pid,
                     foregroundWindowPID: Window.getForeground().getPid(),
