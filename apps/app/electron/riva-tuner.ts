@@ -17,7 +17,9 @@ export async function startRivaTuner() {
         exec(`"wscript" "${ rivaTunerVBSPath }"`)
     }
     while (!(await isProcessRunning(executableName))) {
+        console.log(`[RivaTuner] ⌛ Waiting for process creation`)
         await new Promise(resolve => setTimeout(resolve, 100))
+        console.log(`[RivaTuner] ✅ Process created`)
     }
 }
 

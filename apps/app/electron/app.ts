@@ -43,8 +43,10 @@ async function isExplorerRunning() {
 
 async function waitForExplorer() {
     while (!(await isExplorerRunning())) {
+        console.log(`[Explorer] ⌛ Waiting for process creation`)
         await new Promise(resolve => setTimeout(resolve, 1000))
     }
+    console.log(`[Explorer] ✅ Process created`)
     // safely wait for explorer to start properly
     await new Promise(resolve => setTimeout(resolve, 10000))
 }

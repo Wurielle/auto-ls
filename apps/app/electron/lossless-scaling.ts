@@ -17,6 +17,18 @@ export async function isProcessRunning(processName: string) {
     return processes.some(p => p.name.includes(processName))
 }
 
+export async function isProcessWindowOpen(pid: number) {
+    return !!Window.getByPid(pid)?.getDimensions()
+}
+
+async function waitForProcessWindow(pid: number) {
+    while (!(await isProcessWindowOpen(pid))) {
+        console.log(`[Process Window] ⌛ Waiting for process window creation: ${pid}`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    console.log(`[Process Window] ✅ Process window created: ${pid}`)
+}
+
 export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
     await stopLosslessScaling()
     const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
@@ -108,9 +120,11 @@ export async function startLosslessScaling() {
         exec(`"wscript" "${ lsVBSPath }"`)
     }
     while (!(await isProcessRunning(executableName))) {
+        console.log(`[Lossless Scaling] ⌛ Waiting for process creation`)
         await new Promise(resolve => setTimeout(resolve, 100))
     }
     await new Promise(resolve => setTimeout(resolve, 3000))
+    console.log(`[Lossless Scaling] ✅ Process created`)
 }
 
 export type ProcessEvent = {
@@ -140,13 +154,19 @@ function autoClearInterval(callback: () => void, ms: number, clearAfter: number 
 }
 
 export async function scaleByPid(pid: number, wait?: number) {
-    const processInfo = processes[pid]
-    if (!processInfo) return
-    await applyLosslessScalingProfile(processInfo)
-    await registerRivaTunerProfile(processInfo)
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
+    const processInfo = processes[pid]
+    if (!processInfo) return
+
+    await Promise.all([
+        applyLosslessScalingProfile(processInfo),
+        registerRivaTunerProfile(processInfo),
+        waitForProcessWindow(pid),
+    ])
+
     interval = autoClearInterval(() => {
+        Window.getByPid(pid).setForeground()
         const foregroundWindowPID = Window.getForeground().getPid()
 
         console.log('Checking for initial focus', {
@@ -159,6 +179,7 @@ export async function scaleByPid(pid: number, wait?: number) {
             let triggerKeybindTimeout: NodeJS.Timeout | undefined
 
             async function triggerKeybind() {
+                Window.getByPid(pid).setForeground()
                 console.log('Checking for focus after provided delay', {
                     pid,
                     foregroundWindowPID: Window.getForeground().getPid(),
