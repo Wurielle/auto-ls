@@ -2,40 +2,25 @@ import { exec } from 'child_process'
 import path from 'path'
 import * as fs from 'node:fs'
 import { existsSync } from 'node:fs'
-import { EXTERNALS_DIR } from './const'
 import { getStoreValue, setStoreValue } from './store'
 import { app } from 'electron'
 import { emitter } from './events'
 
 /* if I put the files inside a folder that isn't directly from getPath the vbs files stop working? */
 const fileTargetDir = path.join(app.getPath('documents'))
-export const appBatFileName = 'run-auto-lossless-scaling-as-admin.bat'
 export const appVBSFileName = 'run-auto-lossless-scaling-as-admin.vbs'
-export const appBatPath = path.join(fileTargetDir, appBatFileName)
 export const appVBSPath = path.join(fileTargetDir, appVBSFileName)
-export const lsBatFileName = 'run-lossless-scaling-as-admin.bat'
 export const lsVBSFileName = 'run-lossless-scaling-as-admin.vbs'
-export const rivaTunerBatFileName = 'run-riva-tuner-as-admin.bat'
 export const rivaTunerVBSFileName = 'run-riva-tuner-as-admin.vbs'
-export const lsBatPath = path.join(fileTargetDir, lsBatFileName)
 export const lsVBSPath = path.join(fileTargetDir, lsVBSFileName)
-export const rivaTunerBatPath = path.join(fileTargetDir, rivaTunerBatFileName)
 export const rivaTunerVBSPath = path.join(fileTargetDir, rivaTunerVBSFileName)
 
-function createBatContent(filename: string, minimized = false) {
-    return `@echo off
-powershell -Command "Start-Process '${ filename }' -Verb RunAs${ minimized ? ' -WindowStyle Minimized' : '' }"
-exit
-`
-}
-
-function createVBSContent(filename: string) {
-    return `Set WshShell = CreateObject("WScript.Shell")
-Set FSO = CreateObject("Scripting.FileSystemObject")
-currentDir = FSO.GetParentFolderName(WScript.ScriptFullName)
-batchFile = currentDir & "\\${ filename }"
-
-WshShell.Run batchFile, 0, False`
+function createVBSContent(exePath: string, minimized = false) {
+    return `Option Explicit
+Dim shell, exePath
+Set shell = CreateObject("Shell.Application")
+exePath = "${ exePath }"
+shell.ShellExecute exePath, "", "", "runas", ${ minimized ? 7 : 0 }`
 }
 
 function createFile(filePath: string, content: string) {
@@ -61,11 +46,9 @@ function registerTask(options: {
 }
 
 function registerAppAutoLaunch(execPath: string) {
-    const batContent = createBatContent(execPath.split('\\').join('\\\\'))
-    const vbsContent = createVBSContent(appBatFileName)
+    const escapedExePath = execPath.split('\\').join('\\\\')
 
-    createFile(appBatPath, batContent)
-    createFile(appVBSPath, vbsContent)
+    createFile(appVBSPath, createVBSContent(escapedExePath))
 
     registerTask({
         name: 'Auto Lossless Scaling - Run as Admin',
@@ -74,29 +57,15 @@ function registerAppAutoLaunch(execPath: string) {
 }
 
 function registerRivaTunerAutoLaunch(execPath: string) {
-    const batContent = createBatContent(execPath.split('\\').join('\\\\'), true)
-    const vbsContent = createVBSContent(rivaTunerBatFileName)
+    const escapedExePath = execPath.split('\\').join('\\\\')
 
-    createFile(rivaTunerBatPath, batContent)
-    createFile(rivaTunerVBSPath, vbsContent)
-
-    // registerTask({
-    //     name: 'Auto Lossless Scaling - Run RivaTuner as Admin',
-    //     vbsPath: rivaTunerVBSPath,
-    // })
+    createFile(rivaTunerVBSPath, createVBSContent(escapedExePath, true))
 }
 
 function registerLosslessScalingAutoLaunch(execPath: string) {
-    const batContent = createBatContent(execPath.split('\\').join('\\\\'), true)
-    const vbsContent = createVBSContent(lsBatFileName)
+    const escapedExePath = execPath.split('\\').join('\\\\')
 
-    createFile(lsBatPath, batContent)
-    createFile(lsVBSPath, vbsContent)
-
-    // registerTask({
-    //     name: 'Auto Lossless Scaling - Run Lossless Scaling as Admin',
-    //     vbsPath: lsVBSPath,
-    // })
+    createFile(lsVBSPath, createVBSContent(escapedExePath, true))
 }
 
 
