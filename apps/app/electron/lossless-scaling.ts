@@ -1,5 +1,4 @@
 import { exec, fork } from 'child_process'
-import { Window } from 'win-control'
 import { getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { app } from 'electron'
 import micromatch from 'micromatch'
@@ -10,24 +9,8 @@ import * as fsp from 'fs/promises'
 import * as convert from 'xml-js'
 import cloneDeep from 'lodash/cloneDeep'
 import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
-
-export async function isProcessRunning(processName: string) {
-    const psList = (await import('ps-list')).default
-    const processes = await psList()
-    return processes.some(p => p.name.includes(processName))
-}
-
-export async function isProcessWindowOpen(pid: number) {
-    return !!Window.getByPid(pid)?.getDimensions()
-}
-
-async function waitForProcessWindow(pid: number) {
-    while (!(await isProcessWindowOpen(pid))) {
-        console.log(`[Process Window] ⌛ Waiting for process window creation: ${pid}`)
-        await new Promise(resolve => setTimeout(resolve, 1000))
-    }
-    console.log(`[Process Window] ✅ Process window created: ${pid}`)
-}
+import { focusWindow, getActiveWindowPid, isProcessRunning, waitForProcessWindowCreation } from './utils/native'
+import { clearTimeout } from 'node:timers'
 
 export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
     await stopLosslessScaling()
@@ -158,61 +141,65 @@ export async function scaleByPid(pid: number, wait?: number) {
     let interval: NodeJS.Timeout | undefined
     const processInfo = processes[pid]
     if (!processInfo) return
+    try {
+        await Promise.all([
+            applyLosslessScalingProfile(processInfo),
+            registerRivaTunerProfile(processInfo),
+            waitForProcessWindowCreation(pid),
+        ])
 
-    await Promise.all([
-        applyLosslessScalingProfile(processInfo),
-        registerRivaTunerProfile(processInfo),
-        waitForProcessWindow(pid),
-    ])
+        interval = autoClearInterval(async () => {
+            await focusWindow(pid)
+            const initialFocusActiveWindowPid = await getActiveWindowPid()
+            console.log('Checking for initial focus', {
+                pid,
+                foregroundWindowPID: initialFocusActiveWindowPid,
+            }, pid === initialFocusActiveWindowPid)
+            if (pid === initialFocusActiveWindowPid) {
+                clearInterval(interval)
+                clearTimeout(timeout)
+                let triggerKeybindTimeout: NodeJS.Timeout | undefined
 
-    interval = autoClearInterval(() => {
-        Window.getByPid(pid).setForeground()
-        const foregroundWindowPID = Window.getForeground().getPid()
-
-        console.log('Checking for initial focus', {
-            pid,
-            foregroundWindowPID: Window.getForeground().getPid(),
-        }, pid === Window.getForeground().getPid())
-        if (pid === Window.getForeground().getPid()) {
-            clearInterval(interval)
-            clearTimeout(timeout)
-            let triggerKeybindTimeout: NodeJS.Timeout | undefined
-
-            async function triggerKeybind() {
-                Window.getByPid(pid).setForeground()
-                console.log('Checking for focus after provided delay', {
-                    pid,
-                    foregroundWindowPID: Window.getForeground().getPid(),
-                    waited: wait,
-                }, pid === Window.getForeground().getPid())
-                if (pid === Window.getForeground().getPid()) {
-                    console.log('Scaling', {
+                const triggerKeybind = async () => {
+                    await focusWindow(pid)
+                    const delayedFocusActiveWindowPid = await getActiveWindowPid()
+                    console.log('Checking for focus after provided delay', {
                         pid,
-                        foregroundWindowPID,
-                        isLosslessScalingRunning: await isProcessRunning((getStoreValue('lsExecutablePath') as string).split('\\').pop()),
-                        isRivaTunerRunning: await isProcessRunning((getStoreValue('rivaTunerExecutablePath') as string).split('\\').pop()),
-                    })
-                    clearTimeout(triggerKeybindTimeout)
-                    const { keyboard } = await import('@nut-tree-fork/nut-js')
-                    const keys = getStoreValue('lsScaleShortcut')
-                    await keyboard.pressKey(...keys)
-                    await keyboard.releaseKey(...keys)
-                    // try again in case it didn't succeed initially (can happen for some reason)
-                    await startRivaTuner()
-                } else {
-                    console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
-                    triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
+                        foregroundWindowPID: delayedFocusActiveWindowPid,
+                        waited: wait,
+                    }, pid === delayedFocusActiveWindowPid)
+                    if (pid === delayedFocusActiveWindowPid) {
+                        console.log('Scaling', {
+                            pid,
+                        })
+                        clearTimeout(triggerKeybindTimeout)
+                        const { keyboard } = await import('@nut-tree-fork/nut-js')
+                        const keys = getStoreValue('lsScaleShortcut') as number[]
+                        await keyboard.pressKey(...keys)
+                        await keyboard.releaseKey(...keys)
+                        // try again in case it didn't succeed initially (can happen for some reason)
+                        await startRivaTuner()
+                    } else {
+                        console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
+                        triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
+                    }
                 }
-            }
 
-            timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
-        }
-    }, 1000)
+                timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
+            }
+        }, 1000)
+    } catch (e) {
+        console.error(`An error occurred while scaling ${pid}:`, e)
+        clearInterval(interval)
+        clearTimeout(timeout)
+    }
 }
 
 const child = fork(require.resolve('process-watcher'))
 child.on('message', (processInfo: ProcessEvent) => {
     if (processInfo.type === 'process-creation') {
+        // Helldivers 2 manages to create the process twice with the same id...
+        if (processes[processInfo.payload.pid]) return
         processes[processInfo.payload.pid] = processInfo.payload
     } else if (processInfo.type === 'process-deletion') {
         delete processes[processInfo.payload.pid]

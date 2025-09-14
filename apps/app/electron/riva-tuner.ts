@@ -1,10 +1,11 @@
 import { getStoreValue } from './store'
 import { exec } from 'child_process'
 import { rivaTunerVBSPath } from './auto-launch'
-import { isProcessRunning, ProcessEvent } from './lossless-scaling'
+import { ProcessEvent } from './lossless-scaling'
 import * as path from 'path'
 import * as fsp from 'fs/promises'
 import { existsSync } from 'fs'
+import { isProcessRunning } from './utils/native'
 
 export async function startRivaTuner() {
     const isEnabled = getStoreValue('enableRivaTuner')

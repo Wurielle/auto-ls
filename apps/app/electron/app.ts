@@ -1,7 +1,6 @@
 import './logs'
 import './auto-updater'
 import { app, dialog, globalShortcut, ipcMain } from 'electron'
-import { Window } from 'win-control'
 import { createWindow } from './window'
 import { createTray } from './tray'
 import { processes, scaleByPid, startLosslessScaling } from './lossless-scaling'
@@ -10,10 +9,11 @@ import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
 import { emitter } from './events'
 import * as fs from 'node:fs'
-import path from 'path'
+import * as path from 'node:path'
 import extractFileIcon from "extract-file-icon"
-import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
+import { startRivaTuner } from './riva-tuner'
 import { optOutProcess } from './auto-lossless-scaling'
+import { getActiveWindowPid, waitForExplorer } from './utils/native'
 
 const iconsDir = path.join(app.getPath("userData"), "icons")
 
@@ -34,23 +34,6 @@ function extractProcessIcon(exePath: string) {
     }
 }
 
-async function isExplorerRunning() {
-    const psList = (await import('ps-list')).default
-    const processes = await psList()
-    const explorerProcess = processes.find(p => p.name === 'explorer.exe')
-    return !!explorerProcess
-}
-
-async function waitForExplorer() {
-    while (!(await isExplorerRunning())) {
-        console.log(`[Explorer] ⌛ Waiting for process creation`)
-        await new Promise(resolve => setTimeout(resolve, 1000))
-    }
-    console.log(`[Explorer] ✅ Process created`)
-    // safely wait for explorer to start properly
-    await new Promise(resolve => setTimeout(resolve, 10000))
-}
-
 app.whenReady().then(async () => {
     await waitForExplorer()
     if (process.platform === 'win32') {
@@ -61,16 +44,22 @@ app.whenReady().then(async () => {
     const { window } = createWindow()
     createTray({ window })
     if (process.env.NODE_ENV === 'development') {
-        globalShortcut.register('Alt+CommandOrControl+D', () => {
-            const foregroundProcessPid = Window.getForeground().getPid()
+        globalShortcut.register('Alt+CommandOrControl+D', async () => {
+            const foregroundProcessPid = await getActiveWindowPid()
             const processInfo = processes[foregroundProcessPid]
-            // applyLosslessScalingProfile(processInfo)
-            registerRivaTunerProfile(processInfo)
+            console.log({
+                foregroundProcessPid,
+                processInfo,
+            })
         })
     }
-    globalShortcut.register('Alt+CommandOrControl+I', () => {
-        const foregroundProcessPid = Window.getForeground().getPid()
+    globalShortcut.register('Alt+CommandOrControl+I', async () => {
+        const foregroundProcessPid = await getActiveWindowPid()
         const processInfo = processes[foregroundProcessPid]
+
+        console.log('Opt in', foregroundProcessPid)
+        console.log('Current process list', processes)
+        console.log('Process info', processInfo)
         if (processInfo) {
             const processPath = processInfo.filepath
             if (processPath && !getProcess(processPath)) {
@@ -91,7 +80,7 @@ app.whenReady().then(async () => {
         }
     })
     globalShortcut.register('Alt+CommandOrControl+O', async () => {
-        const foregroundProcessPid = Window.getForeground().getPid()
+        const foregroundProcessPid = await getActiveWindowPid()
         const processPath = processes[foregroundProcessPid]?.filepath
         await optOutProcess(processPath)
     })
