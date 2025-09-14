@@ -1,8 +1,8 @@
-import path from 'path'
+import * as path from 'node:path'
 import { PUBLIC_DIR } from './const'
 import { app, BrowserWindow, Menu, Tray } from 'electron'
 
-export function createTray({window}: { window: BrowserWindow }): {tray: Tray} {
+export function createTray({ window }: { window: BrowserWindow }): { tray: Tray } {
     const tray = new Tray(path.join(PUBLIC_DIR, 'icons/64x64.png'))
 
     const contextMenu = Menu.buildFromTemplate([
@@ -18,7 +18,7 @@ export function createTray({window}: { window: BrowserWindow }): {tray: Tray} {
             click: () => {
                 app.quit()
             },
-        }
+        },
     ])
     tray.on('click', () => window?.show())
     tray.setToolTip('Auto Lossless Scaling')
@@ -27,6 +27,6 @@ export function createTray({window}: { window: BrowserWindow }): {tray: Tray} {
         tray.removeAllListeners()
     })
     return {
-        tray
+        tray,
     }
 }

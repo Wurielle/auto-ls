@@ -57,6 +57,9 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
             return ALS.optOutProcess(path)
         },
     })
+    useEffect(() => {
+        console.log('first render')
+    }, [])
     return (
         <DialogRoot
             placement={ 'center' }
@@ -303,7 +306,7 @@ function App() {
                     <Grid gap={ '6' }>
                         {
                             orderedProcesses.map((process, i) => (
-                                <Grid.Col key={ i } span={ 12 } mdSpan={ 6 } lgSpan={ 4 } xlSpan={ 3 }>
+                                <Grid.Col key={ `${i}-${process.path}` } span={ 12 } mdSpan={ 6 } lgSpan={ 4 } xlSpan={ 3 }>
                                     <Card.Root>
                                         <Card.Body gap="2">
                                             <Group justify={ 'between' }>

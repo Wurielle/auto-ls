@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import path from 'path'
+import * as path from 'node:path'
 import * as fs from 'node:fs'
 import { existsSync } from 'node:fs'
 import { getStoreValue, setStoreValue } from './store'

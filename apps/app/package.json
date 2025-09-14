@@ -22,6 +22,7 @@
     "lodash.set": "^4.3.2",
     "micromatch": "^4.0.8",
     "mitt": "^3.0.1",
+    "node-processlist": "^1.0.2",
     "process-watcher": "*",
     "ps-list": "^8.1.1",
     "win-control": "^0.3.1",
