@@ -13,7 +13,7 @@ import * as path from 'node:path'
 import extractFileIcon from "extract-file-icon"
 import { startRivaTuner } from './riva-tuner'
 import { optOutProcess } from './auto-lossless-scaling'
-import { getActiveWindowPid } from './utils/native'
+import { getActiveWindowPid, waitForExplorer } from './utils/native'
 
 const iconsDir = path.join(app.getPath("userData"), "icons")
 
@@ -32,23 +32,6 @@ function extractProcessIcon(exePath: string) {
             return null
         }
     }
-}
-
-async function isExplorerRunning() {
-    const psList = (await import('ps-list')).default
-    const processes = await psList()
-    const explorerProcess = processes.find(p => p.name === 'explorer.exe')
-    return !!explorerProcess
-}
-
-async function waitForExplorer() {
-    while (!(await isExplorerRunning())) {
-        console.log(`[Explorer] ⌛ Waiting for process creation`)
-        await new Promise(resolve => setTimeout(resolve, 1000))
-    }
-    console.log(`[Explorer] ✅ Process created`)
-    // safely wait for explorer to start properly
-    await new Promise(resolve => setTimeout(resolve, 10000))
 }
 
 app.whenReady().then(async () => {

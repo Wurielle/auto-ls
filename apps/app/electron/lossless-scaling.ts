@@ -9,7 +9,8 @@ import * as fsp from 'fs/promises'
 import * as convert from 'xml-js'
 import cloneDeep from 'lodash/cloneDeep'
 import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
-import { focusWindow, getActiveWindowPid, isProcessRunning, waitForProcessWindow } from './utils/native'
+import { focusWindow, getActiveWindowPid, isProcessRunning, waitForProcessWindowCreation } from './utils/native'
+import { clearTimeout } from 'node:timers'
 
 export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
     await stopLosslessScaling()
@@ -140,58 +141,65 @@ export async function scaleByPid(pid: number, wait?: number) {
     let interval: NodeJS.Timeout | undefined
     const processInfo = processes[pid]
     if (!processInfo) return
+    try {
+        await Promise.all([
+            applyLosslessScalingProfile(processInfo),
+            registerRivaTunerProfile(processInfo),
+            waitForProcessWindowCreation(pid),
+        ])
 
-    await Promise.all([
-        applyLosslessScalingProfile(processInfo),
-        registerRivaTunerProfile(processInfo),
-        waitForProcessWindow(pid),
-    ])
+        interval = autoClearInterval(async () => {
+            await focusWindow(pid)
+            const initialFocusActiveWindowPid = await getActiveWindowPid()
+            console.log('Checking for initial focus', {
+                pid,
+                foregroundWindowPID: initialFocusActiveWindowPid,
+            }, pid === initialFocusActiveWindowPid)
+            if (pid === initialFocusActiveWindowPid) {
+                clearInterval(interval)
+                clearTimeout(timeout)
+                let triggerKeybindTimeout: NodeJS.Timeout | undefined
 
-    interval = autoClearInterval(async () => {
-        await focusWindow(pid)
-        const initialFocusActiveWindowPid = await getActiveWindowPid()
-        console.log('Checking for initial focus', {
-            pid,
-            foregroundWindowPID: initialFocusActiveWindowPid,
-        }, pid === initialFocusActiveWindowPid)
-        if (pid === initialFocusActiveWindowPid) {
-            clearInterval(interval)
-            clearTimeout(timeout)
-            let triggerKeybindTimeout: NodeJS.Timeout | undefined
-
-            const triggerKeybind = async () => {
-                await focusWindow(pid)
-                const delayedFocusActiveWindowPid = await getActiveWindowPid()
-                console.log('Checking for focus after provided delay', {
-                    pid,
-                    foregroundWindowPID: delayedFocusActiveWindowPid,
-                    waited: wait,
-                }, pid === delayedFocusActiveWindowPid)
-                if (pid === delayedFocusActiveWindowPid) {
-                    console.log('Scaling', {
+                const triggerKeybind = async () => {
+                    await focusWindow(pid)
+                    const delayedFocusActiveWindowPid = await getActiveWindowPid()
+                    console.log('Checking for focus after provided delay', {
                         pid,
-                    })
-                    clearTimeout(triggerKeybindTimeout)
-                    const { keyboard } = await import('@nut-tree-fork/nut-js')
-                    const keys = getStoreValue('lsScaleShortcut') as number[]
-                    await keyboard.pressKey(...keys)
-                    await keyboard.releaseKey(...keys)
-                    // try again in case it didn't succeed initially (can happen for some reason)
-                    await startRivaTuner()
-                } else {
-                    console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
-                    triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
+                        foregroundWindowPID: delayedFocusActiveWindowPid,
+                        waited: wait,
+                    }, pid === delayedFocusActiveWindowPid)
+                    if (pid === delayedFocusActiveWindowPid) {
+                        console.log('Scaling', {
+                            pid,
+                        })
+                        clearTimeout(triggerKeybindTimeout)
+                        const { keyboard } = await import('@nut-tree-fork/nut-js')
+                        const keys = getStoreValue('lsScaleShortcut') as number[]
+                        await keyboard.pressKey(...keys)
+                        await keyboard.releaseKey(...keys)
+                        // try again in case it didn't succeed initially (can happen for some reason)
+                        await startRivaTuner()
+                    } else {
+                        console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
+                        triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
+                    }
                 }
-            }
 
-            timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
-        }
-    }, 1000)
+                timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
+            }
+        }, 1000)
+    } catch (e) {
+        console.error(`An error occurred while scaling ${pid}:`, e)
+        clearInterval(interval)
+        clearTimeout(timeout)
+    }
 }
 
 const child = fork(require.resolve('process-watcher'))
 child.on('message', (processInfo: ProcessEvent) => {
     if (processInfo.type === 'process-creation') {
+        // Helldivers 2 manages to create the process twice with the same id...
+        if (processes[processInfo.payload.pid]) return
         processes[processInfo.payload.pid] = processInfo.payload
     } else if (processInfo.type === 'process-deletion') {
         delete processes[processInfo.payload.pid]

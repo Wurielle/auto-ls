@@ -35,16 +35,38 @@ export async function isProcessWindowOpen(pid: number) {
     return !!(await getProcessWindow(pid))?.getDimensions()
 }
 
-export async function waitForProcessWindow(pid: number) {
-    while (!(await isProcessWindowOpen(pid))) {
+export async function waitForProcessWindowCreation(pid: number) {
+    let loopCount = 0
+    while ((!(await isProcessWindowOpen(pid)))) {
+        loopCount += 1
+        if (loopCount >= 5 * 60) {
+            throw new Error(`[Process Window] ❌ Wait for process window creation ${ pid } failed. It exceeded the maximum loop count.`)
+        }
         console.log(`[Process Window] ⌛ Waiting for process window creation: ${ pid }`)
         await new Promise(resolve => setTimeout(resolve, 1000))
     }
     console.log(`[Process Window] ✅ Process window created: ${ pid }`)
 }
 
+export async function isExplorerRunning() {
+    const psList = (await import('ps-list')).default
+    const processes = await psList()
+    const explorerProcess = processes.find(p => p.name === 'explorer.exe')
+    return !!explorerProcess
+}
+
+export async function waitForExplorer() {
+    while (!(await isExplorerRunning())) {
+        console.log(`[Explorer] ⌛ Waiting for process creation`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    }
+    console.log(`[Explorer] ✅ Process created`)
+    // safely wait for explorer to start properly
+    await new Promise(resolve => setTimeout(resolve, process.env.NODE_ENV === 'development' ? 0 : 10000))
+}
+
 export async function focusWindow(pid: number) {
     const window = (await getProcessWindow(pid))
-    if (!window?.getProcessInfo()) return console.log(`Window for process ${pid} cannot be focused programmatically.`)
+    if (!window?.getProcessInfo()) return console.log(`[Process Window] Window for process ${pid} cannot be focused programmatically.`)
     window?.setForeground()
 }

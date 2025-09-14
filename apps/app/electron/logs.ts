@@ -3,7 +3,7 @@ import { app } from 'electron'
 import * as path from 'node:path'
 import * as fs from 'node:fs'
 
-const logFilePath = path.join(app.getPath("userData"), "app.log")
+const logFilePath = path.join(app.getPath("userData"), "logs.txt")
 
 log.initialize()
 log.transports.file.resolvePathFn = () => logFilePath
