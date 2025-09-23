@@ -7,9 +7,9 @@ import * as fsp from 'fs/promises'
 import * as convert from 'xml-js'
 import cloneDeep from 'lodash/cloneDeep'
 import { isProcessRunning } from './utils/native'
-import { ProcessWatcherForkEvent } from './process-watcher'
+import { ProcessInfo } from './process-watcher'
 
-export async function applyLosslessScalingProfile(processInfo: ProcessWatcherForkEvent['payload']) {
+export async function applyLosslessScalingProfile(processInfo: ProcessInfo) {
     await stopLosslessScaling()
     const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
     const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')
