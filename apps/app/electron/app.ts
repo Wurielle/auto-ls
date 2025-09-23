@@ -15,7 +15,7 @@ import { extractProcessIcon, iconsDir } from './utils/filesystem'
 import micromatch from 'micromatch'
 import { processWatcher } from './process-watcher-instance'
 
-app.whenReady().then(async () => {
+async function initElectronApp() {
     await waitForExplorer()
     if (process.platform === 'win32') {
         app.setAppUserModelId('com.nhs.auto-lossless-scaling')
@@ -24,6 +24,15 @@ app.whenReady().then(async () => {
     await startRivaTuner()
     const { window } = createWindow()
     createTray({ window })
+
+    emitter.on('store-update', () => {
+        if (window && !window.isDestroyed()) {
+            window.webContents.send('store-update')
+        }
+    })
+}
+
+function initElectronShortcuts() {
     if (process.env.NODE_ENV === 'development') {
         globalShortcut.register('Alt+CommandOrControl+D', async () => {
             const foregroundProcessPid = await getActiveWindowPid()
@@ -62,7 +71,9 @@ app.whenReady().then(async () => {
         const processPath = processWatcher.getByPid(foregroundProcessPid)?.filepath
         await optOutProcess(processPath)
     })
+}
 
+function initEventListeners() {
     ipcMain.handle('electron-dialog-get-ls-executable-path', async () => {
         const res = await dialog.showOpenDialog({
             filters: [
@@ -93,12 +104,6 @@ app.whenReady().then(async () => {
         return await optOutProcess(path)
     })
 
-    emitter.on('store-update', () => {
-        if (window && !window.isDestroyed()) {
-            window.webContents.send('store-update')
-        }
-    })
-
     processWatcher.on('process-creation', (processInfo) => {
         const storeProcesses: StoreProcess[] = getStoreValue('processes') || []
         if (micromatch.isMatch(processInfo.filepath, storeProcesses.map((p) => p.path), {})) {
@@ -117,4 +122,10 @@ app.whenReady().then(async () => {
             setStoreValue('processes', updatedStoreProcesses)
         }
     })
-}).catch(console.error)
+}
+
+app.whenReady()
+    .then(initElectronApp)
+    .then(initElectronShortcuts)
+    .then(initEventListeners)
+    .catch(console.error)
