@@ -9,6 +9,9 @@ export default [
         getExecutablePath() {
             return getStoreValue('lsExecutablePath')
         },
+        getScaleShortcut() {
+            return getStoreValue('lsScaleShortcut')
+        },
         run() {
             return exec(`"wscript" "${ lsVBSPath }"`)
         },

@@ -13,6 +13,10 @@ export class DefaultAutomationHooks {
     public async beforeScale(context: { processInfo: ProcessInfo }) {
     }
 
+    public async onScale(context: { processInfo: ProcessInfo }) {
+
+    }
+
     public async afterScale(context: { processInfo: ProcessInfo }) {
     }
 }

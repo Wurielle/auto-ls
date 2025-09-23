@@ -10,10 +10,11 @@ export type RivaTunerAutomationHooksOptions = {
     run(): void
 }
 
-export class RivaTunerAutomationHooks implements DefaultAutomationHooks {
+export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements DefaultAutomationHooks {
     private options: RivaTunerAutomationHooksOptions
 
     constructor(options: RivaTunerAutomationHooksOptions) {
+        super()
         this.options = options
     }
 
@@ -41,7 +42,7 @@ export class RivaTunerAutomationHooks implements DefaultAutomationHooks {
         return this.start()
     }
 
-    public async removeProfile() {
+    public async removeProfile({ name }) {
         const exePath = this.options.getExecutablePath()
         if (!exePath) return
         const rivaTunerConfigFilePath = path.resolve(path.dirname(exePath), 'Profiles', `${ name }.cfg`)

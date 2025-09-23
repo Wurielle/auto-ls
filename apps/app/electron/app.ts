@@ -3,16 +3,15 @@ import './auto-updater'
 import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { startLosslessScaling } from './lossless-scaling'
 import { getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
 import { emitter } from './events'
-import { startRivaTuner } from './riva-tuner'
 import { optInProcess, optOutProcess, scaleByPid } from './auto-lossless-scaling'
 import { getActiveWindowPid, waitForExplorer } from './utils/native'
 import { iconsDir } from './utils/filesystem'
 import { processWatcher } from './process-watcher-instance'
+import automations from './automations'
 import micromatch = require('micromatch')
 
 async function initElectronApp() {
@@ -20,8 +19,7 @@ async function initElectronApp() {
     if (process.platform === 'win32') {
         app.setAppUserModelId('com.nhs.auto-lossless-scaling')
     }
-    await startLosslessScaling()
-    await startRivaTuner()
+    await Promise.all(automations.map((automation) => automation.init()))
     const { window } = createWindow()
     createTray({ window })
 

@@ -8,13 +8,15 @@ import cloneDeep from 'lodash/cloneDeep'
 
 export type LosslessScalingAutomationHooksOptions = {
     getExecutablePath(): string
+    getScaleShortcut(): number[]
     run(): void
 }
 
-export class LosslessScalingAutomationHooks implements DefaultAutomationHooks {
+export class LosslessScalingAutomationHooks extends DefaultAutomationHooks implements DefaultAutomationHooks {
     private options: LosslessScalingAutomationHooksOptions
 
     constructor(options: LosslessScalingAutomationHooksOptions) {
+        super()
         this.options = options
     }
 
@@ -26,8 +28,11 @@ export class LosslessScalingAutomationHooks implements DefaultAutomationHooks {
         return this.applyProfile(context)
     }
 
-    public async afterScale() {
-        return
+    public async onScale(context) {
+        const { keyboard } = await import('@nut-tree-fork/nut-js')
+        const keys = this.options.getScaleShortcut()
+        await keyboard.pressKey(...keys)
+        await keyboard.releaseKey(...keys)
     }
 
     public async applyProfile({ processInfo }) {
@@ -65,7 +70,7 @@ export class LosslessScalingAutomationHooks implements DefaultAutomationHooks {
         await this.start()
     }
 
-    public async removeProfile() {
+    public async removeProfile({ name }) {
         await this.stop()
         const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
         const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')

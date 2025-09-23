@@ -1,13 +1,12 @@
 import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
-import { applyLosslessScalingProfile, removeLosslessScalingProfile } from './lossless-scaling'
 import * as path from 'node:path'
-import { registerRivaTunerProfile, removeRivaTunerProfile, startRivaTuner } from './riva-tuner'
 import { focusWindow, getActiveWindowPid, waitForProcessWindowCreation } from './utils/native'
 import { clearTimeout } from 'node:timers'
 import { autoClearInterval, autoClearTimeout } from './utils/timeouts'
 import { processWatcher } from './process-watcher-instance'
 import { extractProcessIcon } from './utils/filesystem'
+import automations from './automations'
 
 // Ideally, we'd want to opt in and out using either pid or path
 export async function optOutProcess(processPath: string) {
@@ -17,8 +16,7 @@ export async function optOutProcess(processPath: string) {
             title: 'Opting process out',
             body: `${ base } will no longer automatically scale`,
         })
-        await removeRivaTunerProfile(base)
-        await removeLosslessScalingProfile(base)
+        await Promise.all(automations.map((automation) => automation.removeProfile({ name: base })))
         setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
     } else {
         notify({
@@ -59,8 +57,7 @@ export async function scaleByPid(pid: number, wait?: number) {
     if (!processInfo) return
     try {
         await Promise.all([
-            applyLosslessScalingProfile(processInfo),
-            registerRivaTunerProfile(processInfo),
+            ...automations.map((automation) => automation.beforeScale({ processInfo })),
             waitForProcessWindowCreation(pid),
         ])
 
@@ -89,12 +86,9 @@ export async function scaleByPid(pid: number, wait?: number) {
                             pid,
                         })
                         clearTimeout(triggerKeybindTimeout)
-                        const { keyboard } = await import('@nut-tree-fork/nut-js')
-                        const keys = getStoreValue('lsScaleShortcut') as number[]
-                        await keyboard.pressKey(...keys)
-                        await keyboard.releaseKey(...keys)
+                        await Promise.all(automations.map((automation) => automation.onScale({ processInfo })))
                         // try again in case it didn't succeed initially (can happen for some reason)
-                        await startRivaTuner()
+                        await Promise.all(automations.map((automation) => automation.afterScale({ processInfo })))
                     } else {
                         console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
                         triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
