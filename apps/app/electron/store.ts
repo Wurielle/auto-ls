@@ -1,4 +1,4 @@
-import Store from 'electron-store'
+import Store = require('electron-store')
 import { ipcMain } from 'electron'
 import get from 'lodash.get'
 import set from 'lodash.set'
@@ -30,7 +30,7 @@ export function setStoreValue(path: string, value: any) {
 
 export function getStoreValue<V>(path?: string): V | null {
     const storeValue = store.get('store') || {}
-    if (!path) return storeValue
+    if (!path) return storeValue as V
     return get(storeValue, path)
 }
 

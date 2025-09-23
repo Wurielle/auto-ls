@@ -1,4 +1,4 @@
-import path from 'path'
+import * as path from 'node:path'
 
 export const EXTERNALS_DIR = process.env.NODE_ENV === 'development'
     ? path.resolve('./resources')

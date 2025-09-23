@@ -1,8 +1,6 @@
-import { exec, fork } from 'child_process'
-import { getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
+import { exec } from 'child_process'
+import { getStoreValue } from './store'
 import { app } from 'electron'
-import micromatch from 'micromatch'
-import { notify } from './notifications'
 import { lsVBSPath } from './auto-launch'
 import * as path from 'path'
 import * as fsp from 'fs/promises'
@@ -11,8 +9,11 @@ import cloneDeep from 'lodash/cloneDeep'
 import { registerRivaTunerProfile, startRivaTuner } from './riva-tuner'
 import { focusWindow, getActiveWindowPid, isProcessRunning, waitForProcessWindowCreation } from './utils/native'
 import { clearTimeout } from 'node:timers'
+import { autoClearInterval, autoClearTimeout } from './utils/timeouts'
+import { ProcessWatcherForkEvent } from './process-watcher'
+import { processWatcher } from './process-watcher-instance'
 
-export async function applyLosslessScalingProfile(processInfo: ProcessEvent['payload']) {
+export async function applyLosslessScalingProfile(processInfo: ProcessWatcherForkEvent['payload']) {
     await stopLosslessScaling()
     const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
     const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')
@@ -110,36 +111,10 @@ export async function startLosslessScaling() {
     console.log(`[Lossless Scaling] ✅ Process created`)
 }
 
-export type ProcessEvent = {
-    type: 'process-creation' | 'process-deletion'
-    payload: {
-        pid: number
-        filepath: string
-        process: string
-        user: string
-    }
-}
-/* Unfortunately some games (e.g: Marvel Rivals) prevent you to get infos on the process such as the path
- * but this info is available on process creation so we keep a list of processes created in order to find the path when we need it
- */
-export const processes: Record<string, ProcessEvent['payload']> = {}
-
-function autoClearTimeout(callback: () => void, ms: number, clearAfter: number = 5 * 60 * 1000) {
-    const timeout = setTimeout(callback, ms)
-    setTimeout(() => clearTimeout(timeout), clearAfter)
-    return timeout
-}
-
-function autoClearInterval(callback: () => void, ms: number, clearAfter: number = 5 * 60 * 1000) {
-    const interval = setInterval(callback, ms)
-    setTimeout(() => clearInterval(interval), clearAfter)
-    return interval
-}
-
 export async function scaleByPid(pid: number, wait?: number) {
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
-    const processInfo = processes[pid]
+    const processInfo = processWatcher.getByPid(pid)
     if (!processInfo) return
     try {
         await Promise.all([
@@ -189,39 +164,8 @@ export async function scaleByPid(pid: number, wait?: number) {
             }
         }, 1000)
     } catch (e) {
-        console.error(`An error occurred while scaling ${pid}:`, e)
+        console.error(`An error occurred while scaling ${ pid }:`, e)
         clearInterval(interval)
         clearTimeout(timeout)
     }
 }
-
-const child = fork(require.resolve('process-watcher'))
-child.on('message', (processInfo: ProcessEvent) => {
-    if (processInfo.type === 'process-creation') {
-        // Helldivers 2 manages to create the process twice with the same id...
-        if (processes[processInfo.payload.pid]) return
-        processes[processInfo.payload.pid] = processInfo.payload
-    } else if (processInfo.type === 'process-deletion') {
-        delete processes[processInfo.payload.pid]
-    }
-    const storeProcesses: StoreProcess[] = getStoreValue('processes') || []
-    if (processInfo.type === 'process-creation' && micromatch.isMatch(processInfo.payload.filepath, storeProcesses.map((p) => p.path), {})) {
-        // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
-        const storeProcess = storeProcesses.find(p => p.path === processInfo.payload.filepath)
-        scaleByPid(processInfo.payload.pid, storeProcess?.scaleTimeout)
-        notify({
-            title: 'Process detected',
-            body: `${ processInfo.payload.process } will be scaled soon`,
-        })
-        const detectedProcess = getProcess(processInfo.payload.filepath)
-        const updatedStoreProcesses: StoreProcess[] = [{
-            ...detectedProcess,
-            lastScaledAt: (new Date()).toISOString(),
-        }, ...storeProcesses.filter((p) => p.path !== detectedProcess.path)]
-        setStoreValue('processes', updatedStoreProcesses)
-    }
-})
-
-app.on('before-quit', () => {
-    child.kill()
-})
