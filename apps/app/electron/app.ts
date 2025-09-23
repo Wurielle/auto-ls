@@ -3,17 +3,17 @@ import './auto-updater'
 import { app, dialog, globalShortcut, ipcMain } from 'electron'
 import { createWindow } from './window'
 import { createTray } from './tray'
-import { scaleByPid, startLosslessScaling } from './lossless-scaling'
-import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
+import { startLosslessScaling } from './lossless-scaling'
+import { getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import { Key } from '@nut-tree-fork/nut-js'
 import { emitter } from './events'
 import { startRivaTuner } from './riva-tuner'
-import { optOutProcess } from './auto-lossless-scaling'
+import { optInProcess, optOutProcess, scaleByPid } from './auto-lossless-scaling'
 import { getActiveWindowPid, waitForExplorer } from './utils/native'
-import { extractProcessIcon, iconsDir } from './utils/filesystem'
-import micromatch from 'micromatch'
+import { iconsDir } from './utils/filesystem'
 import { processWatcher } from './process-watcher-instance'
+import micromatch = require('micromatch')
 
 async function initElectronApp() {
     await waitForExplorer()
@@ -45,26 +45,7 @@ function initElectronShortcuts() {
     }
     globalShortcut.register('Alt+CommandOrControl+I', async () => {
         const foregroundProcessPid = await getActiveWindowPid()
-        const processInfo = processWatcher.getByPid(foregroundProcessPid)
-
-        if (processInfo) {
-            const processPath = processInfo.filepath
-            if (processPath && !getProcess(processPath)) {
-                extractProcessIcon(processPath)
-                addProcess(processPath)
-            }
-            scaleByPid(foregroundProcessPid, 0)
-
-            notify({
-                title: 'Opting process in',
-                body: `${ processInfo.process } will now automatically scale`,
-            })
-        } else {
-            notify({
-                title: 'Process not detected',
-                body: `The requested process needs to be restarted`,
-            })
-        }
+        await optInProcess(foregroundProcessPid)
     })
     globalShortcut.register('Alt+CommandOrControl+O', async () => {
         const foregroundProcessPid = await getActiveWindowPid()
@@ -104,12 +85,11 @@ function initEventListeners() {
         return await optOutProcess(path)
     })
 
-    processWatcher.on('process-creation', (processInfo) => {
+    processWatcher.on('process-creation', async (processInfo) => {
         const storeProcesses: StoreProcess[] = getStoreValue('processes') || []
         if (micromatch.isMatch(processInfo.filepath, storeProcesses.map((p) => p.path), {})) {
             // require('windows-tlist').getProcessInfo(pid).then(console.log) // Gets more info about loaded DLLs, etc
             const storeProcess = storeProcesses.find(p => p.path === processInfo.filepath)
-            scaleByPid(processInfo.pid, storeProcess?.scaleTimeout)
             notify({
                 title: 'Process detected',
                 body: `${ processInfo.process } will be scaled soon`,
@@ -120,6 +100,7 @@ function initEventListeners() {
                 lastScaledAt: (new Date()).toISOString(),
             }, ...storeProcesses.filter((p) => p.path !== detectedProcess.path)]
             setStoreValue('processes', updatedStoreProcesses)
+            await scaleByPid(processInfo.pid, storeProcess?.scaleTimeout)
         }
     })
 }
