@@ -21,3 +21,19 @@ export function extractProcessIcon(exePath: string) {
         }
     }
 }
+
+export function createVBSContent(exePath: string, minimized = false) {
+    return `Option Explicit
+Dim shell, exePath
+Set shell = CreateObject("Shell.Application")
+exePath = "${ exePath }"
+shell.ShellExecute exePath, "", "", "runas", ${ minimized ? 7 : 0 }`
+}
+
+export function createFile(filePath: string, content: string) {
+    const dir = path.dirname(filePath)
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(filePath, content, 'utf8')
+}

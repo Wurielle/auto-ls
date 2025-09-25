@@ -8,6 +8,7 @@ export type RivaTunerAutomationHooksOptions = {
     isEnabled(): boolean
     getExecutablePath(): string
     run(): void
+    init(): void
 }
 
 export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements DefaultAutomationHooks {
@@ -16,6 +17,7 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
     constructor(options: RivaTunerAutomationHooksOptions) {
         super()
         this.options = options
+        this.options.init()
     }
 
     public init() {

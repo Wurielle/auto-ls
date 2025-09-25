@@ -10,6 +10,7 @@ export type LosslessScalingAutomationHooksOptions = {
     getExecutablePath(): string
     getScaleShortcut(): number[]
     run(): void
+    init(): void
 }
 
 export class LosslessScalingAutomationHooks extends DefaultAutomationHooks implements DefaultAutomationHooks {
@@ -18,6 +19,7 @@ export class LosslessScalingAutomationHooks extends DefaultAutomationHooks imple
     constructor(options: LosslessScalingAutomationHooksOptions) {
         super()
         this.options = options
+        this.options.init()
     }
 
     public init() {
