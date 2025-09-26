@@ -12,6 +12,7 @@ import { getActiveWindowPid, waitForExplorer } from './utils/native'
 import { iconsDir } from './utils/filesystem'
 import { processWatcher } from './process-watcher-instance'
 import automations from './automations'
+import './game-library'
 import micromatch = require('micromatch')
 
 async function initElectronApp() {

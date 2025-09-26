@@ -13,11 +13,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@equal-games/game-scanner": "^1.1.4",
     "@nut-tree-fork/nut-js": "^4.2.4",
     "electron-log": "^5.3.0",
     "electron-store": "^8.2.0",
     "electron-updater": "^6.3.9",
     "extract-file-icon": "^0.3.2",
+    "globby": "^14.1.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "micromatch": "^4.0.8",
