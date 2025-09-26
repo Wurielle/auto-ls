@@ -2,8 +2,8 @@ import { Grid } from '@/components'
 import { useGetProcessesQuery } from '@/queries.ts'
 import { useMemo } from 'react'
 import orderBy from 'lodash/orderBy'
-import ProcessCard from '@/components/cards/ProcessCard.tsx'
-import DefaultShell from '@/components/shells/DefaultShell.tsx'
+import ProcessCard from '@/components/cards/process-card.tsx'
+import DefaultShell from '@/components/shells/default-shell.tsx'
 
 export default function HomePage() {
     const { data: processesData = [] } = useGetProcessesQuery()
