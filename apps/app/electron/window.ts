@@ -13,8 +13,11 @@ export function createWindow(): { window: BrowserWindow } {
         show: !!process.env.VITE_DEV_SERVER_URL,
     })
 
+    window.maximize()
+
     if (process.env.VITE_DEV_SERVER_URL) {
         window.loadURL(process.env.VITE_DEV_SERVER_URL)
+        window.webContents.openDevTools()
     } else {
         window.setMenu(null)
         window.loadFile('dist/index.html')

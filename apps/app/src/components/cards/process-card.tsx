@@ -1,6 +1,6 @@
-import { Group, Stack } from '@/components'
+import { Grid, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Button, Card, Icon, Portal, Text } from '@chakra-ui/react'
+import { Button, Card, createListCollection, Heading, Icon, Portal, Switch, Text } from '@chakra-ui/react'
 import { Field } from '@/components/ui/field.tsx'
 import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/components/ui/number-input"
@@ -13,7 +13,7 @@ import {
     useGetProcessQuery,
 } from '@/queries.ts'
 import moment from 'moment'
-import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
+import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
 import {
     DialogActionTrigger,
     DialogBackdrop,
@@ -27,6 +27,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { useMutation } from '@tanstack/react-query'
+import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
 
 function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -48,12 +49,20 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
         },
     })
 
+    const exes = useMemo(() => createListCollection({
+        items: [].map(([key, value]) => ({
+            label: value,
+            value: Number(key),
+        })),
+    }), [])
+
     return (
         <DialogRoot
             placement={ 'center' }
             motionPreset="slide-in-bottom"
             unmountOnExit={ true }
             lazyMount={ true }
+            size={ 'cover' }
         >
             <DialogTrigger asChild>
                 { children }
@@ -63,46 +72,158 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                     <DialogTitle>{ title }</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                    <Stack gap={ '6' }>
-                        <Field label="Scaling timeout">
-                            <InputGroup
-                                width={ "full" }
-                            >
-                                <NumberInputRoot width={ 'full' } value={ scaleTimeout.toString() } min={ 1000 }
-                                                 onValueChange={ (details) => setScaleTimeout(details.valueAsNumber) }>
-                                    <NumberInputLabel/>
-                                    <NumberInputField/>
-                                </NumberInputRoot>
-                            </InputGroup>
-                        </Field>
-                        <DialogRoot>
-                            <DialogTrigger asChild>
-                                <Button variant={ 'ghost' }>Remove</Button>
-                            </DialogTrigger>
-                            <Portal>
-                                <DialogBackdrop/>
-                                <DialogContent>
-                                    <DialogHeader>
-                                        <DialogTitle>Remove "{ title }" profiles?</DialogTitle>
-                                    </DialogHeader>
-                                    <DialogBody>
-                                        <p>
-                                            You're about to remove every profile created for "{ title }", do
-                                            you want to continue?
-                                        </p>
-                                    </DialogBody>
-                                    <DialogFooter>
-                                        <DialogActionTrigger asChild>
-                                            <Button variant="outline">Cancel</Button>
-                                        </DialogActionTrigger>
-                                        <Button loading={ isPending } disabled={ isPending }
-                                                onClick={ mutate }>Confirm</Button>
-                                    </DialogFooter>
-                                    <DialogCloseTrigger/>
-                                </DialogContent>
-                            </Portal>
-                        </DialogRoot>
-                    </Stack>
+                    <Grid>
+                        <Grid.Col span={ 9 }>
+                            <Stack gap={ '8' }>
+                                <Field label="Executable path">
+                                    <SelectRoot collection={ exes }>
+                                        <SelectTrigger>
+                                            <SelectValueText/>
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            { exes.items.map((key) => (
+                                                <SelectItem item={ key } key={ key.value }>
+                                                    { key.label }
+                                                </SelectItem>
+                                            )) }
+                                        </SelectContent>
+                                    </SelectRoot>
+                                </Field>
+                                <Stack gap={ '6' }>
+                                    <Heading>Lossless Scaling</Heading>
+                                    <Stack gap={ '6' }>
+                                        <Field label="Framegen Multiplier">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <NumberInputRoot
+                                                    width={ 'full' }
+                                                    min={ 0 }
+                                                    value={ 2 }
+                                                >
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            </InputGroup>
+                                        </Field>
+                                        <Field label="Scaling timeout">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <NumberInputRoot width={ 'full' } value={ scaleTimeout.toString() }
+                                                                 min={ 1000 }
+                                                                 onValueChange={ (details) => setScaleTimeout(details.valueAsNumber) }>
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            </InputGroup>
+                                        </Field>
+                                    </Stack>
+                                </Stack>
+                                <Stack gap={ '6' }>
+                                    <Heading>RivaTuner</Heading>
+                                    <Stack gap={ '6' }>
+                                        <Field label="Framerate Limit">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <NumberInputRoot
+                                                    width={ 'full' }
+                                                    min={ 0 }
+                                                    value={ 0 }
+                                                >
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            </InputGroup>
+                                        </Field>
+                                    </Stack>
+                                </Stack>
+                                <Stack gap={ '6' }>
+                                    <Heading>OptiScaler</Heading>
+                                    <Grid>
+                                        <Grid.Col span={ 6 }>
+                                            <Field label="Filename">
+                                                <SelectRoot collection={ exes }>
+                                                    <SelectTrigger>
+                                                        <SelectValueText/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        { exes.items.map((key) => (
+                                                            <SelectItem item={ key } key={ key.value }>
+                                                                { key.label }
+                                                            </SelectItem>
+                                                        )) }
+                                                    </SelectContent>
+                                                </SelectRoot>
+                                            </Field>
+                                        </Grid.Col>
+                                        <Grid.Col span={ 2 }>
+                                            <Field label="GPU">
+                                                <SelectRoot collection={ exes }>
+                                                    <SelectTrigger>
+                                                        <SelectValueText/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        { exes.items.map((key) => (
+                                                            <SelectItem item={ key } key={ key.value }>
+                                                                { key.label }
+                                                            </SelectItem>
+                                                        )) }
+                                                    </SelectContent>
+                                                </SelectRoot>
+                                            </Field>
+                                        </Grid.Col>
+                                        <Grid.Col span={ 2 }>
+                                            <Field label="Use DLSS inputs" className={ 'h-full' }>
+                                                <div className={ 'flex-1 flex items-center' }>
+                                                    <Switch.Root>
+                                                        <Switch.HiddenInput/>
+                                                        <Switch.Control>
+                                                            <Switch.Thumb/>
+                                                        </Switch.Control>
+                                                        <Switch.Label/>
+                                                    </Switch.Root>
+                                                </div>
+                                            </Field>
+                                        </Grid.Col>
+                                        <Grid.Col span={ 2 } className={ 'flex items-end' }>
+                                            <Button width={ '100%' }>Install</Button>
+                                        </Grid.Col>
+                                    </Grid>
+                                </Stack>
+                            </Stack>
+                        </Grid.Col>
+                        <Grid.Col span={ 3 }>
+                            <DialogRoot>
+                                <DialogTrigger asChild>
+                                    <Button variant={ 'ghost' } width={ '100%' }>Remove</Button>
+                                </DialogTrigger>
+                                <Portal>
+                                    <DialogBackdrop/>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Remove "{ title }" profiles?</DialogTitle>
+                                        </DialogHeader>
+                                        <DialogBody>
+                                            <p>
+                                                You're about to remove every profile created for "{ title }", do
+                                                you want to continue?
+                                            </p>
+                                        </DialogBody>
+                                        <DialogFooter>
+                                            <DialogActionTrigger asChild>
+                                                <Button variant="outline">Cancel</Button>
+                                            </DialogActionTrigger>
+                                            <Button loading={ isPending } disabled={ isPending }
+                                                    onClick={ mutate }>Confirm</Button>
+                                        </DialogFooter>
+                                        <DialogCloseTrigger/>
+                                    </DialogContent>
+                                </Portal>
+                            </DialogRoot>
+                        </Grid.Col>
+                    </Grid>
                 </DialogBody>
                 <DialogCloseTrigger/>
             </DialogContent>
@@ -127,38 +248,40 @@ export default function ProcessCard(props: Props) {
     }, [updateDefaultTimeout, defaultTimeout, isDefaultTimeoutFetched, defaultTimeoutData])
     const { data: iconsPath } = useGetIconsPathQuery()
     return (
-        <Card.Root>
-            <Card.Body gap="2">
-                <Group justify={ 'between' }>
-                    <Avatar
-                        icon={ <Icon><IoGameController/></Icon> }
-                        shape={ 'rounded' }
-                        src={ `file://${ iconsPath }/${ process.path.split('\\').pop().replace('.exe', '') }.png` }/>
-                    <ProcessModal
-                        title={ process.path.split('\\').pop().replace('.exe', '') }
-                        path={ process.path } timeout={ process.scaleTimeout }>
-                        <Button variant="outline">Edit</Button>
-                    </ProcessModal>
-                </Group>
-                <Group justify={ 'between' }>
-                    <Card.Title>{ process.path.split('\\').pop().replace('.exe', '') }</Card.Title>
-                </Group>
-            </Card.Body>
-            <Card.Footer>
-                <Group justify={ 'between' } grow>
-                    <Card.Description>
-                        { moment(process.lastScaledAt).fromNow() }
-                    </Card.Description>
-                    <Card.Description>
-                        <Group>
-                            <Icon>
-                                <MdTimer/>
-                            </Icon>
-                            <Text>{ process.scaleTimeout } ms</Text>
+        <ProcessModal
+            title={ process.path.split('\\').pop().replace('.exe', '') }
+            path={ process.path } timeout={ process.scaleTimeout }>
+            <button className={ 'cursor-pointer w-full' }>
+                <Card.Root>
+                    <Card.Body gap="2">
+                        <Group justify={ 'between' }>
+                            <Avatar
+                                icon={ <Icon><IoGameController/></Icon> }
+                                shape={ 'rounded' }
+                                src={ `file://${ iconsPath }/${ process.path.split('\\').pop().replace('.exe', '') }.png` }/>
+                            {/*<Button variant="outline">Edit</Button>*/ }
                         </Group>
-                    </Card.Description>
-                </Group>
-            </Card.Footer>
-        </Card.Root>
+                        <Group justify={ 'between' }>
+                            <Card.Title>{ process.path.split('\\').pop().replace('.exe', '') }</Card.Title>
+                        </Group>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Group justify={ 'between' } grow>
+                            <Card.Description>
+                                { moment(process.lastScaledAt).fromNow() }
+                            </Card.Description>
+                            <Card.Description>
+                                <Group>
+                                    <Icon>
+                                        <MdTimer/>
+                                    </Icon>
+                                    <Text>{ process.scaleTimeout } ms</Text>
+                                </Group>
+                            </Card.Description>
+                        </Group>
+                    </Card.Footer>
+                </Card.Root>
+            </button>
+        </ProcessModal>
     )
 }

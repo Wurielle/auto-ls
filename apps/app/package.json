@@ -19,6 +19,7 @@
     "electron-store": "^8.2.0",
     "electron-updater": "^6.3.9",
     "extract-file-icon": "^0.3.2",
+    "find-process": "^2.0.0",
     "globby": "^14.1.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",

@@ -1,7 +1,7 @@
 import { useGetShortcutKeysQuery, useGetShortcutQuery } from '@/queries.ts'
 import { useEffect, useMemo, useState } from 'react'
 import { createListCollection, Text } from '@chakra-ui/react'
-import { Group, Stack } from '@/components'
+import { Grid, Stack } from '@/components'
 import { InputGroup } from '@/components/ui/input-group.tsx'
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
 
@@ -32,53 +32,59 @@ export default function LSShortcutFormField({ id, title }: { id: string, title: 
     return (
         <Stack gap={ 6 } grow>
             <Text fontWeight={ 'medium' } textStyle={ 'sm' }>{ title }</Text>
-            <Group grow>
-                <InputGroup flexGrow={ 1 } flexShrink={ 0 } width={ '1/3' }>
-                    <SelectRoot value={ value1 } onValueChange={ (details) => setValue1(details.value) }
-                                collection={ collection }>
-                        <SelectTrigger>
-                            <SelectValueText/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            { collection.items.map((key) => (
-                                <SelectItem item={ key } key={ key.value }>
-                                    { key.label }
-                                </SelectItem>
-                            )) }
-                        </SelectContent>
-                    </SelectRoot>
-                </InputGroup>
-                <InputGroup flexGrow={ 1 } flexShrink={ 0 } width={ '1/3' }>
-                    <SelectRoot value={ value2 } onValueChange={ (details) => setValue2(details.value) }
-                                collection={ collection }>
-                        <SelectTrigger>
-                            <SelectValueText/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            { collection.items.map((key) => (
-                                <SelectItem item={ key } key={ key.value }>
-                                    { key.label }
-                                </SelectItem>
-                            )) }
-                        </SelectContent>
-                    </SelectRoot>
-                </InputGroup>
-                <InputGroup flexGrow={ 1 } flexShrink={ 0 } width={ '1/3' }>
-                    <SelectRoot value={ value3 } onValueChange={ (details) => setValue3(details.value) }
-                                collection={ collection }>
-                        <SelectTrigger>
-                            <SelectValueText/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            { collection.items.map((key) => (
-                                <SelectItem item={ key } key={ key.value }>
-                                    { key.label }
-                                </SelectItem>
-                            )) }
-                        </SelectContent>
-                    </SelectRoot>
-                </InputGroup>
-            </Group>
+            <Grid>
+                <Grid.Col span={ 4 }>
+                    <InputGroup width={ '100%' }>
+                        <SelectRoot value={ value1 } onValueChange={ (details) => setValue1(details.value) }
+                                    collection={ collection }>
+                            <SelectTrigger>
+                                <SelectValueText/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                { collection.items.map((key) => (
+                                    <SelectItem item={ key } key={ key.value }>
+                                        { key.label }
+                                    </SelectItem>
+                                )) }
+                            </SelectContent>
+                        </SelectRoot>
+                    </InputGroup>
+                </Grid.Col>
+                <Grid.Col span={ 4 }>
+                    <InputGroup width={ '100%' }>
+                        <SelectRoot value={ value2 } onValueChange={ (details) => setValue2(details.value) }
+                                    collection={ collection }>
+                            <SelectTrigger>
+                                <SelectValueText/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                { collection.items.map((key) => (
+                                    <SelectItem item={ key } key={ key.value }>
+                                        { key.label }
+                                    </SelectItem>
+                                )) }
+                            </SelectContent>
+                        </SelectRoot>
+                    </InputGroup>
+                </Grid.Col>
+                <Grid.Col span={ 4 }>
+                    <InputGroup width={ '100%' }>
+                        <SelectRoot value={ value3 } onValueChange={ (details) => setValue3(details.value) }
+                                    collection={ collection }>
+                            <SelectTrigger>
+                                <SelectValueText/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                { collection.items.map((key) => (
+                                    <SelectItem item={ key } key={ key.value }>
+                                        { key.label }
+                                    </SelectItem>
+                                )) }
+                            </SelectContent>
+                        </SelectRoot>
+                    </InputGroup>
+                </Grid.Col>
+            </Grid>
         </Stack>
     )
 }

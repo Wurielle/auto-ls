@@ -1,5 +1,8 @@
 import * as fsp from "fs/promises"
 import * as game_scanner from "@equal-games/game-scanner"
+import { ipcMain } from 'electron'
+import { getProcesses } from 'node-processlist'
+import find = require("find-process")
 
 export interface GameExe {
     path: string;
@@ -10,10 +13,10 @@ const exes = new Map<string, GameExe[]>()
 
 export async function findGameExes(rootDir: string): Promise<GameExe[]> {
     const patterns = ["**/*.exe"]
-
+    const normalizedPath = rootDir.replace(/\\/g, '/')
     const { globby } = await import('globby')
     const files = await globby(patterns, {
-        cwd: rootDir,
+        cwd: normalizedPath,
         absolute: true,
         caseSensitiveMatch: false,
         gitignore: true,
@@ -65,3 +68,19 @@ scanAllExes()
     .then(() => {
         console.log(Array.from(exes.values()))
     })
+
+ipcMain.handle('game-library-get-games', async (_) => {
+    return getGames()
+})
+
+ipcMain.handle('game-library-get-processes', async (_) => {
+    return getProcesses({ verbose: true })
+})
+
+ipcMain.handle('game-library-get-process-path', async (_, pid) => {
+    return find.default('pid', pid)
+})
+
+ipcMain.handle('game-library-get-exes', async (_, path) => {
+    return scanExesByPath(path)
+})

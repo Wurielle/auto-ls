@@ -44,3 +44,18 @@ contextBridge.exposeInMainWorld('ALS', {
         return await ipcRenderer.invoke('als-opt-out-process', path)
     },
 })
+
+contextBridge.exposeInMainWorld('gameLibrary', {
+    async getGames() {
+        return await ipcRenderer.invoke('game-library-get-games')
+    },
+    async getProcesses() {
+        return await ipcRenderer.invoke('game-library-get-processes')
+    },
+    async getExes(path: string) {
+        return await ipcRenderer.invoke('game-library-get-exes', path)
+    },
+    async getProcessPath(pid: string) {
+        return await ipcRenderer.invoke('game-library-get-process-path', pid)
+    },
+})
