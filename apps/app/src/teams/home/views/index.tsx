@@ -23,7 +23,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
 import { Field } from '@/components/ui/field.tsx'
 
-function ProcessesList() {
+function ProcessesList({ onSelect }: { onSelect: any }) {
     const gamesQuery = useQuery({
         queryKey: ['game-library', 'get-processes'],
         queryFn() {
@@ -34,8 +34,10 @@ function ProcessesList() {
     const { mutate, isPending } = useMutation({
         mutationFn(pid) {
             return gameLibrary.getProcessPath(pid)
-                .then((result) => {
-                    console.log('do something with this', result)
+                .then(async (result) => {
+                    console.log('do something with this', result[0].bin)
+                    await gameLibrary.addProcess(result[0].bin)
+                    onSelect?.()
                 })
         },
     })
@@ -61,7 +63,7 @@ function ProcessesList() {
     )
 }
 
-function GameExesModal({ children, game }: HTMLAttributes<HTMLDivElement> & { game: any }) {
+function GameExesModal({ children, game, onSubmit }: HTMLAttributes<HTMLDivElement> & { game: any, onSubmit: any }) {
     const [value, setValue] = useState()
     const gameExesQuery = useQuery({
         queryKey: ['game-library', 'get-exes', game.path],
@@ -76,14 +78,17 @@ function GameExesModal({ children, game }: HTMLAttributes<HTMLDivElement> & { ga
         })),
     }), [gameExesQuery.data])
 
+    const [open, setOpen] = useState(false)
     const { mutate, isPending } = useMutation({
-        mutationFn() {
+        async mutationFn() {
             console.log('do something', value)
+            await gameLibrary.addProcess(value[0])
+            setOpen(false)
+            onSubmit?.()
         },
     })
-
     return (
-        <DialogRoot size={ 'lg' }>
+        <DialogRoot open={ open } onOpenChange={ ({ open }) => setOpen(open) } size={ 'lg' }>
             <DialogTrigger asChild>
                 { children }
             </DialogTrigger>
@@ -131,7 +136,7 @@ function GameExesModal({ children, game }: HTMLAttributes<HTMLDivElement> & { ga
     )
 }
 
-function GamesList() {
+function GamesList({ onSelect }: { onSelect: any }) {
     const gamesQuery = useQuery({
         queryKey: ['game-library', 'get-games'],
         queryFn() {
@@ -151,7 +156,7 @@ function GamesList() {
                                 { game.path }
                             </Text>
                         </Stack>
-                        <GameExesModal game={ game }>
+                        <GameExesModal game={ game } onSubmit={ onSelect }>
                             <Button size={ 'sm' } variant={ 'subtle' }>Select</Button>
                         </GameExesModal>
                     </Group>
@@ -161,8 +166,9 @@ function GamesList() {
 }
 
 function AddProcessModal({ children }: HTMLAttributes<HTMLDivElement>) {
+    const [open, setOpen] = useState(false)
     return (
-        <DialogRoot size={ 'xl' }>
+        <DialogRoot open={ open } onOpenChange={ ({ open }) => setOpen(open) } size={ 'xl' }>
             <DialogTrigger asChild>
                 { children }
             </DialogTrigger>
@@ -185,10 +191,10 @@ function AddProcessModal({ children }: HTMLAttributes<HTMLDivElement>) {
                                 </Tabs.Trigger>
                             </Tabs.List>
                             <Tabs.Content value="processes">
-                                <ProcessesList/>
+                                <ProcessesList onSelect={ () => setOpen(false) }/>
                             </Tabs.Content>
                             <Tabs.Content value="library">
-                                <GamesList/>
+                                <GamesList onSelect={ () => setOpen(false) }/>
                             </Tabs.Content>
                         </Tabs.Root>
                     </DialogBody>

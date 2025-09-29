@@ -2,6 +2,9 @@ import * as fsp from "fs/promises"
 import * as game_scanner from "@equal-games/game-scanner"
 import { ipcMain } from 'electron'
 import { getProcesses } from 'node-processlist'
+import { addProcess, getProcess } from './store'
+import { extractProcessIcon } from './utils/filesystem'
+import * as path from 'path'
 import find = require("find-process")
 
 export interface GameExe {
@@ -84,3 +87,12 @@ ipcMain.handle('game-library-get-process-path', async (_, pid) => {
 ipcMain.handle('game-library-get-exes', async (_, path) => {
     return scanExesByPath(path)
 })
+
+ipcMain.handle('game-library-add-process', async (_, processPath = "") => {
+    const normalizedPath = path.normalize(processPath)
+    if (normalizedPath && !getProcess(normalizedPath)) {
+        extractProcessIcon(normalizedPath)
+        addProcess(normalizedPath)
+    }
+})
+

@@ -55,7 +55,10 @@ contextBridge.exposeInMainWorld('gameLibrary', {
     async getExes(path: string) {
         return await ipcRenderer.invoke('game-library-get-exes', path)
     },
-    async getProcessPath(pid: string) {
+    async getProcessPath(pid: number) {
         return await ipcRenderer.invoke('game-library-get-process-path', pid)
+    },
+    async addProcess(path: string) {
+        return await ipcRenderer.invoke('game-library-add-process', path)
     },
 })
