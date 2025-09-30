@@ -1,12 +1,12 @@
-import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
+import { getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import * as path from 'node:path'
 import { focusWindow, getActiveWindowPid, waitForProcessWindowCreation } from './utils/native'
 import { clearTimeout } from 'node:timers'
 import { autoClearInterval, autoClearTimeout } from './utils/timeouts'
 import { processWatcher } from './process-watcher-instance'
-import { extractProcessIcon } from './utils/filesystem'
 import automations from './automations'
+import { addProcess } from './game-library'
 
 // Ideally, we'd want to opt in and out using either pid or path
 export async function optOutProcess(processPath: string) {
@@ -31,10 +31,8 @@ export async function optInProcess(pid: number) {
 
     if (processInfo) {
         const processPath = processInfo.filepath
-        if (processPath && !getProcess(processPath)) {
-            extractProcessIcon(processPath)
-            addProcess(processPath)
-        }
+
+        addProcess(processPath)
 
         notify({
             title: 'Opting process in',

@@ -8,43 +8,27 @@ import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from '@/components/ui/number-input.tsx'
 import LSShortcutFormField from '@/components/forms/ls-shortcut-form-field.tsx'
 import { AutoUpdateFormField } from '@/components/forms/auto-update-form-field.tsx'
-import {
-    useGetDefaultTimeoutQuery,
-    useGetEnableRivaTunerQuery,
-    useGetLSExecutablePathQuery,
-    useGetRivaTunerExecutablePathQuery,
-} from '@/queries.ts'
-import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
+import { useSettingsPropertyQuery } from '@/queries.ts'
+import { HTMLAttributes, useEffect, useState } from 'react'
 
 export default function DefaultShell(props: HTMLAttributes<HTMLDivElement>) {
     const { children, ...rootProps } = props
-    const { data: lsExecutablePathData } = useGetLSExecutablePathQuery()
-    const { data: enableRivaTuner } = useGetEnableRivaTunerQuery()
-    const { data: rivaTunerExecutablePathData } = useGetRivaTunerExecutablePathQuery()
-    const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useGetDefaultTimeoutQuery()
-    const updateLSExecutablePath = useCallback((path: string) => {
-        if (path) {
-            electronStore.set('lsExecutablePath', path)
-        }
-    }, [])
-    const updateEnableRivaTuner = useCallback((value: boolean) => {
-        electronStore.set('enableRivaTuner', value)
-    }, [])
-    const updateRivaTunerExecutablePath = useCallback((path: string) => {
-        if (path) {
-            electronStore.set('rivaTunerExecutablePath', path)
-        }
-    }, [])
-    const updateDefaultTimeout = useCallback((value: number) => {
-        electronStore.set('defaultTimeout', value)
-    }, [])
+    const { data: lsExecutablePathData } = useSettingsPropertyQuery('lsExecutablePath')
+    const { data: lsDefaultFramegenMultiplier } = useSettingsPropertyQuery('lsDefaultFramegenMultiplier')
+    const { data: enableLosslessScaling } = useSettingsPropertyQuery('enableLosslessScaling')
+    const { data: enableRivaTuner } = useSettingsPropertyQuery('enableRivaTuner')
+    const { data: rivaTunerDefaultFPSLimit } = useSettingsPropertyQuery('rivaTunerDefaultFPSLimit')
+    const { data: rivaTunerExecutablePathData } = useSettingsPropertyQuery('rivaTunerExecutablePath')
+    const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useSettingsPropertyQuery('defaultTimeout')
     const [defaultTimeout, setDefaultTimeout] = useState<number>()
     useEffect(() => {
         setDefaultTimeout(defaultTimeoutData)
     }, [defaultTimeoutData])
     useEffect(() => {
-        if (isDefaultTimeoutFetched) updateDefaultTimeout(defaultTimeout || defaultTimeoutData)
-    }, [updateDefaultTimeout, defaultTimeout, isDefaultTimeoutFetched, defaultTimeoutData])
+        if (isDefaultTimeoutFetched) {
+            electronStore.set('defaultTimeout', defaultTimeout || defaultTimeoutData)
+        }
+    }, [defaultTimeout, isDefaultTimeoutFetched, defaultTimeoutData])
     return (
         <Box px={ "6" } divideY={ "1px" }>
             <Stack p={ '6' }>
@@ -65,22 +49,90 @@ export default function DefaultShell(props: HTMLAttributes<HTMLDivElement>) {
                     </Grid.Col>
                     <Grid.Col span={ 4 }>
                         <Stack py={ '6' } gap={ '6' }>
-                            <Field label="Lossless Scaling executable path">
-                                <InputGroup
-                                    width={ "full" }
-                                    endElement={
-                                        <Button variant="subtle" size="2xs"
-                                                onClick={ () => electronDialog.getLSExecutablePath().then(updateLSExecutablePath) }>
-                                            Browse
-                                        </Button>
+                            <AutoUpdateFormField/>
+                            <Field label="Use Lossless Scaling" orientation="horizontal">
+                                <Switch.Root
+                                    checked={ enableLosslessScaling }
+                                    onCheckedChange={ ({ checked }) =>
+                                        electronStore.set('enableLosslessScaling', checked)
                                     }
                                 >
-                                    <Input placeholder="LosslessScaling.exe" value={ lsExecutablePathData }/>
-                                </InputGroup>
+                                    <Switch.HiddenInput/>
+                                    <Switch.Control>
+                                        <Switch.Thumb/>
+                                    </Switch.Control>
+                                    <Switch.Label/>
+                                </Switch.Root>
                             </Field>
-                            <Field label="Enable RivaTuner integration (Optional)" orientation="horizontal">
-                                <Switch.Root checked={ enableRivaTuner }
-                                             onCheckedChange={ ({ checked }) => updateEnableRivaTuner(checked) }>
+                            { enableLosslessScaling &&
+                                <Stack gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                                    <Field label="Executable path">
+                                        <InputGroup
+                                            width={ "full" }
+                                            endElement={
+                                                <Button
+                                                    variant="subtle"
+                                                    size="2xs"
+                                                    onClick={ () => electronDialog.getLSExecutablePath().then((path: string) => {
+                                                        if (path) {
+                                                            electronStore.set('lsExecutablePath', path)
+                                                        }
+                                                    }) }
+                                                >
+                                                    Browse
+                                                </Button>
+                                            }
+                                        >
+                                            <Input placeholder="LosslessScaling.exe" value={ lsExecutablePathData }/>
+                                        </InputGroup>
+                                    </Field>
+                                    <Group>
+                                        <LSShortcutFormField id={ 'lsScaleShortcut' }
+                                                             title={ 'Scale shortcut' }/>
+                                    </Group>
+                                    <Field label="Framegen multiplier">
+                                        <InputGroup
+                                            width={ "full" }
+                                        >
+                                            <NumberInputRoot
+                                                width={ 'full' }
+                                                value={ lsDefaultFramegenMultiplier }
+                                                min={ 0 }
+                                                onValueChange={ (details) => electronStore.set('lsDefaultFramegenMultiplier', details.valueAsNumber) }
+                                            >
+                                                <NumberInputLabel/>
+                                                <NumberInputField/>
+                                            </NumberInputRoot>
+                                        </InputGroup>
+                                    </Field>
+                                    {
+                                        isDefaultTimeoutFetched && (
+                                            <Field label="Scale delay (ms)">
+                                                <InputGroup
+                                                    width={ "full" }
+                                                >
+                                                    <NumberInputRoot
+                                                        width={ 'full' }
+                                                        value={ defaultTimeout?.toString() || '' }
+                                                        min={ 1000 }
+                                                        onValueChange={ (details) => setDefaultTimeout(details.valueAsNumber) }
+                                                    >
+                                                        <NumberInputLabel/>
+                                                        <NumberInputField/>
+                                                    </NumberInputRoot>
+                                                </InputGroup>
+                                            </Field>
+                                        )
+                                    }
+                                </Stack>
+                            }
+                            <Field label="Use RivaTuner" orientation="horizontal">
+                                <Switch.Root
+                                    checked={ enableRivaTuner }
+                                    onCheckedChange={ ({ checked }) =>
+                                        electronStore.set('enableRivaTuner', checked)
+                                    }
+                                >
                                     <Switch.HiddenInput/>
                                     <Switch.Control>
                                         <Switch.Thumb/>
@@ -89,44 +141,44 @@ export default function DefaultShell(props: HTMLAttributes<HTMLDivElement>) {
                                 </Switch.Root>
                             </Field>
                             { enableRivaTuner && (
-                                <Field label="RivaTuner executable path">
-                                    <InputGroup
-                                        width={ "full" }
-                                        endElement={
-                                            <Button variant="subtle" size="2xs"
-                                                    onClick={ () => electronDialog.getRivaTunerExecutablePath().then(updateRivaTunerExecutablePath) }>
-                                                Browse
-                                            </Button>
-                                        }
-                                    >
-                                        <Input placeholder="RTSS.exe" value={ rivaTunerExecutablePathData }/>
-                                    </InputGroup>
-                                </Field>
-                            ) }
-                            {
-                                isDefaultTimeoutFetched && (
-                                    <Field label="Default scaling timeout (ms)">
+                                <Stack gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                                    <Field label="Executable path">
+                                        <InputGroup
+                                            width={ "full" }
+                                            endElement={
+                                                <Button
+                                                    variant="subtle"
+                                                    size="2xs"
+                                                    onClick={ () => electronDialog.getRivaTunerExecutablePath().then((path: string) => {
+                                                        if (path) {
+                                                            electronStore.set('rivaTunerExecutablePath', path)
+                                                        }
+                                                    }) }
+                                                >
+                                                    Browse
+                                                </Button>
+                                            }
+                                        >
+                                            <Input placeholder="RTSS.exe" value={ rivaTunerExecutablePathData }/>
+                                        </InputGroup>
+                                    </Field>
+                                    <Field label="FPS Limit">
                                         <InputGroup
                                             width={ "full" }
                                         >
                                             <NumberInputRoot
                                                 width={ 'full' }
-                                                value={ defaultTimeout?.toString() || '' }
-                                                min={ 1000 }
-                                                onValueChange={ (details) => setDefaultTimeout(details.valueAsNumber) }
+                                                value={ rivaTunerDefaultFPSLimit }
+                                                min={ 0 }
+                                                onValueChange={ (details) => electronStore.set('rivaTunerDefaultFPSLimit', details.valueAsNumber) }
                                             >
                                                 <NumberInputLabel/>
                                                 <NumberInputField/>
                                             </NumberInputRoot>
                                         </InputGroup>
                                     </Field>
-                                )
-                            }
-                            <Group>
-                                <LSShortcutFormField id={ 'lsScaleShortcut' }
-                                                     title={ 'Lossless Scaling scale shortcut' }/>
-                            </Group>
-                            <AutoUpdateFormField/>
+                                </Stack>
+                            ) }
                         </Stack>
                     </Grid.Col>
                 </Grid>

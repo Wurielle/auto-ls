@@ -17,42 +17,6 @@ export const useGetProcessQuery = (path: string) => {
     })
 }
 
-export const useGetLSExecutablePathQuery = () => {
-    return useQuery({
-        queryKey: ['ls-executable-path'],
-        queryFn() {
-            return electronStore.get('lsExecutablePath')
-        },
-    })
-}
-
-export const useGetEnableRivaTunerQuery = () => {
-    return useQuery({
-        queryKey: ['enable-riva-tuner'],
-        queryFn() {
-            return electronStore.get('enableRivaTuner')
-        },
-    })
-}
-
-export const useGetRivaTunerExecutablePathQuery = () => {
-    return useQuery({
-        queryKey: ['riva-tuner-executable-path'],
-        queryFn() {
-            return electronStore.get('rivaTunerExecutablePath')
-        },
-    })
-}
-
-export const useGetDefaultTimeoutQuery = () => {
-    return useQuery({
-        queryKey: ['default-timeout'],
-        queryFn() {
-            return electronStore.get('defaultTimeout')
-        },
-    })
-}
-
 export const useGetShortcutKeysQuery = () => {
     return useQuery({
         queryKey: ['shortcut-keys'],
@@ -80,8 +44,8 @@ export const useGetIconsPathQuery = () => {
     })
 }
 
-export const useSettingsPropertyQuery = (path: string) => {
-    return useQuery({
+export const useSettingsPropertyQuery = <V = any>(path: string) => {
+    return useQuery<V>({
         queryKey: ['settings', path],
         queryFn() {
             return electronStore.get(path)

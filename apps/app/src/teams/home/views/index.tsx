@@ -181,13 +181,13 @@ function AddProcessModal({ children }: HTMLAttributes<HTMLDivElement>) {
                     <DialogBody>
                         <Tabs.Root lazyMount unmountOnExit defaultValue="library" variant={ 'subtle' }>
                             <Tabs.List>
-                                <Tabs.Trigger value="processes">
-                                    <LuServerCog/>
-                                    From Running Processes
-                                </Tabs.Trigger>
                                 <Tabs.Trigger value="library">
                                     <LuGamepad2/>
                                     From Game library
+                                </Tabs.Trigger>
+                                <Tabs.Trigger value="processes">
+                                    <LuServerCog/>
+                                    From Running Processes
                                 </Tabs.Trigger>
                             </Tabs.List>
                             <Tabs.Content value="processes">

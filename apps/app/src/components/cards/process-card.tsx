@@ -6,12 +6,7 @@ import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/components/ui/number-input"
 import { MdTimer } from "react-icons/md"
 import { IoGameController } from "react-icons/io5"
-import {
-    useGetDefaultTimeoutQuery,
-    useGetIconsPathQuery,
-    useGetProcessesQuery,
-    useGetProcessQuery,
-} from '@/queries.ts'
+import { useGetIconsPathQuery, useGetProcessesQuery, useGetProcessQuery, useSettingsPropertyQuery } from '@/queries.ts'
 import moment from 'moment'
 import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
 import {
@@ -235,7 +230,7 @@ type Props = {
 }
 export default function ProcessCard(props: Props) {
     const { process } = props
-    const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useGetDefaultTimeoutQuery()
+    const { data: defaultTimeoutData, isFetched: isDefaultTimeoutFetched } = useSettingsPropertyQuery('defaultTimeout')
     const updateDefaultTimeout = useCallback((value: number) => {
         electronStore.set('defaultTimeout', value)
     }, [])

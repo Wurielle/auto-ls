@@ -99,7 +99,7 @@ function initEventListeners() {
                 lastScaledAt: (new Date()).toISOString(),
             }, ...storeProcesses.filter((p) => p.path !== detectedProcess.path)]
             setStoreValue('processes', updatedStoreProcesses)
-            await scaleByPid(processInfo.pid, storeProcess?.scaleTimeout)
+            await scaleByPid(processInfo.pid, storeProcess.options?.lsScaleDelay || storeProcess?.scaleTimeout)
         }
     })
 }
