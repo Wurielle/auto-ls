@@ -1,14 +1,14 @@
-import { Grid, Group, Stack } from '@/components'
+import { Box, Grid, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Button, Card, createListCollection, Heading, Icon, Portal, Switch, Text } from '@chakra-ui/react'
+import { Button, Card, Heading, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
 import { Field } from '@/components/ui/field.tsx'
 import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/components/ui/number-input"
 import { MdTimer } from "react-icons/md"
 import { IoGameController } from "react-icons/io5"
-import { useGetIconsPathQuery, useGetProcessesQuery, useGetProcessQuery, useSettingsPropertyQuery } from '@/queries.ts'
+import { useGetIconsPathQuery, useGetProcessesQuery, useSettingsPropertyQuery } from '@/queries.ts'
 import moment from 'moment'
-import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
+import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
 import {
     DialogActionTrigger,
     DialogBackdrop,
@@ -23,20 +23,14 @@ import {
 } from "@/components/ui/dialog"
 import { useMutation } from '@tanstack/react-query'
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
+import { useForm, useStore } from '@tanstack/react-form'
+import * as changeCase from "change-case"
 
-function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLElement> & {
+function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> & {
     title: string,
-    path: string,
-    timeout: number
+    process: any,
 }) {
-    const { data: process, isSuccess: isProcessFetchSuccess } = useGetProcessQuery(path)
     const { data: processes, isSuccess: isProcessesFetchSuccess } = useGetProcessesQuery()
-    const [scaleTimeout, setScaleTimeout] = useState<number>(timeout)
-    useEffect(() => {
-        if (isProcessFetchSuccess && isProcessesFetchSuccess) {
-            electronStore.set('processes', [...processes.filter((p) => p.path !== path), { ...process, scaleTimeout }])
-        }
-    }, [path, process, scaleTimeout, isProcessFetchSuccess, isProcessesFetchSuccess])
 
     const { isPending, mutate } = useMutation({
         mutationFn() {
@@ -44,12 +38,17 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
         },
     })
 
-    const exes = useMemo(() => createListCollection({
-        items: [].map(([key, value]) => ({
-            label: value,
-            value: Number(key),
-        })),
-    }), [])
+    const form = useForm({
+        defaultValues: process,
+    })
+
+    const store = useStore(form.store)
+
+    useEffect(() => {
+        if (isProcessesFetchSuccess) {
+            electronStore.set('processes', [...processes.filter((p) => p.path !== process.path), store.values])
+        }
+    }, [store, isProcessesFetchSuccess, processes, process.path])
 
     return (
         <DialogRoot
@@ -57,7 +56,8 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
             motionPreset="slide-in-bottom"
             unmountOnExit={ true }
             lazyMount={ true }
-            size={ 'cover' }
+            size={ 'xl' }
+            onOpenChange={ ({ open }) => !open && form.reset() }
         >
             <DialogTrigger asChild>
                 { children }
@@ -67,132 +67,16 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                     <DialogTitle>{ title }</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                    <Grid>
-                        <Grid.Col span={ 9 }>
-                            <Stack gap={ '8' }>
-                                <Field label="Executable path">
-                                    <SelectRoot collection={ exes }>
-                                        <SelectTrigger>
-                                            <SelectValueText/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            { exes.items.map((key) => (
-                                                <SelectItem item={ key } key={ key.value }>
-                                                    { key.label }
-                                                </SelectItem>
-                                            )) }
-                                        </SelectContent>
-                                    </SelectRoot>
-                                </Field>
-                                <Stack gap={ '6' }>
-                                    <Heading>Lossless Scaling</Heading>
-                                    <Stack gap={ '6' }>
-                                        <Field label="Framegen Multiplier">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <NumberInputRoot
-                                                    width={ 'full' }
-                                                    min={ 0 }
-                                                    value={ 2 }
-                                                >
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            </InputGroup>
-                                        </Field>
-                                        <Field label="Scaling timeout">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <NumberInputRoot width={ 'full' } value={ scaleTimeout.toString() }
-                                                                 min={ 1000 }
-                                                                 onValueChange={ (details) => setScaleTimeout(details.valueAsNumber) }>
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            </InputGroup>
-                                        </Field>
-                                    </Stack>
-                                </Stack>
-                                <Stack gap={ '6' }>
-                                    <Heading>RivaTuner</Heading>
-                                    <Stack gap={ '6' }>
-                                        <Field label="Framerate Limit">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <NumberInputRoot
-                                                    width={ 'full' }
-                                                    min={ 0 }
-                                                    value={ 0 }
-                                                >
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            </InputGroup>
-                                        </Field>
-                                    </Stack>
-                                </Stack>
-                                <Stack gap={ '6' }>
-                                    <Heading>OptiScaler</Heading>
-                                    <Grid>
-                                        <Grid.Col span={ 6 }>
-                                            <Field label="Filename">
-                                                <SelectRoot collection={ exes }>
-                                                    <SelectTrigger>
-                                                        <SelectValueText/>
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        { exes.items.map((key) => (
-                                                            <SelectItem item={ key } key={ key.value }>
-                                                                { key.label }
-                                                            </SelectItem>
-                                                        )) }
-                                                    </SelectContent>
-                                                </SelectRoot>
-                                            </Field>
-                                        </Grid.Col>
-                                        <Grid.Col span={ 2 }>
-                                            <Field label="GPU">
-                                                <SelectRoot collection={ exes }>
-                                                    <SelectTrigger>
-                                                        <SelectValueText/>
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        { exes.items.map((key) => (
-                                                            <SelectItem item={ key } key={ key.value }>
-                                                                { key.label }
-                                                            </SelectItem>
-                                                        )) }
-                                                    </SelectContent>
-                                                </SelectRoot>
-                                            </Field>
-                                        </Grid.Col>
-                                        <Grid.Col span={ 2 }>
-                                            <Field label="Use DLSS inputs" className={ 'h-full' }>
-                                                <div className={ 'flex-1 flex items-center' }>
-                                                    <Switch.Root>
-                                                        <Switch.HiddenInput/>
-                                                        <Switch.Control>
-                                                            <Switch.Thumb/>
-                                                        </Switch.Control>
-                                                        <Switch.Label/>
-                                                    </Switch.Root>
-                                                </div>
-                                            </Field>
-                                        </Grid.Col>
-                                        <Grid.Col span={ 2 } className={ 'flex items-end' }>
-                                            <Button width={ '100%' }>Install</Button>
-                                        </Grid.Col>
-                                    </Grid>
-                                </Stack>
-                            </Stack>
-                        </Grid.Col>
-                        <Grid.Col span={ 3 }>
+                    <Stack gap={ '6' }>
+                        <Group gap={ '6' }>
+                            <Input
+                                width={ 'full' }
+                                value={ process.path }
+                                readOnly
+                            />
                             <DialogRoot>
                                 <DialogTrigger asChild>
-                                    <Button variant={ 'ghost' } width={ '100%' }>Remove</Button>
+                                    <Button variant={ 'ghost' }>Remove</Button>
                                 </DialogTrigger>
                                 <Portal>
                                     <DialogBackdrop/>
@@ -217,8 +101,138 @@ function ProcessModal({ children, title, timeout, path }: HTMLAttributes<HTMLEle
                                     </DialogContent>
                                 </Portal>
                             </DialogRoot>
-                        </Grid.Col>
-                    </Grid>
+                        </Group>
+                        <Stack gap={ '6' }>
+                            <Heading>Lossless Scaling</Heading>
+                            <Stack gap={ '6' } pl={ '6' }
+                                   className={ 'border-l-2 border-solid border-gray-500' }>
+                                <Field label="Framegen Multiplier">
+                                    <InputGroup
+                                        width={ "full" }
+                                    >
+                                        <form.Field
+                                            name="options.lsFramegenMultiplier"
+                                            children={ (field) => (
+                                                <NumberInputRoot
+                                                    width={ 'full' }
+                                                    min={ 0 }
+                                                    value={ field.state.value }
+                                                    onBlur={ field.handleBlur }
+                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                >
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            ) }
+                                        />
+                                    </InputGroup>
+                                </Field>
+                                <Field label="Scaling timeout">
+                                    <InputGroup
+                                        width={ "full" }
+                                    >
+                                        <form.Field
+                                            name="options.lsScaleDelay"
+                                            children={ (field) => (
+                                                <NumberInputRoot
+                                                    width={ 'full' }
+                                                    min={ 1000 }
+                                                    value={ field.state.value }
+                                                    onBlur={ field.handleBlur }
+                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                >
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            ) }
+                                        />
+                                    </InputGroup>
+                                </Field>
+                            </Stack>
+                        </Stack>
+                        <Stack gap={ '6' }>
+                            <Heading>RivaTuner</Heading>
+                            <Stack gap={ '6' } pl={ '6' }
+                                   className={ 'border-l-2 border-solid border-gray-500' }>
+                                <Field label="Framerate Limit">
+                                    <InputGroup
+                                        width={ "full" }
+                                    >
+                                        <form.Field
+                                            name="options.rivaTunerFPSLimit"
+                                            children={ (field) => (
+                                                <NumberInputRoot
+                                                    width={ 'full' }
+                                                    min={ 0 }
+                                                    value={ field.state.value }
+                                                    onBlur={ field.handleBlur }
+                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                >
+                                                    <NumberInputLabel/>
+                                                    <NumberInputField/>
+                                                </NumberInputRoot>
+                                            ) }
+                                        />
+                                    </InputGroup>
+                                </Field>
+                            </Stack>
+                        </Stack>
+                        <Stack gap={ '6' }>
+                            <Heading>OptiScaler</Heading>
+                            <Box pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                                <Grid>
+                                    <Grid.Col span={ 6 }>
+                                        <Field label="Filename">
+                                            <SelectRoot>
+                                                <SelectTrigger>
+                                                    <SelectValueText/>
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    { [].map((key) => (
+                                                        <SelectItem item={ key } key={ key.value }>
+                                                            { key.label }
+                                                        </SelectItem>
+                                                    )) }
+                                                </SelectContent>
+                                            </SelectRoot>
+                                        </Field>
+                                    </Grid.Col>
+                                    <Grid.Col span={ 2 }>
+                                        <Field label="GPU">
+                                            <SelectRoot>
+                                                <SelectTrigger>
+                                                    <SelectValueText/>
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    { [].map((key) => (
+                                                        <SelectItem item={ key } key={ key.value }>
+                                                            { key.label }
+                                                        </SelectItem>
+                                                    )) }
+                                                </SelectContent>
+                                            </SelectRoot>
+                                        </Field>
+                                    </Grid.Col>
+                                    <Grid.Col span={ 2 }>
+                                        <Field label="Use DLSS inputs" className={ 'h-full' }>
+                                            <div className={ 'flex-1 flex items-center' }>
+                                                <Switch.Root>
+                                                    <Switch.HiddenInput/>
+                                                    <Switch.Control>
+                                                        <Switch.Thumb/>
+                                                    </Switch.Control>
+                                                    <Switch.Label/>
+                                                </Switch.Root>
+                                            </div>
+                                        </Field>
+                                    </Grid.Col>
+                                    <Grid.Col span={ 2 } className={ 'flex items-end' }>
+                                        <Button width={ '100%' }>Install</Button>
+                                    </Grid.Col>
+                                </Grid>
+                            </Box>
+                        </Stack>
+                    </Stack>
                 </DialogBody>
                 <DialogCloseTrigger/>
             </DialogContent>
@@ -242,10 +256,11 @@ export default function ProcessCard(props: Props) {
         if (isDefaultTimeoutFetched) updateDefaultTimeout(defaultTimeout || defaultTimeoutData)
     }, [updateDefaultTimeout, defaultTimeout, isDefaultTimeoutFetched, defaultTimeoutData])
     const { data: iconsPath } = useGetIconsPathQuery()
+    const name = changeCase.capitalCase(process.path.split('\\').pop().replace('.exe', ''))
     return (
         <ProcessModal
-            title={ process.path.split('\\').pop().replace('.exe', '') }
-            path={ process.path } timeout={ process.scaleTimeout }>
+            title={ name }
+            process={ process }>
             <button className={ 'cursor-pointer w-full' }>
                 <Card.Root>
                     <Card.Body gap="2">
@@ -257,7 +272,7 @@ export default function ProcessCard(props: Props) {
                             {/*<Button variant="outline">Edit</Button>*/ }
                         </Group>
                         <Group justify={ 'between' }>
-                            <Card.Title>{ process.path.split('\\').pop().replace('.exe', '') }</Card.Title>
+                            <Card.Title>{ name }</Card.Title>
                         </Group>
                     </Card.Body>
                     <Card.Footer>
@@ -270,7 +285,7 @@ export default function ProcessCard(props: Props) {
                                     <Icon>
                                         <MdTimer/>
                                     </Icon>
-                                    <Text>{ process.scaleTimeout } ms</Text>
+                                    <Text>{ process.options?.lsScaleDelay || process.scaleTimeout } ms</Text>
                                 </Group>
                             </Card.Description>
                         </Group>
