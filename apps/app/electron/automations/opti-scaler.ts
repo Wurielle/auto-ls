@@ -19,8 +19,15 @@ async function install(exePath: string) {
     const user = 'optiscaler'
     const repo = 'OptiScaler'
     const outputdir = path.join(app.getPath('userData'), 'downloads/optiscaler')
-    const leaveZipped = false
-    const disableLogging = false
+    const leaveZipped = true
+    const disableLogging = true
+
+    function cleanup() {
+        if (fs.existsSync(outputdir)) {
+            fs.rmSync(outputdir, { recursive: true })
+        }
+    }
+
     return mkdir(outputdir, { recursive: true })
         .then(() => downloadRelease(user, repo, outputdir, filterRelease, filterAsset, leaveZipped, disableLogging))
         .then(function (files) {
@@ -34,24 +41,12 @@ async function install(exePath: string) {
                 $bin: path7za,
             })
 
-            myStream.on('data', function (data) {
-                console.log(data) //? { status: 'extracted', file: 'extracted/file.txt" }
-            })
-
-            myStream.on('progress', function (progress) {
-                console.log(progress) //? { percent: 67, fileCount: 5, file: undefinded }
-            })
-
-            myStream.on('end', function () {
-                // end of the operation, get the number of folders involved in the operation
-                console.log(myStream.info.get('Folders')) //? '4'
-            })
-
-            myStream.on('error', (err) => console.log(err))
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 myStream.on('end', function () {
                     resolve(dest)
-                    console.log('finished unzipping')
+                })
+                myStream.on('error', () => {
+                    reject()
                 })
             })
         })
@@ -59,7 +54,10 @@ async function install(exePath: string) {
             return shell.openPath(path.join(dest, 'setup_windows.bat'))
         })
         .catch(function (err) {
-            console.error(err.message)
+            cleanup()
+        })
+        .finally(function () {
+            cleanup()
         })
 }
 
