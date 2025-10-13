@@ -59,25 +59,26 @@ export function getProcess(path: string): StoreProcess {
     return (getStoreValue<StoreProcess[]>('processes') || []).find((p) => p.path === path)
 }
 
-export function addProcess(path: StoreProcess['path'], options?: StoreProcess['options']) {
-    const paths: StoreProcess[] = getStoreValue('processes') || []
-    const processIndex = paths.findIndex((p) => p.path === path)
-    const defaultOptions: StoreProcess['options'] = {
+export function getDefaultedProcessOptions(partialOption: Partial<StoreProcess['options']> = {}): StoreProcess['options'] {
+    return {
         enableLosslessScaling: getStoreValue('enableLosslessScaling'),
         lsScaleDelay: getStoreValue('defaultTimeout'),
         lsFramegenMultiplier: getStoreValue('lsDefaultFramegenMultiplier'),
         enableRivaTuner: getStoreValue('enableRivaTuner'),
         rivaTunerFPSLimit: getStoreValue('rivaTunerDefaultFPSLimit'),
+        ...partialOption,
     }
+}
+
+export function addProcess(path: StoreProcess['path'], options?: Partial<StoreProcess['options']>) {
+    const paths: StoreProcess[] = getStoreValue('processes') || []
+    const processIndex = paths.findIndex((p) => p.path === path)
     if (processIndex === -1) {
         const newPaths: StoreProcess[] = [{
             path,
             lastScaledAt: new Date().toISOString(),
             scaleTimeout: getStoreValue('defaultTimeout'),
-            options: {
-                ...defaultOptions,
-                ...options,
-            },
+            options: getDefaultedProcessOptions(options),
         }, ...paths]
         setStoreValue('processes', newPaths)
     }
@@ -91,3 +92,8 @@ ipcMain.handle('electron-store-set', (event, key, value) => {
     setStoreValue(key, value)
     return true
 })
+
+setStoreValue('processes', (getStoreValue<StoreProcess[]>('processes') || []).map((storeProcess) => ({
+    ...storeProcess,
+    options: getDefaultedProcessOptions(storeProcess.options),
+})))

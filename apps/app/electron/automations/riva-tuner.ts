@@ -25,14 +25,18 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
     }
 
     public beforeScale(context) {
+        if (!context.processOptions.enableRivaTuner) return this.removeProfile({ name: context.processInfo.process })
         return this.applyProfile(context)
     }
 
-    public afterScale() {
+    public afterScale(context) {
+        if (!context.processOptions.enableRivaTuner) return
         return this.start()
     }
 
-    public async applyProfile({ processInfo }) {
+    public async applyProfile(context) {
+        if (!context.processOptions.enableRivaTuner) return
+        const { processInfo } = context
         const exePath = this.options.getExecutablePath()
         if (!exePath) return
         const rivaTunerConfigFilePath = path.resolve(path.dirname(exePath), 'Profiles', `${ processInfo.process }.cfg`)

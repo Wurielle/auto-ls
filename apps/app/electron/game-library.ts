@@ -1,6 +1,6 @@
 import * as fsp from "fs/promises"
 import * as game_scanner from "@equal-games/game-scanner"
-import { ipcMain } from 'electron'
+import { ipcMain, shell } from 'electron'
 import { getProcesses } from 'node-processlist'
 import { addProcess as storeAddProcess, getProcess } from './store'
 import { extractProcessIcon } from './utils/filesystem'
@@ -98,5 +98,9 @@ ipcMain.handle('game-library-get-exes', async (_, path) => {
 
 ipcMain.handle('game-library-add-process', async (_, processPath) => {
     addProcess(processPath)
+})
+
+ipcMain.handle('game-library-open-file-location', async (_, processPath) => {
+    return shell.showItemInFolder(processPath)
 })
 

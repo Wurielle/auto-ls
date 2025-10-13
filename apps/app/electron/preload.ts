@@ -61,4 +61,19 @@ contextBridge.exposeInMainWorld('gameLibrary', {
     async addProcess(path: string) {
         return await ipcRenderer.invoke('game-library-add-process', path)
     },
+    async openFileLocation(path: string) {
+        return await ipcRenderer.invoke('game-library-open-file-location', path)
+    },
+})
+
+contextBridge.exposeInMainWorld('optiScaler', {
+    async install(exePath: string) {
+        return await ipcRenderer.invoke('opti-scaler-install', exePath)
+    },
+    async uninstall(exePath: string) {
+        return await ipcRenderer.invoke('opti-scaler-uninstall', exePath)
+    },
+    async checkInstall(exePath: string) {
+        return await ipcRenderer.invoke('opti-scaler-check-install', exePath)
+    },
 })

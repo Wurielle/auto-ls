@@ -1,4 +1,4 @@
-import { getStoreValue, setStoreValue, StoreProcess } from './store'
+import { getDefaultedProcessOptions, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import * as path from 'node:path'
 import { focusWindow, getActiveWindowPid, waitForProcessWindowCreation } from './utils/native'
@@ -52,10 +52,12 @@ export async function scaleByPid(pid: number, wait?: number) {
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
     const processInfo = processWatcher.getByPid(pid)
+    const processOptions = getDefaultedProcessOptions(getProcess(processInfo.filepath)?.options)
     if (!processInfo) return
+    const context = { processInfo, processOptions }
     try {
         await Promise.all([
-            ...automations.map((automation) => automation.beforeScale({ processInfo })),
+            ...automations.map((automation) => automation.beforeScale(context)),
             waitForProcessWindowCreation(pid),
         ])
 
@@ -84,9 +86,9 @@ export async function scaleByPid(pid: number, wait?: number) {
                             pid,
                         })
                         clearTimeout(triggerKeybindTimeout)
-                        await Promise.all(automations.map((automation) => automation.onScale({ processInfo })))
+                        await Promise.all(automations.map((automation) => automation.onScale(context)))
                         // try again in case it didn't succeed initially (can happen for some reason)
-                        await Promise.all(automations.map((automation) => automation.afterScale({ processInfo })))
+                        await Promise.all(automations.map((automation) => automation.afterScale(context)))
                     } else {
                         console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
                         triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)

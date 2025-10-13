@@ -21,8 +21,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { useMutation } from '@tanstack/react-query'
-import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import * as changeCase from "change-case"
 
@@ -34,7 +33,26 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
 
     const { isPending, mutate } = useMutation({
         mutationFn() {
-            return ALS.optOutProcess(path)
+            return ALS.optOutProcess(process.path)
+        },
+    })
+
+    const installMutation = useMutation({
+        mutationFn() {
+            return optiScaler.install(process.path)
+        },
+    })
+
+    const uninstallMutation = useMutation({
+        mutationFn() {
+            return optiScaler.uninstall(process.path)
+        },
+    })
+
+    const checkInstallQuery = useQuery({
+        queryKey: ['opti-scaler', 'check-install', process.path],
+        queryFn() {
+            return optiScaler.checkInstall(process.path)
         },
     })
 
@@ -68,12 +86,14 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
                 </DialogHeader>
                 <DialogBody>
                     <Stack gap={ '6' }>
-                        <Group gap={ '6' }>
+                        <Group gap={ '3' }>
                             <Input
                                 width={ 'full' }
                                 value={ process.path }
                                 readOnly
                             />
+                            <Button onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
+                                location</Button>
                             <DialogRoot>
                                 <DialogTrigger asChild>
                                     <Button variant={ 'ghost' }>Remove</Button>
@@ -103,131 +123,193 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
                             </DialogRoot>
                         </Group>
                         <Stack gap={ '6' }>
-                            <Heading>Lossless Scaling</Heading>
-                            <Stack gap={ '6' } pl={ '6' }
-                                   className={ 'border-l-2 border-solid border-gray-500' }>
-                                <Field label="Framegen Multiplier">
-                                    <InputGroup
-                                        width={ "full" }
-                                    >
-                                        <form.Field
-                                            name="options.lsFramegenMultiplier"
-                                            children={ (field) => (
-                                                <NumberInputRoot
-                                                    width={ 'full' }
-                                                    min={ 0 }
-                                                    value={ field.state.value }
-                                                    onBlur={ field.handleBlur }
-                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                >
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            ) }
-                                        />
-                                    </InputGroup>
-                                </Field>
-                                <Field label="Scaling timeout">
-                                    <InputGroup
-                                        width={ "full" }
-                                    >
-                                        <form.Field
-                                            name="options.lsScaleDelay"
-                                            children={ (field) => (
-                                                <NumberInputRoot
-                                                    width={ 'full' }
-                                                    min={ 1000 }
-                                                    value={ field.state.value }
-                                                    onBlur={ field.handleBlur }
-                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                >
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            ) }
-                                        />
-                                    </InputGroup>
-                                </Field>
-                            </Stack>
+                            <Group justify={ 'between' }>
+                                <Heading>Lossless Scaling</Heading>
+                                <form.Field
+                                    name="options.enableLosslessScaling"
+                                    children={ (field) => (
+                                        <Switch.Root
+                                            checked={ field.state.value }
+                                            onBlur={ field.handleBlur }
+                                            onCheckedChange={ ({ checked }) =>
+                                                field.handleChange(checked)
+                                            }
+                                        >
+                                            <Switch.HiddenInput/>
+                                            <Switch.Control>
+                                                <Switch.Thumb/>
+                                            </Switch.Control>
+                                            <Switch.Label/>
+                                        </Switch.Root>
+                                    ) }
+                                />
+                            </Group>
+                            <form.Subscribe
+                                selector={ (state) => [state.values.options.enableLosslessScaling] }
+                                children={ ([enabled]) => enabled && (
+                                    <Stack gap={ '6' } pl={ '6' }
+                                           className={ 'border-l-2 border-solid border-gray-500' }>
+                                        <Field label="Framegen Multiplier">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <form.Field
+                                                    name="options.lsFramegenMultiplier"
+                                                    children={ (field) => (
+                                                        <NumberInputRoot
+                                                            width={ 'full' }
+                                                            min={ 0 }
+                                                            value={ field.state.value }
+                                                            onBlur={ field.handleBlur }
+                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                        >
+                                                            <NumberInputLabel/>
+                                                            <NumberInputField/>
+                                                        </NumberInputRoot>
+                                                    ) }
+                                                />
+                                            </InputGroup>
+                                        </Field>
+                                        <Field label="Scaling timeout">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <form.Field
+                                                    name="options.lsScaleDelay"
+                                                    children={ (field) => (
+                                                        <NumberInputRoot
+                                                            width={ 'full' }
+                                                            min={ 1000 }
+                                                            value={ field.state.value }
+                                                            onBlur={ field.handleBlur }
+                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                        >
+                                                            <NumberInputLabel/>
+                                                            <NumberInputField/>
+                                                        </NumberInputRoot>
+                                                    ) }
+                                                />
+                                            </InputGroup>
+                                        </Field>
+                                    </Stack>
+                                ) }
+                            />
                         </Stack>
                         <Stack gap={ '6' }>
-                            <Heading>RivaTuner</Heading>
-                            <Stack gap={ '6' } pl={ '6' }
-                                   className={ 'border-l-2 border-solid border-gray-500' }>
-                                <Field label="Framerate Limit">
-                                    <InputGroup
-                                        width={ "full" }
-                                    >
-                                        <form.Field
-                                            name="options.rivaTunerFPSLimit"
-                                            children={ (field) => (
-                                                <NumberInputRoot
-                                                    width={ 'full' }
-                                                    min={ 0 }
-                                                    value={ field.state.value }
-                                                    onBlur={ field.handleBlur }
-                                                    onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                >
-                                                    <NumberInputLabel/>
-                                                    <NumberInputField/>
-                                                </NumberInputRoot>
-                                            ) }
-                                        />
-                                    </InputGroup>
-                                </Field>
-                            </Stack>
+                            <Group justify={ 'between' }>
+                                <Heading>RivaTuner</Heading>
+                                <form.Field
+                                    name="options.enableRivaTuner"
+                                    children={ (field) => (
+                                        <Switch.Root
+                                            checked={ field.state.value }
+                                            onBlur={ field.handleBlur }
+                                            onCheckedChange={ ({ checked }) =>
+                                                field.handleChange(checked)
+                                            }
+                                        >
+                                            <Switch.HiddenInput/>
+                                            <Switch.Control>
+                                                <Switch.Thumb/>
+                                            </Switch.Control>
+                                            <Switch.Label/>
+                                        </Switch.Root>
+                                    ) }
+                                />
+                            </Group>
+
+                            <form.Subscribe
+                                selector={ (state) => [state.values.options.enableRivaTuner] }
+                                children={ ([enabled]) => enabled && (
+                                    <Stack gap={ '6' } pl={ '6' }
+                                           className={ 'border-l-2 border-solid border-gray-500' }>
+                                        <Field label="Framerate Limit">
+                                            <InputGroup
+                                                width={ "full" }
+                                            >
+                                                <form.Field
+                                                    name="options.rivaTunerFPSLimit"
+                                                    children={ (field) => (
+                                                        <NumberInputRoot
+                                                            width={ 'full' }
+                                                            min={ 0 }
+                                                            value={ field.state.value }
+                                                            onBlur={ field.handleBlur }
+                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                                        >
+                                                            <NumberInputLabel/>
+                                                            <NumberInputField/>
+                                                        </NumberInputRoot>
+                                                    ) }
+                                                />
+                                            </InputGroup>
+                                        </Field>
+                                    </Stack>
+                                ) }
+                            />
                         </Stack>
                         <Stack gap={ '6' }>
                             <Heading>OptiScaler</Heading>
                             <Box pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
                                 <Grid>
-                                    <Grid.Col span={ 6 }>
-                                        <Field label="Filename">
-                                            <SelectRoot>
-                                                <SelectTrigger>
-                                                    <SelectValueText/>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    { [].map((key) => (
-                                                        <SelectItem item={ key } key={ key.value }>
-                                                            { key.label }
-                                                        </SelectItem>
-                                                    )) }
-                                                </SelectContent>
-                                            </SelectRoot>
-                                        </Field>
-                                    </Grid.Col>
-                                    <Grid.Col span={ 2 }>
-                                        <Field label="GPU">
-                                            <SelectRoot>
-                                                <SelectTrigger>
-                                                    <SelectValueText/>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    { [].map((key) => (
-                                                        <SelectItem item={ key } key={ key.value }>
-                                                            { key.label }
-                                                        </SelectItem>
-                                                    )) }
-                                                </SelectContent>
-                                            </SelectRoot>
-                                        </Field>
-                                    </Grid.Col>
-                                    <Grid.Col span={ 2 }>
-                                        <Field label="Use DLSS inputs" className={ 'h-full' }>
-                                            <div className={ 'flex-1 flex items-center' }>
-                                                <Switch.Root>
-                                                    <Switch.HiddenInput/>
-                                                    <Switch.Control>
-                                                        <Switch.Thumb/>
-                                                    </Switch.Control>
-                                                    <Switch.Label/>
-                                                </Switch.Root>
-                                            </div>
-                                        </Field>
-                                    </Grid.Col>
+                                    {/*<Grid.Col span={ 6 }>*/ }
+                                    {/*    <Field label="Filename">*/ }
+                                    {/*        <SelectRoot>*/ }
+                                    {/*            <SelectTrigger>*/ }
+                                    {/*                <SelectValueText/>*/ }
+                                    {/*            </SelectTrigger>*/ }
+                                    {/*            <SelectContent>*/ }
+                                    {/*                { [].map((key) => (*/ }
+                                    {/*                    <SelectItem item={ key } key={ key.value }>*/ }
+                                    {/*                        { key.label }*/ }
+                                    {/*                    </SelectItem>*/ }
+                                    {/*                )) }*/ }
+                                    {/*            </SelectContent>*/ }
+                                    {/*        </SelectRoot>*/ }
+                                    {/*    </Field>*/ }
+                                    {/*</Grid.Col>*/ }
+                                    {/*<Grid.Col span={ 2 }>*/ }
+                                    {/*    <Field label="GPU">*/ }
+                                    {/*        <SelectRoot>*/ }
+                                    {/*            <SelectTrigger>*/ }
+                                    {/*                <SelectValueText/>*/ }
+                                    {/*            </SelectTrigger>*/ }
+                                    {/*            <SelectContent>*/ }
+                                    {/*                { [].map((key) => (*/ }
+                                    {/*                    <SelectItem item={ key } key={ key.value }>*/ }
+                                    {/*                        { key.label }*/ }
+                                    {/*                    </SelectItem>*/ }
+                                    {/*                )) }*/ }
+                                    {/*            </SelectContent>*/ }
+                                    {/*        </SelectRoot>*/ }
+                                    {/*    </Field>*/ }
+                                    {/*</Grid.Col>*/ }
+                                    {/*<Grid.Col span={ 2 }>*/ }
+                                    {/*    <Field label="Use DLSS inputs" className={ 'h-full' }>*/ }
+                                    {/*        <div className={ 'flex-1 flex items-center' }>*/ }
+                                    {/*            <Switch.Root>*/ }
+                                    {/*                <Switch.HiddenInput/>*/ }
+                                    {/*                <Switch.Control>*/ }
+                                    {/*                    <Switch.Thumb/>*/ }
+                                    {/*                </Switch.Control>*/ }
+                                    {/*                <Switch.Label/>*/ }
+                                    {/*            </Switch.Root>*/ }
+                                    {/*        </div>*/ }
+                                    {/*    </Field>*/ }
+                                    {/*</Grid.Col>*/ }
                                     <Grid.Col span={ 2 } className={ 'flex items-end' }>
-                                        <Button width={ '100%' }>Install</Button>
+                                        {
+                                            checkInstallQuery.data ? (
+                                                <Button loading={ uninstallMutation.isPending }
+                                                        width={ '100%' }
+                                                        onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
+                                            ) : (
+
+                                                <Button loading={ installMutation.isPending }
+                                                        width={ '100%' }
+                                                        onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                                            )
+                                        }
                                     </Grid.Col>
                                 </Grid>
                             </Box>
