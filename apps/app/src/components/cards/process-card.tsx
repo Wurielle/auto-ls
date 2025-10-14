@@ -24,6 +24,8 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import * as changeCase from "change-case"
+import { useWindowEvent } from '@mantine/hooks'
+
 
 function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -67,6 +69,8 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
             electronStore.set('processes', [...processes.filter((p) => p.path !== process.path), store.values])
         }
     }, [store, isProcessesFetchSuccess, processes, process.path])
+
+    useWindowEvent('focus', checkInstallQuery.refetch)
 
     return (
         <DialogRoot
@@ -252,62 +256,19 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
                             <Heading>OptiScaler</Heading>
                             <Box pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
                                 <Grid>
-                                    {/*<Grid.Col span={ 6 }>*/ }
-                                    {/*    <Field label="Filename">*/ }
-                                    {/*        <SelectRoot>*/ }
-                                    {/*            <SelectTrigger>*/ }
-                                    {/*                <SelectValueText/>*/ }
-                                    {/*            </SelectTrigger>*/ }
-                                    {/*            <SelectContent>*/ }
-                                    {/*                { [].map((key) => (*/ }
-                                    {/*                    <SelectItem item={ key } key={ key.value }>*/ }
-                                    {/*                        { key.label }*/ }
-                                    {/*                    </SelectItem>*/ }
-                                    {/*                )) }*/ }
-                                    {/*            </SelectContent>*/ }
-                                    {/*        </SelectRoot>*/ }
-                                    {/*    </Field>*/ }
-                                    {/*</Grid.Col>*/ }
-                                    {/*<Grid.Col span={ 2 }>*/ }
-                                    {/*    <Field label="GPU">*/ }
-                                    {/*        <SelectRoot>*/ }
-                                    {/*            <SelectTrigger>*/ }
-                                    {/*                <SelectValueText/>*/ }
-                                    {/*            </SelectTrigger>*/ }
-                                    {/*            <SelectContent>*/ }
-                                    {/*                { [].map((key) => (*/ }
-                                    {/*                    <SelectItem item={ key } key={ key.value }>*/ }
-                                    {/*                        { key.label }*/ }
-                                    {/*                    </SelectItem>*/ }
-                                    {/*                )) }*/ }
-                                    {/*            </SelectContent>*/ }
-                                    {/*        </SelectRoot>*/ }
-                                    {/*    </Field>*/ }
-                                    {/*</Grid.Col>*/ }
-                                    {/*<Grid.Col span={ 2 }>*/ }
-                                    {/*    <Field label="Use DLSS inputs" className={ 'h-full' }>*/ }
-                                    {/*        <div className={ 'flex-1 flex items-center' }>*/ }
-                                    {/*            <Switch.Root>*/ }
-                                    {/*                <Switch.HiddenInput/>*/ }
-                                    {/*                <Switch.Control>*/ }
-                                    {/*                    <Switch.Thumb/>*/ }
-                                    {/*                </Switch.Control>*/ }
-                                    {/*                <Switch.Label/>*/ }
-                                    {/*            </Switch.Root>*/ }
-                                    {/*        </div>*/ }
-                                    {/*    </Field>*/ }
-                                    {/*</Grid.Col>*/ }
                                     <Grid.Col span={ 2 } className={ 'flex items-end' }>
                                         {
                                             checkInstallQuery.data ? (
-                                                <Button loading={ uninstallMutation.isPending }
-                                                        width={ '100%' }
-                                                        onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
+                                                <Button
+                                                    loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
+                                                    width={ '100%' }
+                                                    onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
                                             ) : (
 
-                                                <Button loading={ installMutation.isPending }
-                                                        width={ '100%' }
-                                                        onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                                                <Button
+                                                    loading={ installMutation.isPending || checkInstallQuery.isPending }
+                                                    width={ '100%' }
+                                                    onClick={ () => installMutation.mutateAsync() }>Install</Button>
                                             )
                                         }
                                     </Grid.Col>
