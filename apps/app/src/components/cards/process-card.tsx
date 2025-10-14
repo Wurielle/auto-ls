@@ -1,4 +1,4 @@
-import { Box, Grid, Group, Stack } from '@/components'
+import { Box, Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
 import { Button, Card, Heading, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
 import { Field } from '@/components/ui/field.tsx'
@@ -255,24 +255,22 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
                         <Stack gap={ '6' }>
                             <Heading>OptiScaler</Heading>
                             <Box pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
-                                <Grid>
-                                    <Grid.Col span={ 2 } className={ 'flex items-end' }>
-                                        {
-                                            checkInstallQuery.data ? (
-                                                <Button
-                                                    loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
-                                                    width={ '100%' }
-                                                    onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
-                                            ) : (
+                                <div className={ "w-min" }>
+                                    {
+                                        checkInstallQuery.data ? (
+                                            <Button
+                                                loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
+                                                width={ '100%' }
+                                                onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
+                                        ) : (
 
-                                                <Button
-                                                    loading={ installMutation.isPending || checkInstallQuery.isPending }
-                                                    width={ '100%' }
-                                                    onClick={ () => installMutation.mutateAsync() }>Install</Button>
-                                            )
-                                        }
-                                    </Grid.Col>
-                                </Grid>
+                                            <Button
+                                                loading={ installMutation.isPending || checkInstallQuery.isPending }
+                                                width={ '100%' }
+                                                onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                                        )
+                                    }
+                                </div>
                             </Box>
                         </Stack>
                     </Stack>

@@ -40,15 +40,15 @@ export default function DefaultShell(props: HTMLAttributes<HTMLDivElement>) {
                     <Text>{ pkg.version }</Text>
                 </Group>
             </Stack>
-            <Box px={ "6" } pb={ "6" } divideY={ "1px" }>
+            <Box p={ "6" } divideY={ "1px" }>
                 <Grid gap={ '6' }>
-                    <Grid.Col span={ 8 }>
-                        <Box display={ 'grid' } py={ '6' }>
+                    <Grid.Col span={ 12 } lgSpan={ 8 } order={ 1 } lgOrder={ 0 }>
+                        <Box display={ 'grid' }>
                             { children }
                         </Box>
                     </Grid.Col>
-                    <Grid.Col span={ 4 }>
-                        <Stack py={ '6' } gap={ '6' }>
+                    <Grid.Col span={ 12 } lgSpan={ 4 } order={ 0 } lgOrder={ 1 }>
+                        <Stack gap={ '6' }>
                             <AutoUpdateFormField/>
                             <Field label="Use Lossless Scaling" orientation="horizontal">
                                 <Switch.Root

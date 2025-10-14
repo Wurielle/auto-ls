@@ -303,7 +303,7 @@ export default function HomePage() {
         <DefaultShell>
             <Stack gap={ '6' }>
                 <Grid gap={ '6' }>
-                    <Grid.Col span={ 9 }>
+                    <Grid.Col span={ 9 } lgSpan={ 10 }>
                         <InputGroup
                             width={ "full" }
                             startElement={ <LuSearch/> }
@@ -313,7 +313,7 @@ export default function HomePage() {
                                    onChange={ (e) => setSearch(e.target.value) }/>
                         </InputGroup>
                     </Grid.Col>
-                    <Grid.Col span={ 3 }>
+                    <Grid.Col span={ 3 } lgSpan={ 2 }>
                         <AddProcessModal>
                             <Button variant={ 'subtle' } width={ '100%' }>Add</Button>
                         </AddProcessModal>
@@ -322,8 +322,7 @@ export default function HomePage() {
                 <Grid gap={ '6' }>
                     { processList.length
                         ? processList.map((process, i) => (
-                            <Grid.Col key={ `${ i }-${ process.path }` } span={ 12 } mdSpan={ 6 } lgSpan={ 4 }
-                                      xlSpan={ 3 }>
+                            <Grid.Col key={ `${ i }-${ process.path }` } span={ 12 } mdSpan={ 6 } xlSpan={ 4 }>
                                 <ProcessCard process={ process }/>
                             </Grid.Col>
                         ))
