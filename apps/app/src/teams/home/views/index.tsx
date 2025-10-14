@@ -1,6 +1,6 @@
 import { Grid, Group, Stack } from '@/components'
 import { useGetProcessesQuery } from '@/queries.ts'
-import { HTMLAttributes, useMemo, useState } from 'react'
+import { HTMLAttributes, useMemo, useRef, useState } from 'react'
 import orderBy from 'lodash/orderBy'
 import ProcessCard from '@/components/cards/process-card.tsx'
 import DefaultShell from '@/components/shells/default-shell.tsx'
@@ -18,10 +18,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog.tsx'
-import { LuGamepad2, LuServerCog } from "react-icons/lu"
+import { LuGamepad2, LuSearch, LuServerCog } from "react-icons/lu"
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
 import { Field } from '@/components/ui/field.tsx'
+import useFuse from 'use-fuse'
+import { CloseButton } from '@/components/ui/close-button.tsx'
 
 function ProcessesList({ onSelect }: { onSelect: any }) {
     const gamesQuery = useQuery({
@@ -30,6 +32,31 @@ function ProcessesList({ onSelect }: { onSelect: any }) {
             return gameLibrary.getProcesses()
         },
     })
+
+    const [search, setSearch] = useState('')
+
+    const filteredData = useMemo(() => orderBy(gamesQuery.data?.filter((p) => !['N/A', 'OLEChannelWnd', 'OleMainThreadWndName'].includes(p.windowTitle)), ['windowTitle']) || [], [gamesQuery.data])
+
+    const filteredList = useFuse(filteredData, search, {
+        keys: ['windowTitle'],
+        threshold: 0.6,
+    })
+
+    const list = (search ? filteredList : filteredData)
+
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const endElement = search ? (
+        <CloseButton
+            size="xs"
+            onClick={ () => {
+                setSearch("")
+                inputRef.current?.focus()
+            } }
+            me="-2"
+        />
+    ) : undefined
+
 
     const { mutate, isPending } = useMutation({
         mutationFn(pid) {
@@ -42,24 +69,34 @@ function ProcessesList({ onSelect }: { onSelect: any }) {
         },
     })
     return (
-        <Box divideY={ "1px" }>
-            { gamesQuery.isFetching ?
-                <Group
-                    justify={ 'center' }><Spinner/></Group> : orderBy(gamesQuery.data?.filter((p) => !['N/A', 'OLEChannelWnd', 'OleMainThreadWndName'].includes(p.windowTitle)), ['windowTitle']).map((game, i) => (
-                    <Group py={ '3' } justify={ 'between' } key={ `${ i }-${ game.id }` }>
-                        <Stack gap={ '0' }>
-                            <Text>
-                                { game.windowTitle }
-                            </Text>
-                            <Text color={ 'grey' } textStyle={ 'xs' }>
-                                { game.path }
-                            </Text>
-                        </Stack>
-                        <Button size={ 'sm' } variant={ 'subtle' } disabled={ isPending } loading={ isPending }
-                                onClick={ () => mutate(game.pid) }>Select</Button>
-                    </Group>
-                )) }
-        </Box>
+        <Stack gap={ '6' }>
+            <InputGroup
+                width={ "full" }
+                startElement={ <LuSearch/> }
+                endElement={ endElement }
+            >
+                <Input ref={ inputRef } placeholder="Search" value={ search }
+                       onChange={ (e) => setSearch(e.target.value) }/>
+            </InputGroup>
+            <Box divideY={ "1px" }>
+                { gamesQuery.isFetching ?
+                    <Group
+                        justify={ 'center' }><Spinner/></Group> : list.length ? list.map((game, i) => (
+                        <Group py={ '3' } justify={ 'between' } key={ `${ i }-${ game.id }` }>
+                            <Stack gap={ '0' }>
+                                <Text>
+                                    { game.windowTitle }
+                                </Text>
+                                <Text color={ 'grey' } textStyle={ 'xs' }>
+                                    { game.path }
+                                </Text>
+                            </Stack>
+                            <Button size={ 'sm' } variant={ 'subtle' } disabled={ isPending } loading={ isPending }
+                                    onClick={ () => mutate(game.pid) }>Select</Button>
+                        </Group>
+                    )) : <Text className={ 'text-center' }>No processes found.</Text> }
+            </Box>
+        </Stack>
     )
 }
 
@@ -143,25 +180,57 @@ function GamesList({ onSelect }: { onSelect: any }) {
             return gameLibrary.getGames()
         },
     })
+
+    const [search, setSearch] = useState('')
+
+    const filteredList = useFuse(gamesQuery.data || [], search, {
+        keys: ['name'],
+        threshold: 0.6,
+    })
+
+    const list = (search ? filteredList : gamesQuery.data)
+
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const endElement = search ? (
+        <CloseButton
+            size="xs"
+            onClick={ () => {
+                setSearch("")
+                inputRef.current?.focus()
+            } }
+            me="-2"
+        />
+    ) : undefined
+
     return (
-        <Box divideY={ "1px" }>
-            { gamesQuery.isFetching ?
-                <Group justify={ 'center' }><Spinner/></Group> : gamesQuery.data?.map((game, i) => (
-                    <Group py={ '3' } justify={ 'between' } key={ `${ i }-${ game.id }` }>
-                        <Stack gap={ '0' }>
-                            <Text>
-                                { game.name }
-                            </Text>
-                            <Text color={ 'grey' } textStyle={ 'xs' }>
-                                { game.path }
-                            </Text>
-                        </Stack>
-                        <GameExesModal game={ game } onSubmit={ onSelect }>
-                            <Button size={ 'sm' } variant={ 'subtle' }>Select</Button>
-                        </GameExesModal>
-                    </Group>
-                )) }
-        </Box>
+        <Stack gap={ '6' }>
+            <InputGroup
+                width={ "full" }
+                startElement={ <LuSearch/> }
+                endElement={ endElement }
+            >
+                <Input ref={ inputRef } placeholder="Search" value={ search }
+                       onChange={ (e) => setSearch(e.target.value) }/>
+            </InputGroup>
+            <Box divideY={ "1px" }>
+                { gamesQuery.isFetching ?
+                    <Group justify={ 'center' }><Spinner/></Group> : list.length ? list.map((game, i) => (
+                        <Group py={ '3' } justify={ 'between' } key={ `${ i }-${ game.id }` }>
+                            <Stack gap={ '0' }>
+                                <Text>
+                                    { game.name }
+                                </Text>
+                                <Text color={ 'grey' } textStyle={ 'xs' }>
+                                    { game.path }
+                                </Text>
+                            </Stack>
+                            <GameExesModal game={ game } onSubmit={ onSelect }>
+                                <Button size={ 'sm' } variant={ 'subtle' }>Select</Button>
+                            </GameExesModal>
+                        </Group>
+                    )) : <Text className={ 'text-center' }>No games found.</Text> }
+            </Box></Stack>
     )
 }
 
@@ -208,6 +277,28 @@ function AddProcessModal({ children }: HTMLAttributes<HTMLDivElement>) {
 export default function HomePage() {
     const { data: processesData = [] } = useGetProcessesQuery()
     const orderedProcesses = useMemo(() => orderBy(processesData, 'lastScaledAt', 'desc'), [processesData])
+
+    const [search, setSearch] = useState('')
+    const filteredProcesses = useFuse(orderedProcesses, search, {
+        keys: ['path'],
+        threshold: 0.6,
+    })
+
+    const processList = (search ? filteredProcesses : orderedProcesses)
+
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const endElement = search ? (
+        <CloseButton
+            size="xs"
+            onClick={ () => {
+                setSearch("")
+                inputRef.current?.focus()
+            } }
+            me="-2"
+        />
+    ) : undefined
+
     return (
         <DefaultShell>
             <Stack gap={ '6' }>
@@ -215,8 +306,11 @@ export default function HomePage() {
                     <Grid.Col span={ 9 }>
                         <InputGroup
                             width={ "full" }
+                            startElement={ <LuSearch/> }
+                            endElement={ endElement }
                         >
-                            <Input placeholder="Search"/>
+                            <Input ref={ inputRef } placeholder="Search" value={ search }
+                                   onChange={ (e) => setSearch(e.target.value) }/>
                         </InputGroup>
                     </Grid.Col>
                     <Grid.Col span={ 3 }>
@@ -226,13 +320,17 @@ export default function HomePage() {
                     </Grid.Col>
                 </Grid>
                 <Grid gap={ '6' }>
-                    {
-                        orderedProcesses.map((process, i) => (
+                    { processList.length
+                        ? processList.map((process, i) => (
                             <Grid.Col key={ `${ i }-${ process.path }` } span={ 12 } mdSpan={ 6 } lgSpan={ 4 }
                                       xlSpan={ 3 }>
                                 <ProcessCard process={ process }/>
                             </Grid.Col>
                         ))
+                        :
+                        <Grid.Col span={ 12 }>
+                            <Text className={ 'text-center' }>No processes found.</Text>
+                        </Grid.Col>
                     }
                 </Grid>
             </Stack>

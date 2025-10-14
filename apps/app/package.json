@@ -31,6 +31,7 @@
     "node-processlist": "^1.0.2",
     "process-watcher": "*",
     "ps-list": "^8.1.1",
+    "use-fuse": "^0.0.3",
     "win-control": "^0.3.1",
     "windows-tlist": "^0.1.3",
     "xml-js": "^1.6.11"
