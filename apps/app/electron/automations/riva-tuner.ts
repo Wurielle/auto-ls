@@ -3,6 +3,7 @@ import { isProcessRunning } from '../utils/native'
 import * as path from 'path'
 import { existsSync } from 'fs'
 import * as fsp from 'fs/promises'
+import * as ini from 'ini'
 
 export type RivaTunerAutomationHooksOptions = {
     isEnabled(): boolean
@@ -35,15 +36,25 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
     }
 
     public async applyProfile(context) {
-        if (!context.processOptions.enableRivaTuner) return
-        const { processInfo } = context
+        const { processInfo, processOptions } = context
         const exePath = this.options.getExecutablePath()
         if (!exePath) return
         const rivaTunerConfigFilePath = path.resolve(path.dirname(exePath), 'Profiles', `${ processInfo.process }.cfg`)
-        if (!existsSync(rivaTunerConfigFilePath)) {
+        const targetLimit = processOptions.rivaTunerFPSLimit
+        if (existsSync(rivaTunerConfigFilePath)) {
+            const fileContent = await fsp.readFile(rivaTunerConfigFilePath, 'utf-8')
+            const config = ini.parse(fileContent)
+            if (Number(config.Limit) !== targetLimit) {
+                await this.stop()
+                config.Limit = targetLimit
+                await fsp.writeFile(rivaTunerConfigFilePath, ini.stringify(config), 'utf8')
+            }
+        } else {
             await this.stop()
             const fileContent = await fsp.readFile(path.resolve(path.dirname(exePath), 'ProfileTemplates', `Global`), 'utf8')
-            await fsp.writeFile(rivaTunerConfigFilePath, fileContent, 'utf8')
+            const config = ini.parse(fileContent)
+            config.Limit = targetLimit
+            await fsp.writeFile(rivaTunerConfigFilePath, ini.stringify(config), 'utf8')
         }
         return this.start()
     }
