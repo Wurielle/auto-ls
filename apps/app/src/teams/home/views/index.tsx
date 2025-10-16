@@ -118,7 +118,6 @@ function GameExesModal({ children, game, onSubmit }: HTMLAttributes<HTMLDivEleme
     const [open, setOpen] = useState(false)
     const { mutate, isPending } = useMutation({
         async mutationFn() {
-            console.log('do something', value)
             await gameLibrary.addProcess(value[0])
             setOpen(false)
             onSubmit?.()

@@ -1,4 +1,4 @@
-import { Box, Group, Stack } from '@/components'
+import { Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
 import { Button, Card, Heading, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
 import { Field } from '@/components/ui/field.tsx'
@@ -26,8 +26,7 @@ import { useForm, useStore } from '@tanstack/react-form'
 import * as changeCase from "change-case"
 import { useWindowEvent } from '@mantine/hooks'
 
-
-function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> & {
+function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
     title: string,
     process: any,
 }) {
@@ -70,8 +69,198 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
         }
     }, [store, isProcessesFetchSuccess, processes, process.path])
 
-    useWindowEvent('focus', checkInstallQuery.refetch)
+    useWindowEvent('focus', () => checkInstallQuery.refetch())
 
+    return (
+        <Stack gap={ '6' }>
+            <Group gap={ '3' }>
+                <Input
+                    width={ 'full' }
+                    value={ process.path }
+                    readOnly
+                />
+                <Button onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
+                    location</Button>
+                <DialogRoot>
+                    <DialogTrigger asChild>
+                        <Button variant={ 'ghost' }>Remove</Button>
+                    </DialogTrigger>
+                    <Portal>
+                        <DialogBackdrop/>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Remove "{ title }" profiles?</DialogTitle>
+                            </DialogHeader>
+                            <DialogBody>
+                                <p>
+                                    You're about to remove every profile created for "{ title }", do
+                                    you want to continue?
+                                </p>
+                            </DialogBody>
+                            <DialogFooter>
+                                <DialogActionTrigger asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DialogActionTrigger>
+                                <Button loading={ isPending } disabled={ isPending }
+                                        onClick={ mutate }>Confirm</Button>
+                            </DialogFooter>
+                            <DialogCloseTrigger/>
+                        </DialogContent>
+                    </Portal>
+                </DialogRoot>
+            </Group>
+            <Stack gap={ '6' }>
+                <Group justify={ 'between' }>
+                    <Heading>Lossless Scaling</Heading>
+                    <form.Field
+                        name="options.enableLosslessScaling"
+                        children={ (field) => (
+                            <Switch.Root
+                                checked={ field.state.value }
+                                onBlur={ field.handleBlur }
+                                onCheckedChange={ ({ checked }) =>
+                                    field.handleChange(checked)
+                                }
+                            >
+                                <Switch.HiddenInput/>
+                                <Switch.Control>
+                                    <Switch.Thumb/>
+                                </Switch.Control>
+                                <Switch.Label/>
+                            </Switch.Root>
+                        ) }
+                    />
+                </Group>
+                <form.Subscribe
+                    selector={ (state) => [state.values.options.enableLosslessScaling] }
+                    children={ ([enabled]) => enabled && (
+                        <Stack gap={ '6' } pl={ '6' }
+                               className={ 'border-l-2 border-solid border-gray-500' }>
+                            <Field label="Framegen Multiplier">
+                                <InputGroup
+                                    width={ "full" }
+                                >
+                                    <form.Field
+                                        name="options.lsFramegenMultiplier"
+                                        children={ (field) => (
+                                            <NumberInputRoot
+                                                width={ 'full' }
+                                                min={ 0 }
+                                                value={ field.state.value }
+                                                onBlur={ field.handleBlur }
+                                                onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                            >
+                                                <NumberInputLabel/>
+                                                <NumberInputField/>
+                                            </NumberInputRoot>
+                                        ) }
+                                    />
+                                </InputGroup>
+                            </Field>
+                            <Field label="Scaling timeout">
+                                <InputGroup
+                                    width={ "full" }
+                                >
+                                    <form.Field
+                                        name="options.lsScaleDelay"
+                                        children={ (field) => (
+                                            <NumberInputRoot
+                                                width={ 'full' }
+                                                min={ 1000 }
+                                                value={ field.state.value }
+                                                onBlur={ field.handleBlur }
+                                                onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                            >
+                                                <NumberInputLabel/>
+                                                <NumberInputField/>
+                                            </NumberInputRoot>
+                                        ) }
+                                    />
+                                </InputGroup>
+                            </Field>
+                        </Stack>
+                    ) }
+                />
+            </Stack>
+            <Stack gap={ '6' }>
+                <Group justify={ 'between' }>
+                    <Heading>RivaTuner</Heading>
+                    <form.Field
+                        name="options.enableRivaTuner"
+                        children={ (field) => (
+                            <Switch.Root
+                                checked={ field.state.value }
+                                onBlur={ field.handleBlur }
+                                onCheckedChange={ ({ checked }) =>
+                                    field.handleChange(checked)
+                                }
+                            >
+                                <Switch.HiddenInput/>
+                                <Switch.Control>
+                                    <Switch.Thumb/>
+                                </Switch.Control>
+                                <Switch.Label/>
+                            </Switch.Root>
+                        ) }
+                    />
+                </Group>
+
+                <form.Subscribe
+                    selector={ (state) => [state.values.options.enableRivaTuner] }
+                    children={ ([enabled]) => enabled && (
+                        <Stack gap={ '6' } pl={ '6' }
+                               className={ 'border-l-2 border-solid border-gray-500' }>
+                            <Field label="Framerate Limit">
+                                <InputGroup
+                                    width={ "full" }
+                                >
+                                    <form.Field
+                                        name="options.rivaTunerFPSLimit"
+                                        children={ (field) => (
+                                            <NumberInputRoot
+                                                width={ 'full' }
+                                                min={ 0 }
+                                                value={ field.state.value }
+                                                onBlur={ field.handleBlur }
+                                                onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
+                                            >
+                                                <NumberInputLabel/>
+                                                <NumberInputField/>
+                                            </NumberInputRoot>
+                                        ) }
+                                    />
+                                </InputGroup>
+                            </Field>
+                        </Stack>
+                    ) }
+                />
+            </Stack>
+            <Stack gap={ '6' }>
+                <Heading>OptiScaler</Heading>
+                <Stack gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                    {
+                        checkInstallQuery.data ? (
+                            <Button
+                                loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
+                                width={ '100%' }
+                                onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
+                        ) : (
+                            <Button
+                                loading={ installMutation.isPending || checkInstallQuery.isPending }
+                                width={ '100%' }
+                                onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                        )
+                    }
+                </Stack>
+            </Stack>
+        </Stack>
+    )
+}
+
+function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> & {
+    title: string,
+    process: any,
+}) {
     return (
         <DialogRoot
             placement={ 'center' }
@@ -79,7 +268,6 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
             unmountOnExit={ true }
             lazyMount={ true }
             size={ 'xl' }
-            onOpenChange={ ({ open }) => !open && form.reset() }
         >
             <DialogTrigger asChild>
                 { children }
@@ -89,191 +277,7 @@ function ProcessModal({ children, title, process }: HTMLAttributes<HTMLElement> 
                     <DialogTitle>{ title }</DialogTitle>
                 </DialogHeader>
                 <DialogBody>
-                    <Stack gap={ '6' }>
-                        <Group gap={ '3' }>
-                            <Input
-                                width={ 'full' }
-                                value={ process.path }
-                                readOnly
-                            />
-                            <Button onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
-                                location</Button>
-                            <DialogRoot>
-                                <DialogTrigger asChild>
-                                    <Button variant={ 'ghost' }>Remove</Button>
-                                </DialogTrigger>
-                                <Portal>
-                                    <DialogBackdrop/>
-                                    <DialogContent>
-                                        <DialogHeader>
-                                            <DialogTitle>Remove "{ title }" profiles?</DialogTitle>
-                                        </DialogHeader>
-                                        <DialogBody>
-                                            <p>
-                                                You're about to remove every profile created for "{ title }", do
-                                                you want to continue?
-                                            </p>
-                                        </DialogBody>
-                                        <DialogFooter>
-                                            <DialogActionTrigger asChild>
-                                                <Button variant="outline">Cancel</Button>
-                                            </DialogActionTrigger>
-                                            <Button loading={ isPending } disabled={ isPending }
-                                                    onClick={ mutate }>Confirm</Button>
-                                        </DialogFooter>
-                                        <DialogCloseTrigger/>
-                                    </DialogContent>
-                                </Portal>
-                            </DialogRoot>
-                        </Group>
-                        <Stack gap={ '6' }>
-                            <Group justify={ 'between' }>
-                                <Heading>Lossless Scaling</Heading>
-                                <form.Field
-                                    name="options.enableLosslessScaling"
-                                    children={ (field) => (
-                                        <Switch.Root
-                                            checked={ field.state.value }
-                                            onBlur={ field.handleBlur }
-                                            onCheckedChange={ ({ checked }) =>
-                                                field.handleChange(checked)
-                                            }
-                                        >
-                                            <Switch.HiddenInput/>
-                                            <Switch.Control>
-                                                <Switch.Thumb/>
-                                            </Switch.Control>
-                                            <Switch.Label/>
-                                        </Switch.Root>
-                                    ) }
-                                />
-                            </Group>
-                            <form.Subscribe
-                                selector={ (state) => [state.values.options.enableLosslessScaling] }
-                                children={ ([enabled]) => enabled && (
-                                    <Stack gap={ '6' } pl={ '6' }
-                                           className={ 'border-l-2 border-solid border-gray-500' }>
-                                        <Field label="Framegen Multiplier">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <form.Field
-                                                    name="options.lsFramegenMultiplier"
-                                                    children={ (field) => (
-                                                        <NumberInputRoot
-                                                            width={ 'full' }
-                                                            min={ 0 }
-                                                            value={ field.state.value }
-                                                            onBlur={ field.handleBlur }
-                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                        >
-                                                            <NumberInputLabel/>
-                                                            <NumberInputField/>
-                                                        </NumberInputRoot>
-                                                    ) }
-                                                />
-                                            </InputGroup>
-                                        </Field>
-                                        <Field label="Scaling timeout">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <form.Field
-                                                    name="options.lsScaleDelay"
-                                                    children={ (field) => (
-                                                        <NumberInputRoot
-                                                            width={ 'full' }
-                                                            min={ 1000 }
-                                                            value={ field.state.value }
-                                                            onBlur={ field.handleBlur }
-                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                        >
-                                                            <NumberInputLabel/>
-                                                            <NumberInputField/>
-                                                        </NumberInputRoot>
-                                                    ) }
-                                                />
-                                            </InputGroup>
-                                        </Field>
-                                    </Stack>
-                                ) }
-                            />
-                        </Stack>
-                        <Stack gap={ '6' }>
-                            <Group justify={ 'between' }>
-                                <Heading>RivaTuner</Heading>
-                                <form.Field
-                                    name="options.enableRivaTuner"
-                                    children={ (field) => (
-                                        <Switch.Root
-                                            checked={ field.state.value }
-                                            onBlur={ field.handleBlur }
-                                            onCheckedChange={ ({ checked }) =>
-                                                field.handleChange(checked)
-                                            }
-                                        >
-                                            <Switch.HiddenInput/>
-                                            <Switch.Control>
-                                                <Switch.Thumb/>
-                                            </Switch.Control>
-                                            <Switch.Label/>
-                                        </Switch.Root>
-                                    ) }
-                                />
-                            </Group>
-
-                            <form.Subscribe
-                                selector={ (state) => [state.values.options.enableRivaTuner] }
-                                children={ ([enabled]) => enabled && (
-                                    <Stack gap={ '6' } pl={ '6' }
-                                           className={ 'border-l-2 border-solid border-gray-500' }>
-                                        <Field label="Framerate Limit">
-                                            <InputGroup
-                                                width={ "full" }
-                                            >
-                                                <form.Field
-                                                    name="options.rivaTunerFPSLimit"
-                                                    children={ (field) => (
-                                                        <NumberInputRoot
-                                                            width={ 'full' }
-                                                            min={ 0 }
-                                                            value={ field.state.value }
-                                                            onBlur={ field.handleBlur }
-                                                            onValueChange={ (e) => field.handleChange(e.valueAsNumber) }
-                                                        >
-                                                            <NumberInputLabel/>
-                                                            <NumberInputField/>
-                                                        </NumberInputRoot>
-                                                    ) }
-                                                />
-                                            </InputGroup>
-                                        </Field>
-                                    </Stack>
-                                ) }
-                            />
-                        </Stack>
-                        <Stack gap={ '6' }>
-                            <Heading>OptiScaler</Heading>
-                            <Box pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
-                                <div className={ "w-min" }>
-                                    {
-                                        checkInstallQuery.data ? (
-                                            <Button
-                                                loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
-                                                width={ '100%' }
-                                                onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
-                                        ) : (
-
-                                            <Button
-                                                loading={ installMutation.isPending || checkInstallQuery.isPending }
-                                                width={ '100%' }
-                                                onClick={ () => installMutation.mutateAsync() }>Install</Button>
-                                        )
-                                    }
-                                </div>
-                            </Box>
-                        </Stack>
-                    </Stack>
+                    <ProcessForm process={ process } title={ title }/>
                 </DialogBody>
                 <DialogCloseTrigger/>
             </DialogContent>
