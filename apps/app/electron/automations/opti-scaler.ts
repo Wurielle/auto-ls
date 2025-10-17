@@ -1,9 +1,9 @@
 import * as path from 'node:path'
 import { mkdir } from 'node:fs/promises'
 import Seven from 'node-7z'
-import { path7za } from '7zip-bin'
 import { app, ipcMain, shell } from 'electron'
 import * as fs from 'node:fs'
+import { requireNativeModule } from '../utils/native'
 
 function filterRelease(release) {
     return release.prerelease === false
@@ -38,15 +38,15 @@ async function install(exePath: string) {
             const dest = path.dirname(exePath)
             const myStream = Seven.extractFull(target, dest, {
                 $progress: true,
-                $bin: path7za,
+                $bin: requireNativeModule('7zip-bin').path7za,
             })
 
             return new Promise((resolve, reject) => {
                 myStream.on('end', function () {
                     resolve(dest)
                 })
-                myStream.on('error', () => {
-                    reject()
+                myStream.on('error', (err) => {
+                    reject(err)
                 })
             })
         })

@@ -18,6 +18,7 @@ module.exports = {
     $schema:
         'https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json',
     asar: true,
+    asarUnpack: ['./node_modules/7zip-bin/**'],
     productName: pkg.productName,
     directories: {
         output: 'dist_electron',
