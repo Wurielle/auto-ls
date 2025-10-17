@@ -35,8 +35,12 @@ export class LosslessScalingAutomationHooks extends DefaultAutomationHooks imple
         if (!context.processOptions.enableLosslessScaling) return
         const { keyboard } = await import('@nut-tree-fork/nut-js')
         const keys = this.options.getScaleShortcut()
-        await keyboard.pressKey(...keys)
-        await keyboard.releaseKey(...keys)
+        if (typeof keys[0] === 'number') await keyboard.pressKey(keys[0])
+        if (typeof keys[1] === 'number') await keyboard.pressKey(keys[1])
+        if (typeof keys[2] === 'number') await keyboard.pressKey(keys[2])
+        if (typeof keys[2] === 'number') await keyboard.releaseKey(keys[2])
+        if (typeof keys[1] === 'number') await keyboard.releaseKey(keys[1])
+        if (typeof keys[0] === 'number') await keyboard.releaseKey(keys[0])
     }
 
     public async applyProfile(context) {
