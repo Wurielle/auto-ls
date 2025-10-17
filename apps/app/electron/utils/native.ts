@@ -1,5 +1,7 @@
 import { Window } from 'win-control'
-import { getProcesses, getProcessById } from 'node-processlist'
+import { getProcessById, getProcesses } from 'node-processlist'
+import { app } from 'electron'
+import * as path from 'node:path'
 
 export async function getActiveWindowPid(): Promise<number> {
     const pidFromWindow = Window.getForeground().getPid()
@@ -67,6 +69,15 @@ export async function waitForExplorer() {
 
 export async function focusWindow(pid: number) {
     const window = (await getProcessWindow(pid))
-    if (!window?.getProcessInfo()) return console.log(`[Process Window] Window for process ${pid} cannot be focused programmatically.`)
+    if (!window?.getProcessInfo()) return console.log(`[Process Window] Window for process ${ pid } cannot be focused programmatically.`)
     window?.setForeground()
+}
+
+export function requireNativeModule(moduleName) {
+    if (!app.isPackaged) {
+        return require(moduleName)
+    }
+
+    const basePath = path.join(process.resourcesPath, "app.asar.unpacked", "node_modules", moduleName)
+    return require(basePath)
 }
