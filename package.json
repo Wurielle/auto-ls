@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@noriginmedia/norigin-spatial-navigation": "^2.3.0",
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-form": "^1.23.5",
     "@tanstack/react-query": "^5.66.0",

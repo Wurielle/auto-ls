@@ -1,6 +1,6 @@
 import { Grid, Group, Stack } from '@/components'
 import { useGetProcessesQuery } from '@/queries.ts'
-import { HTMLAttributes, useMemo, useRef, useState } from 'react'
+import { HTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
 import orderBy from 'lodash/orderBy'
 import ProcessCard from '@/components/cards/process-card.tsx'
 import DefaultShell from '@/components/shells/default-shell.tsx'
@@ -24,6 +24,8 @@ import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText }
 import { Field } from '@/components/ui/field.tsx'
 import useFuse from 'use-fuse'
 import { CloseButton } from '@/components/ui/close-button.tsx'
+import { navigateByDirection, useFocusable, SpatialNavigation  } from '@noriginmedia/norigin-spatial-navigation'
+import { mergeRefs } from '@mantine/hooks'
 
 function ProcessesList({ onSelect }: { onSelect: any }) {
     const gamesQuery = useQuery({
@@ -298,6 +300,44 @@ export default function HomePage() {
         />
     ) : undefined
 
+    const { ref: inputFocusRef } = useFocusable({
+        onFocus: () => {
+            console.log(inputFocusRef,)
+            inputFocusRef.current?.focus()
+        }
+    });
+    const { ref: buttonRef, focusSelf} = useFocusable({
+
+        onFocus: () => {
+            buttonRef.current?.focus()
+        }
+    });
+
+    useEffect(() => {
+        focusSelf()
+    }, []);
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            switch (e.key) {
+                case "z":
+                    navigateByDirection("up", {nativeEvent: e});
+                    break;
+                case "s":
+                    navigateByDirection("down", {nativeEvent: e});
+                    break;
+                case "q":
+                    navigateByDirection("left", {nativeEvent: e});
+                    break;
+                case "d":
+                    navigateByDirection("right", {nativeEvent: e});
+                    break;
+            }
+            console.log(SpatialNavigation)
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
     return (
         <DefaultShell>
             <Stack gap={ '6' }>
@@ -308,13 +348,13 @@ export default function HomePage() {
                             startElement={ <LuSearch/> }
                             endElement={ endElement }
                         >
-                            <Input ref={ inputRef } placeholder="Search" value={ search }
+                            <Input ref={ mergeRefs(inputRef, inputFocusRef) } placeholder="Search" value={ search }
                                    onChange={ (e) => setSearch(e.target.value) }/>
                         </InputGroup>
                     </Grid.Col>
                     <Grid.Col span={ 3 } lgSpan={ 2 }>
                         <AddProcessModal>
-                            <Button variant={ 'subtle' } width={ '100%' }>Add</Button>
+                            <Button ref={buttonRef} variant={ 'subtle' } width={ '100%' }>Add</Button>
                         </AddProcessModal>
                     </Grid.Col>
                 </Grid>
