@@ -1,11 +1,11 @@
 import { getStoreValue } from './store'
 import { exec } from 'child_process'
 import { rivaTunerVBSPath } from './auto-launch'
-import { ProcessEvent } from './lossless-scaling'
 import * as path from 'path'
 import * as fsp from 'fs/promises'
 import { existsSync } from 'fs'
 import { isProcessRunning } from './utils/native'
+import { ProcessInfo } from './process-watcher'
 
 export async function startRivaTuner() {
     const isEnabled = getStoreValue('enableRivaTuner')
@@ -57,7 +57,7 @@ export async function stopRivaTuner() {
     return false // Process wasn't running or couldn't be found
 }
 
-export async function registerRivaTunerProfile(processInfo: ProcessEvent['payload']) {
+export async function registerRivaTunerProfile(processInfo: ProcessInfo) {
     const exePath = getStoreValue('rivaTunerExecutablePath') as string
     if (!exePath) return
     const rivaTunerConfigFilePath = path.resolve(path.dirname(exePath), 'Profiles', `${ processInfo.process }.cfg`)
