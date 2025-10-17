@@ -56,8 +56,11 @@ export async function scaleByPid(pid: number, wait?: number) {
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
     const processInfo = processWatcher.getByPid(pid)
+    if (!processInfo) return notify({
+        title: 'Process not detected',
+        body: `The requested process needs to be restarted`,
+    })
     const processOptions = getDefaultedProcessOptions(getProcess(processInfo.filepath)?.options)
-    if (!processInfo) return
     const context = { processInfo, processOptions }
     try {
         await Promise.all([

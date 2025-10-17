@@ -79,11 +79,11 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
                     value={ process.path }
                     readOnly
                 />
-                <Button onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
+                <Button variant={'outline'} onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
                     location</Button>
                 <DialogRoot>
                     <DialogTrigger asChild>
-                        <Button variant={ 'ghost' }>Remove</Button>
+                        <Button colorPalette={'red'} variant={ 'ghost' } >Remove</Button>
                     </DialogTrigger>
                     <Portal>
                         <DialogBackdrop/>
@@ -237,21 +237,25 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
             </Stack>
             <Stack gap={ '6' }>
                 <Heading>OptiScaler</Heading>
-                <Stack gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
-                    {
-                        checkInstallQuery.data ? (
-                            <Button
-                                loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
-                                width={ '100%' }
-                                onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
-                        ) : (
-                            <Button
-                                loading={ installMutation.isPending || checkInstallQuery.isPending }
-                                width={ '100%' }
-                                onClick={ () => installMutation.mutateAsync() }>Install</Button>
-                        )
-                    }
-                </Stack>
+                <Group gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                    <div>
+                        {
+                            checkInstallQuery.data ? (
+                                <Button
+                                    variant={ 'ghost' }
+                                    colorPalette={'red'}
+                                    loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
+                                    width={ '100%' }
+                                    onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
+                            ) : (
+                                <Button
+                                    loading={ installMutation.isPending || checkInstallQuery.isPending }
+                                    width={ '100%' }
+                                    onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                            )
+                        }
+                    </div>
+                </Group>
             </Stack>
         </Stack>
     )

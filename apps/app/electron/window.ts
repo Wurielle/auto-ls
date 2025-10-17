@@ -19,6 +19,7 @@ export function createWindow(): { window: BrowserWindow } {
         window.loadURL(process.env.VITE_DEV_SERVER_URL)
         window.webContents.openDevTools()
     } else {
+        window.hide()
         window.setMenu(null)
         window.loadFile('dist/index.html')
     }
