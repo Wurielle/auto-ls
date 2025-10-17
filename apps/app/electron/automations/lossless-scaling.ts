@@ -27,17 +27,25 @@ export class LosslessScalingAutomationHooks extends DefaultAutomationHooks imple
     }
 
     public beforeScale(context) {
+        if (!context.processOptions.enableLosslessScaling) return this.removeProfile({ name: context.processInfo.process })
         return this.applyProfile(context)
     }
 
     public async onScale(context) {
+        if (!context.processOptions.enableLosslessScaling) return
         const { keyboard } = await import('@nut-tree-fork/nut-js')
         const keys = this.options.getScaleShortcut()
-        await keyboard.pressKey(...keys)
-        await keyboard.releaseKey(...keys)
+        if (typeof keys[0] === 'number') await keyboard.pressKey(keys[0])
+        if (typeof keys[1] === 'number') await keyboard.pressKey(keys[1])
+        if (typeof keys[2] === 'number') await keyboard.pressKey(keys[2])
+        if (typeof keys[2] === 'number') await keyboard.releaseKey(keys[2])
+        if (typeof keys[1] === 'number') await keyboard.releaseKey(keys[1])
+        if (typeof keys[0] === 'number') await keyboard.releaseKey(keys[0])
     }
 
-    public async applyProfile({ processInfo }) {
+    public async applyProfile(context) {
+        if (!context.processOptions.enableLosslessScaling) return
+        const { processInfo } = context
         await this.stop()
         const lsConfigFilePath = path.resolve(app.getPath('appData'), '../Local', 'Lossless Scaling', 'Settings.xml')
         const fileContent = await fsp.readFile(lsConfigFilePath, 'utf8')
@@ -49,7 +57,7 @@ export class LosslessScalingAutomationHooks extends DefaultAutomationHooks imple
             ]
         }
 
-        const profiles = jsonObj.Settings.GameProfiles.Profile
+        const profiles: any[] = jsonObj.Settings.GameProfiles.Profile
 
         const autoLSProfileName = 'Auto Lossless Scaling'
         let autoLSProfile = profiles.find(p => p.Title._text === autoLSProfileName)
@@ -60,12 +68,24 @@ export class LosslessScalingAutomationHooks extends DefaultAutomationHooks imple
         }
 
         let processProfile = profiles.find(p => p.Title._text === processInfo.process)
-        if (!processProfile) {
-            processProfile = { ...cloneDeep(autoLSProfile), Title: { _text: processInfo.process } }
-            profiles.push(processProfile)
+        if (processProfile) {
+            const newProcessProfile = {
+                ...processProfile,
+                LSFG3Multiplier: { _text: String(context.processOptions.lsFramegenMultiplier) },
+            }
+            profiles.splice(profiles.indexOf(processProfile), 1, newProcessProfile)
+            processProfile = newProcessProfile
+        } else {
+            const newProcessProfile = {
+                ...cloneDeep(autoLSProfile),
+                Title: { _text: processInfo.process },
+                LSFG3Multiplier: { _text: String(context.processOptions.lsFramegenMultiplier) },
+            }
+            profiles.push(newProcessProfile)
+            processProfile = newProcessProfile
         }
 
-        profiles[0] = processProfile
+        profiles[0] = { ...processProfile }
 
         const xml = convert.json2xml(JSON.stringify(jsonObj), { compact: true, ignoreComment: true, spaces: 4 })
         await fsp.writeFile(lsConfigFilePath, xml, 'utf8')

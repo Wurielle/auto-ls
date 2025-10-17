@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import electron from 'vite-plugin-electron/simple'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { builtinModules } from 'node:module'
+import tailwindcss from '@tailwindcss/vite'
 
 const pkg = require('./package.json')
 const omitPackages = (keys: string[], ignore: string[] = []) =>
@@ -29,7 +30,6 @@ export function getNodeExternal() {
 }
 
 
-
 export default defineConfig(({ mode }) => {
     const packagesToOmit: string[] = []
     const omitPackages = (keys: string[]) =>
@@ -54,6 +54,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             ...plugins(),
+            tailwindcss(),
             react(),
             electron({
                 main: {

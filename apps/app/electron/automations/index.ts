@@ -6,6 +6,7 @@ import { existsSync } from 'node:fs'
 import { emitter } from '../events'
 import { createFile, createVBSContent } from '../utils/filesystem'
 import { lsVBSPath, rivaTunerVBSPath } from '../const'
+import './opti-scaler'
 
 export default [
     new LosslessScalingAutomationHooks({
@@ -63,7 +64,7 @@ export default [
 
                 createFile(rivaTunerVBSPath, createVBSContent(escapedExePath, true))
             }
-            
+
             const defaultRivatunerExecutablePath = 'C:\\Program Files (x86)\\RivaTuner Statistics Server\\RTSS.exe'
             if (!getStoreValue('rivaTunerExecutablePath')) {
                 if (existsSync(defaultRivatunerExecutablePath)) {

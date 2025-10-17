@@ -79,10 +79,6 @@ function initEventListeners() {
         return iconsDir
     })
 
-    ipcMain.handle('als-opt-out-process', async (_, path: string) => {
-        return await optOutProcess(path)
-    })
-
     processWatcher.on('process-creation', async (processInfo) => {
         const storeProcesses: StoreProcess[] = getStoreValue('processes') || []
         if (micromatch.isMatch(processInfo.filepath, storeProcesses.map((p) => p.path), {})) {
@@ -98,7 +94,7 @@ function initEventListeners() {
                 lastScaledAt: (new Date()).toISOString(),
             }, ...storeProcesses.filter((p) => p.path !== detectedProcess.path)]
             setStoreValue('processes', updatedStoreProcesses)
-            await scaleByPid(processInfo.pid, storeProcess?.scaleTimeout)
+            await scaleByPid(processInfo.pid, storeProcess.options?.lsScaleDelay || storeProcess?.scaleTimeout)
         }
     })
 }

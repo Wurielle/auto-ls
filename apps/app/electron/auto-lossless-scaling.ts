@@ -1,12 +1,13 @@
-import { addProcess, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
+import { getDefaultedProcessOptions, getProcess, getStoreValue, setStoreValue, StoreProcess } from './store'
 import { notify } from './notifications'
 import * as path from 'node:path'
 import { focusWindow, getActiveWindowPid, waitForProcessWindowCreation } from './utils/native'
 import { clearTimeout } from 'node:timers'
 import { autoClearInterval, autoClearTimeout } from './utils/timeouts'
 import { processWatcher } from './process-watcher-instance'
-import { extractProcessIcon } from './utils/filesystem'
 import automations from './automations'
+import { addProcess } from './game-library'
+import { ipcMain } from 'electron'
 
 // Ideally, we'd want to opt in and out using either pid or path
 export async function optOutProcess(processPath: string) {
@@ -17,7 +18,10 @@ export async function optOutProcess(processPath: string) {
             body: `${ base } will no longer automatically scale`,
         })
         await Promise.all(automations.map((automation) => automation.removeProfile({ name: base })))
-        setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
+        const newStoreProcessesValue = ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => {
+            return storeProcess.path !== processPath
+        })
+        setStoreValue('processes', newStoreProcessesValue)
     } else {
         notify({
             title: 'Process not detected',
@@ -31,10 +35,8 @@ export async function optInProcess(pid: number) {
 
     if (processInfo) {
         const processPath = processInfo.filepath
-        if (processPath && !getProcess(processPath)) {
-            extractProcessIcon(processPath)
-            addProcess(processPath)
-        }
+
+        addProcess(processPath)
 
         notify({
             title: 'Opting process in',
@@ -54,10 +56,15 @@ export async function scaleByPid(pid: number, wait?: number) {
     let timeout: NodeJS.Timeout | undefined
     let interval: NodeJS.Timeout | undefined
     const processInfo = processWatcher.getByPid(pid)
-    if (!processInfo) return
+    if (!processInfo) return notify({
+        title: 'Process not detected',
+        body: `The requested process needs to be restarted`,
+    })
+    const processOptions = getDefaultedProcessOptions(getProcess(processInfo.filepath)?.options)
+    const context = { processInfo, processOptions }
     try {
         await Promise.all([
-            ...automations.map((automation) => automation.beforeScale({ processInfo })),
+            ...automations.map((automation) => automation.beforeScale(context)),
             waitForProcessWindowCreation(pid),
         ])
 
@@ -86,13 +93,14 @@ export async function scaleByPid(pid: number, wait?: number) {
                             pid,
                         })
                         clearTimeout(triggerKeybindTimeout)
-                        await Promise.all(automations.map((automation) => automation.onScale({ processInfo })))
+                        await Promise.all(automations.map((automation) => automation.onScale(context)))
                         // try again in case it didn't succeed initially (can happen for some reason)
-                        await Promise.all(automations.map((automation) => automation.afterScale({ processInfo })))
+                        await Promise.all(automations.map((automation) => automation.afterScale(context)))
                     } else {
                         console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
                         triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
                     }
+                    console.log('Scaling successful')
                 }
 
                 timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
@@ -104,3 +112,11 @@ export async function scaleByPid(pid: number, wait?: number) {
         clearTimeout(timeout)
     }
 }
+
+ipcMain.handle('als-opt-out-process', async (_, path: string) => {
+    return await optOutProcess(path)
+})
+
+ipcMain.handle('als-scale-by-pid', async (_, pid: number, wait?: number) => {
+    return await scaleByPid(pid, wait)
+})

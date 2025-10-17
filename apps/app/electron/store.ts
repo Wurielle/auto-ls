@@ -4,22 +4,30 @@ import get from 'lodash.get'
 import set from 'lodash.set'
 import { emitter } from './events'
 import { Key } from '@nut-tree-fork/nut-js'
+import defaultsDeep from 'lodash/defaultsDeep'
+
+const defaultSettings = {
+    store: {
+        enableLosslessScaling: true,
+        enableRivaTuner: false,
+        lsExecutablePath: '',
+        lsDefaultFramegenMultiplier: 2,
+        rivaTunerExecutablePath: '',
+        rivaTunerDefaultFPSLimit: 0,
+        autoUpdate: true,
+        processes: [],
+        defaultTimeout: 10000,
+        lsScaleShortcut: [Key.LeftControl, Key.LeftAlt, Key.S],
+        optInShortcut: [Key.LeftControl, Key.LeftAlt, Key.I],
+        optOutShortcut: [Key.LeftControl, Key.LeftAlt, Key.O],
+    },
+}
 
 export const store = new Store({
-    defaults: {
-        store: {
-            autoUpdate: true,
-            processes: [],
-            defaultTimeout: 10000,
-            lsExecutablePath: '',
-            enableRivaTuner: false,
-            rivaTunerExecutablePath: '',
-            lsScaleShortcut: [Key.LeftControl, Key.LeftAlt, Key.S],
-            optInShortcut: [Key.LeftControl, Key.LeftAlt, Key.I],
-            optOutShortcut: [Key.LeftControl, Key.LeftAlt, Key.O],
-        },
-    },
+    defaults: defaultSettings,
 })
+
+store.set('store', defaultsDeep(store.get('store'), defaultSettings.store))
 
 export function setStoreValue(path: string, value: any) {
     const storeValue = store.get('store') || {}
@@ -38,13 +46,31 @@ export type StoreProcess = {
     path: string;
     lastScaledAt: string;
     scaleTimeout: number;
+    options: {
+        enableLosslessScaling: boolean;
+        lsScaleDelay: number;
+        lsFramegenMultiplier: number;
+        enableRivaTuner: boolean;
+        rivaTunerFPSLimit: number;
+    }
 }
 
 export function getProcess(path: string): StoreProcess {
     return (getStoreValue<StoreProcess[]>('processes') || []).find((p) => p.path === path)
 }
 
-export function addProcess(path: StoreProcess['path']) {
+export function getDefaultedProcessOptions(partialOption: Partial<StoreProcess['options']> = {}): StoreProcess['options'] {
+    return {
+        enableLosslessScaling: getStoreValue('enableLosslessScaling'),
+        lsScaleDelay: getStoreValue('defaultTimeout'),
+        lsFramegenMultiplier: getStoreValue('lsDefaultFramegenMultiplier'),
+        enableRivaTuner: getStoreValue('enableRivaTuner'),
+        rivaTunerFPSLimit: getStoreValue('rivaTunerDefaultFPSLimit'),
+        ...partialOption,
+    }
+}
+
+export function addProcess(path: StoreProcess['path'], options?: Partial<StoreProcess['options']>) {
     const paths: StoreProcess[] = getStoreValue('processes') || []
     const processIndex = paths.findIndex((p) => p.path === path)
     if (processIndex === -1) {
@@ -52,6 +78,7 @@ export function addProcess(path: StoreProcess['path']) {
             path,
             lastScaledAt: new Date().toISOString(),
             scaleTimeout: getStoreValue('defaultTimeout'),
+            options: getDefaultedProcessOptions(options),
         }, ...paths]
         setStoreValue('processes', newPaths)
     }
@@ -65,3 +92,8 @@ ipcMain.handle('electron-store-set', (event, key, value) => {
     setStoreValue(key, value)
     return true
 })
+
+setStoreValue('processes', (getStoreValue<StoreProcess[]>('processes') || []).map((storeProcess) => ({
+    ...storeProcess,
+    options: getDefaultedProcessOptions(storeProcess.options),
+})))
