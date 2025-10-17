@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,10 +25,11 @@ jobs:
       - name: Update release
         uses: ncipollo/release-action@v1
         with:
+          makeLatest: true
           allowUpdates: true
           body: ${{ steps.github_release.outputs.changelog }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'beta') || contains(github.ref, 'alpha')}}
+#          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'beta') || contains(github.ref, 'alpha')}}
 
   deploy:
     needs: [ release ]
@@ -59,7 +61,6 @@ jobs:
         shell: bash
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-          echo "${{secrets.VITE_MAILER_URL}}"
 
       - name: Set package.json version
         uses: wurielle/package-version-action@v1

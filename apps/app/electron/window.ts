@@ -1,4 +1,4 @@
-import path from 'path'
+import * as path from 'node:path'
 import { PUBLIC_DIR } from './const'
 import { app, BrowserWindow } from 'electron'
 
@@ -13,9 +13,13 @@ export function createWindow(): { window: BrowserWindow } {
         show: !!process.env.VITE_DEV_SERVER_URL,
     })
 
+    window.maximize()
+
     if (process.env.VITE_DEV_SERVER_URL) {
         window.loadURL(process.env.VITE_DEV_SERVER_URL)
+        window.webContents.openDevTools()
     } else {
+        window.hide()
         window.setMenu(null)
         window.loadFile('dist/index.html')
     }

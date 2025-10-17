@@ -14,6 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tanstack/react-query": "^5.66.0"
+    "@tailwindcss/vite": "^4.1.13",
+    "@tanstack/react-form": "^1.23.5",
+    "@tanstack/react-query": "^5.66.0",
+    "change-case": "^5.4.4",
+    "tailwindcss": "^4.1.13"
   }
 }
