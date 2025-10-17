@@ -7,6 +7,7 @@ import { autoClearInterval, autoClearTimeout } from './utils/timeouts'
 import { processWatcher } from './process-watcher-instance'
 import automations from './automations'
 import { addProcess } from './game-library'
+import { ipcMain } from 'electron'
 
 // Ideally, we'd want to opt in and out using either pid or path
 export async function optOutProcess(processPath: string) {
@@ -17,7 +18,10 @@ export async function optOutProcess(processPath: string) {
             body: `${ base } will no longer automatically scale`,
         })
         await Promise.all(automations.map((automation) => automation.removeProfile({ name: base })))
-        setStoreValue('processes', ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => storeProcess.path !== processPath))
+        const newStoreProcessesValue = ((getStoreValue('processes') || []) as StoreProcess[]).filter((storeProcess) => {
+            return storeProcess.path !== processPath
+        })
+        setStoreValue('processes', newStoreProcessesValue)
     } else {
         notify({
             title: 'Process not detected',
@@ -93,6 +97,7 @@ export async function scaleByPid(pid: number, wait?: number) {
                         console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
                         triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
                     }
+                    console.log('Scaling successful')
                 }
 
                 timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
@@ -104,3 +109,11 @@ export async function scaleByPid(pid: number, wait?: number) {
         clearTimeout(timeout)
     }
 }
+
+ipcMain.handle('als-opt-out-process', async (_, path: string) => {
+    return await optOutProcess(path)
+})
+
+ipcMain.handle('als-scale-by-pid', async (_, pid: number, wait?: number) => {
+    return await scaleByPid(pid, wait)
+})

@@ -67,11 +67,6 @@ function scanAllExes() {
     ])
 }
 
-scanAllExes()
-    .then(() => {
-        console.log(Array.from(exes.values()))
-    })
-
 export function addProcess(processPath) {
     const normalizedPath = path.normalize(processPath)
     if (normalizedPath && !getProcess(normalizedPath)) {

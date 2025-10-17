@@ -64,7 +64,7 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
     const store = useStore(form.store)
 
     useEffect(() => {
-        if (isProcessesFetchSuccess) {
+        if (isProcessesFetchSuccess && processes.find((p) => p.path === process.path)) {
             electronStore.set('processes', [...processes.filter((p) => p.path !== process.path), store.values])
         }
     }, [store, isProcessesFetchSuccess, processes, process.path])

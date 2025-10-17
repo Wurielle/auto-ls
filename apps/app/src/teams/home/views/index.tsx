@@ -62,8 +62,8 @@ function ProcessesList({ onSelect }: { onSelect: any }) {
         mutationFn(pid) {
             return gameLibrary.getProcessPath(pid)
                 .then(async (result) => {
-                    console.log('do something with this', result[0].bin)
                     await gameLibrary.addProcess(result[0].bin)
+                    ALS.scaleByPid(pid, 0)
                     onSelect?.()
                 })
         },

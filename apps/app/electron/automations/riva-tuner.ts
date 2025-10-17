@@ -44,16 +44,16 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
         if (existsSync(rivaTunerConfigFilePath)) {
             const fileContent = await fsp.readFile(rivaTunerConfigFilePath, 'utf-8')
             const config = ini.parse(fileContent)
-            if (Number(config.Limit) !== targetLimit) {
+            if (Number(config.Framerate.Limit) !== targetLimit) {
                 await this.stop()
-                config.Limit = targetLimit
+                config.Framerate.Limit = targetLimit
                 await fsp.writeFile(rivaTunerConfigFilePath, ini.stringify(config), 'utf8')
             }
         } else {
             await this.stop()
             const fileContent = await fsp.readFile(path.resolve(path.dirname(exePath), 'ProfileTemplates', `Global`), 'utf8')
             const config = ini.parse(fileContent)
-            config.Limit = targetLimit
+            config.Framerate.Limit = targetLimit
             await fsp.writeFile(rivaTunerConfigFilePath, ini.stringify(config), 'utf8')
         }
         return this.start()

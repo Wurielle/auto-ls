@@ -43,6 +43,9 @@ contextBridge.exposeInMainWorld('ALS', {
     async optOutProcess(path: string) {
         return await ipcRenderer.invoke('als-opt-out-process', path)
     },
+    async scaleByPid(pid: number, wait?: number) {
+        return await ipcRenderer.invoke('als-scale-by-pid', pid, wait)
+    },
 })
 
 contextBridge.exposeInMainWorld('gameLibrary', {
