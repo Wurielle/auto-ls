@@ -30,8 +30,9 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
         return this.applyProfile(context)
     }
 
-    public afterScale(context) {
+    public async afterScale(context) {
         if (!context.processOptions.enableRivaTuner) return
+        await this.stop()
         return this.start()
     }
 
@@ -95,8 +96,8 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
         const processes = await psList()
         const rivaTunerProcesses = processes.filter(p => [
             'RTSS',
-            'RTSSHooksLoader',
-            'EncoderServer',
+            // 'RTSSHooksLoader',
+            // 'EncoderServer',
         ].some((name) => p.name.includes(name)))
         const isRunning = !!rivaTunerProcesses.length
 
