@@ -12,7 +12,7 @@ export function createWindow(): { window: BrowserWindow } {
             nodeIntegration: false,
         },
         icon: path.join(PUBLIC_DIR, 'icons/256x256.png'),
-        show: false,
+        show: !!process.env.VITE_DEV_SERVER_URL,
         x, y, width, height,
     })
 
