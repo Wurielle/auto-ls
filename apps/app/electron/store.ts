@@ -14,6 +14,7 @@ const defaultSettings = {
         lsDefaultFramegenMultiplier: 2,
         rivaTunerExecutablePath: '',
         rivaTunerDefaultFPSLimit: 0,
+        osFSR4Mode: 'native',
         autoUpdate: true,
         processes: [],
         defaultTimeout: 10000,
