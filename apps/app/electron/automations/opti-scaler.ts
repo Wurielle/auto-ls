@@ -4,6 +4,9 @@ import Seven from 'node-7z'
 import { app, ipcMain, shell } from 'electron'
 import * as fs from 'node:fs'
 import { requireNativeModule } from '../utils/native'
+import { EXTERNALS_DIR } from '../const'
+import { copyFilesRecursively } from '../utils/filesystem'
+import { getStoreValue } from '../store'
 
 function filterRelease(release) {
     return release.prerelease === false
@@ -19,6 +22,7 @@ async function install(exePath: string) {
     const user = 'optiscaler'
     const repo = 'OptiScaler'
     const outputdir = path.join(app.getPath('userData'), 'downloads/optiscaler')
+    const dest = path.dirname(exePath)
     const leaveZipped = true
     const disableLogging = true
 
@@ -34,9 +38,7 @@ async function install(exePath: string) {
             return files[0]
         })
         .then((file) => {
-            const target = file
-            const dest = path.dirname(exePath)
-            const myStream = Seven.extractFull(target, dest, {
+            const myStream = Seven.extractFull(file, dest, {
                 $progress: true,
                 $bin: requireNativeModule('7zip-bin').path7za,
             })
@@ -50,8 +52,15 @@ async function install(exePath: string) {
                 })
             })
         })
-        .then((dest: string) => {
+        .then(() => {
             return shell.openPath(path.join(dest, 'setup_windows.bat'))
+        })
+        .then(() => {
+            const fsr4Dir = path.join(EXTERNALS_DIR, 'FSR4')
+            const fsr4int8Dir = path.join(EXTERNALS_DIR, 'FSR4 INT8')
+
+            copyFilesRecursively(fsr4Dir, dest)
+            if (getStoreValue('osFSR4Mode') === 'int8') copyFilesRecursively(fsr4int8Dir, dest)
         })
         .catch(function (err) {
             cleanup()

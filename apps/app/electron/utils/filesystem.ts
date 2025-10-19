@@ -37,3 +37,21 @@ export function createFile(filePath: string, content: string) {
     }
     fs.writeFileSync(filePath, content, 'utf8')
 }
+
+export const copyFilesRecursively = (src: string, dest: string) => {
+    if (fs.existsSync(src)) {
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true })
+        }
+        const files = fs.readdirSync(src)
+        files.forEach((file) => {
+            const srcPath = path.join(src, file)
+            const destPath = path.join(dest, file)
+            if (fs.statSync(srcPath).isDirectory()) {
+                copyFilesRecursively(srcPath, destPath)
+            } else {
+                fs.copyFileSync(srcPath, destPath)
+            }
+        })
+    }
+}
