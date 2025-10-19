@@ -1,6 +1,6 @@
 import { Group, Stack } from '@/components'
 import { Avatar } from '@/components/ui/avatar.tsx'
-import { Button, Card, Heading, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
+import { Button, Card, createListCollection, Heading, Icon, Input, Portal, Switch, Text } from '@chakra-ui/react'
 import { Field } from '@/components/ui/field.tsx'
 import { InputGroup } from '@/components/ui/input-group.tsx'
 import { NumberInputField, NumberInputLabel, NumberInputRoot } from "@/components/ui/number-input"
@@ -8,7 +8,7 @@ import { MdTimer } from "react-icons/md"
 import { IoGameController } from "react-icons/io5"
 import { useGetIconsPathQuery, useGetProcessesQuery, useSettingsPropertyQuery } from '@/queries.ts'
 import moment from 'moment'
-import { HTMLAttributes, useCallback, useEffect, useState } from 'react'
+import { HTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react'
 import {
     DialogActionTrigger,
     DialogBackdrop,
@@ -25,6 +25,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import * as changeCase from "change-case"
 import { useWindowEvent } from '@mantine/hooks'
+import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select.tsx'
 
 function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
     title: string,
@@ -71,6 +72,20 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
 
     useWindowEvent('focus', () => checkInstallQuery.refetch())
 
+    const osFSR4ModeCollection = useMemo(() => createListCollection({
+        items: [
+            {
+                label: 'Native (RDNA4)',
+                value: 'native',
+            },
+            {
+                label: 'INT8 (RDNA3/2 or other)',
+                value: 'int8',
+            },
+        ],
+    }), [])
+
+    const { data: osFSR4Mode } = useSettingsPropertyQuery('osFSR4Mode')
     return (
         <Stack gap={ '6' }>
             <Group gap={ '3' }>
@@ -79,11 +94,11 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
                     value={ process.path }
                     readOnly
                 />
-                <Button variant={'outline'} onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
+                <Button variant={ 'outline' } onClick={ () => gameLibrary.openFileLocation(process.path) }>Open file
                     location</Button>
                 <DialogRoot>
                     <DialogTrigger asChild>
-                        <Button colorPalette={'red'} variant={ 'ghost' } >Remove</Button>
+                        <Button colorPalette={ 'red' } variant={ 'ghost' }>Remove</Button>
                     </DialogTrigger>
                     <Portal>
                         <DialogBackdrop/>
@@ -237,25 +252,46 @@ function ProcessForm({ process, title }: HTMLAttributes<HTMLElement> & {
             </Stack>
             <Stack gap={ '6' }>
                 <Heading>OptiScaler</Heading>
-                <Group gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
-                    <div>
-                        {
-                            checkInstallQuery.data ? (
+                <Stack gap={ '6' } pl={ '6' } className={ 'border-l-2 border-solid border-gray-500' }>
+                    {
+                        checkInstallQuery.data ? (
+                            <div>
                                 <Button
                                     variant={ 'ghost' }
-                                    colorPalette={'red'}
+                                    colorPalette={ 'red' }
                                     loading={ uninstallMutation.isPending || checkInstallQuery.isPending }
-                                    width={ '100%' }
                                     onClick={ () => uninstallMutation.mutateAsync() }>Uninstall</Button>
-                            ) : (
-                                <Button
-                                    loading={ installMutation.isPending || checkInstallQuery.isPending }
-                                    width={ '100%' }
-                                    onClick={ () => installMutation.mutateAsync() }>Install</Button>
-                            )
-                        }
-                    </div>
-                </Group>
+                            </div>
+                        ) : (
+                            <>
+                                <Field label="FSR4 Mode">
+                                    <InputGroup width={ '100%' }>
+                                        <SelectRoot value={ [osFSR4Mode] }
+                                                    positioning={ { placement: "top", flip: false } }
+                                                    onValueChange={ (details) => electronStore.set('osFSR4Mode', details.value[0]) }
+                                                    collection={ osFSR4ModeCollection }>
+                                            <SelectTrigger>
+                                                <SelectValueText/>
+                                            </SelectTrigger>
+                                            <SelectContent portalled={ false }>
+                                                { osFSR4ModeCollection.items.map((key) => (
+                                                    <SelectItem item={ key } key={ key.value }>
+                                                        { key.label }
+                                                    </SelectItem>
+                                                )) }
+                                            </SelectContent>
+                                        </SelectRoot>
+                                    </InputGroup>
+                                </Field>
+                                <div>
+                                    <Button
+                                        loading={ installMutation.isPending || checkInstallQuery.isPending }
+                                        onClick={ () => installMutation.mutateAsync() }>Install</Button>
+                                </div>
+                            </>
+                        )
+                    }
+                </Stack>
             </Stack>
         </Stack>
     )
