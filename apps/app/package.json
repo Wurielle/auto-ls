@@ -24,9 +24,11 @@
     "mitt": "^3.0.1",
     "process-watcher": "*",
     "ps-list": "^8.1.1",
-    "win-control": "^0.3.1",
     "windows-tlist": "^0.1.3",
     "xml-js": "^1.6.11"
+  },
+  "optionalDependencies": {
+    "win-control": "^0.3.1"
   },
   "devDependencies": {
     "@bearmean/react": "^1.0.0-alpha.5",

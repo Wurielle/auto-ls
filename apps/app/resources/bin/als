@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Log file
+log="$HOME/.local/bin/als.log"
+mkdir -p "$(dirname "$log")"
+
+# Get process name and path
+last_arg="${!#}"
+process_name="$(basename "$last_arg")"
+
+# Paths to check
+lsfg_profile="$HOME/.config/lsfg-vk/$process_name.toml"
+mangohud_profile="$HOME/.config/MangoHud/$process_name.conf"
+
+export LSFG_PROCESS="$process_name"
+export LSFG_CONFIG="$lsfg_profile"
+export MANGOHUD_CONFIGFILE="$mangohud_profile"
+
+# Detect if flatpak-spawn exists (Steam on Bazzite is a Flatpak)
+if command -v flatpak-spawn &> /dev/null; then
+  curl_cmd=(flatpak-spawn --host curl)
+else
+  curl_cmd=(curl)
+fi
+
+# Send request to your app
+"${curl_cmd[@]}" -s -X POST http://localhost:3000/game-profile \
+  -H "Content-Type: application/json" \
+  -d "{\"name\":\"$process_name\",\"path\":\"$last_arg\"}" \
+  >> "$log" 2>&1
+
+# Start log entry
+{
+  echo "=== ALS WRAPPER ==="
+  echo "Time: $(date)"
+  echo "PWD: $(pwd)"
+  echo "LSFG_PROCESS: $LSFG_PROCESS"
+  echo "COMMAND: $@"
+  echo "Requested profile creation from app"
+  echo "Waiting for:"
+  echo " - $lsfg_profile"
+  echo " - $mangohud_profile"
+} >> "$log"
+
+# Wait for both files (timeout after 30s total)
+timeout=5
+interval=0.5
+elapsed=0
+
+while [[ ! -f "$lsfg_profile" || ! -f "$mangohud_profile" ]]; do
+  sleep "$interval"
+  elapsed=$(awk "BEGIN {print $elapsed + $interval}")
+  if (( $(echo "$elapsed >= $timeout" | bc -l) )); then
+    echo "Timeout reached waiting for config files. Continuing anyway." >> "$log"
+    break
+  fi
+done
+
+# Log success
+{
+  echo "Configs found or timeout reached. Launching with MangoHud."
+  echo "==================="
+  echo ""
+} >> "$log"
+
+# Launch
+exec mangohud "$@"

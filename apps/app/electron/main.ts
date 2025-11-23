@@ -1,3 +1,4 @@
+import './logs'
+import './auto-updater'
 import './instance-lock'
-import './auto-launch'
 import './app'
