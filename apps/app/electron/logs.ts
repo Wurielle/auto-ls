@@ -1,5 +1,5 @@
 import log from "electron-log"
-import { app } from 'electron'
+import { app, ipcMain } from 'electron'
 import * as path from 'node:path'
 import * as fs from 'node:fs'
 
@@ -24,10 +24,12 @@ const MAX_LOG_SIZE = 5 * 1024 * 1024 // 5MB
 
 function checkLogSize() {
     try {
-        const stats = fs.statSync(logFilePath)
-        if (stats.size > MAX_LOG_SIZE) {
-            fs.writeFileSync(logFilePath, "")
-            log.info("Log file cleared due to size limit")
+        if (fs.existsSync(logFilePath)) {
+            const stats = fs.statSync(logFilePath)
+            if (stats.size > MAX_LOG_SIZE) {
+                fs.writeFileSync(logFilePath, "")
+                log.info("Log file cleared due to size limit")
+            }
         }
     } catch (error) {
         log.error("Failed to check log size:", error)
@@ -35,3 +37,16 @@ function checkLogSize() {
 }
 
 checkLogSize()
+
+ipcMain.handle('electron-logs-get', async () => {
+    try {
+        if (fs.existsSync(logFilePath)) {
+            const content = fs.readFileSync(logFilePath, 'utf8')
+            // Return last 100 lines
+            return content.split('\n').slice(-100).join('\n')
+        }
+    } catch (e) {
+        return 'Failed to read logs'
+    }
+    return ''
+})
