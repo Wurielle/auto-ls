@@ -74,7 +74,9 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
     public async start() {
         const isEnabled = this.options.isEnabled()
         if (!isEnabled) return
-        const executableName = this.options.getExecutablePath().split('\\').pop()
+        const executablePath = this.options.getExecutablePath()
+        if (!executablePath) return
+        const executableName = executablePath.split('\\').pop()
         const isRunning = await isProcessRunning(executableName)
 
         console.log('Starting RivaTuner', { executableName, isRunning: isRunning })
@@ -83,41 +85,68 @@ export class RivaTunerAutomationHooks extends DefaultAutomationHooks implements 
         }
         while (!(await isProcessRunning(executableName))) {
             console.log(`[RivaTuner] ⌛ Waiting for process creation`)
-            await new Promise(resolve => setTimeout(resolve, 100))
-            console.log(`[RivaTuner] ✅ Process created`)
+            await new Promise(resolve => setTimeout(resolve, 200))
         }
+        console.log(`[RivaTuner] ✅ Process created`)
     }
 
     public async stop() {
         const isEnabled = this.options.isEnabled()
         if (!isEnabled) return
-        const executableName = this.options.getExecutablePath().split('\\').pop()
+        const executablePath = this.options.getExecutablePath()
+        if (!executablePath) return
+        const executableName = executablePath.split('\\').pop()
+
         const { default: psList } = await import('ps-list')
-        const processes = await psList()
-        const rivaTunerProcesses = processes.filter(p => [
-            'RTSS',
-            // 'RTSSHooksLoader',
-            // 'EncoderServer',
-        ].some((name) => p.name.includes(name)))
+
+        const getRivaProcesses = async () => {
+            const processes = await psList()
+            return processes.filter(p => [
+                'RTSS',
+                'RTSSHooksLoader',
+                'EncoderServer',
+            ].some((name) => p.name.includes(name)))
+        }
+
+        let rivaTunerProcesses = await getRivaProcesses()
         const isRunning = !!rivaTunerProcesses.length
 
         console.log('Stopping RivaTuner', { executableName, isRunning: isRunning })
         if (isRunning) {
-            await Promise.all(rivaTunerProcesses.map(async (p) => {
+            for (const p of rivaTunerProcesses) {
                 if (p && p.pid) {
-                    console.log(`${ p.name }: ${ p.pid }`)
+                    console.log(`Killing ${ p.name }: ${ p.pid }`)
                     try {
                         process.kill(p.pid)
-                        while (await isProcessRunning(p.name)) {
-                            await new Promise(resolve => setTimeout(resolve, 100))
-                        }
                     } catch (error) {
                         console.error(`Failed to kill ${ p.name } process: ${ error }`)
                     }
                 }
-            }))
+            }
+
+            // Wait for processes to disappear
+            let retries = 30
+            while (retries > 0 && (await getRivaProcesses()).length > 0) {
+                await new Promise(resolve => setTimeout(resolve, 100))
+                retries--
+            }
+
+            if (retries === 0) {
+                console.warn('[RivaTuner] Some processes did not exit, attempting taskkill')
+                const { exec } = await import('child_process')
+                try {
+                    exec('taskkill /F /IM RTSS.exe /T')
+                    exec('taskkill /F /IM RTSSHooksLoader.exe /T')
+                    exec('taskkill /F /IM RTSSHooksLoader64.exe /T')
+                    exec('taskkill /F /IM EncoderServer.exe /T')
+                    exec('taskkill /F /IM EncoderServer64.exe /T')
+                } catch (e) {}
+                await new Promise(resolve => setTimeout(resolve, 500))
+            }
         }
 
-        return false // Process wasn't running or couldn't be found
+        // Give it a bit more time to release file locks
+        await new Promise(resolve => setTimeout(resolve, 500))
+        return true
     }
 }

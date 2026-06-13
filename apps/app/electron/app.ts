@@ -12,6 +12,7 @@ import { getActiveWindowPid, waitForExplorer } from './utils/native'
 import { iconsDir } from './utils/filesystem'
 import { processWatcher } from './process-watcher-instance'
 import automations from './automations'
+import { nutKeyToElectronAccelerator } from './utils/shortcuts'
 import micromatch = require('micromatch')
 
 async function initElectronApp() {
@@ -30,7 +31,9 @@ async function initElectronApp() {
     })
 }
 
-function initElectronShortcuts() {
+function registerShortcuts() {
+    globalShortcut.unregisterAll()
+
     if (process.env.NODE_ENV === 'development') {
         globalShortcut.register('Alt+CommandOrControl+D', async () => {
             const foregroundProcessPid = await getActiveWindowPid()
@@ -41,14 +44,37 @@ function initElectronShortcuts() {
             })
         })
     }
-    globalShortcut.register('Alt+CommandOrControl+I', async () => {
-        const foregroundProcessPid = await getActiveWindowPid()
-        await optInProcess(foregroundProcessPid)
-    })
-    globalShortcut.register('Alt+CommandOrControl+O', async () => {
-        const foregroundProcessPid = await getActiveWindowPid()
-        const processPath = processWatcher.getByPid(foregroundProcessPid)?.filepath
-        await optOutProcess(processPath)
+
+    const optInKeys = getStoreValue<number[]>('optInShortcut')
+    if (optInKeys) {
+        const accelerator = nutKeyToElectronAccelerator(optInKeys)
+        if (accelerator) {
+            globalShortcut.register(accelerator, async () => {
+                const foregroundProcessPid = await getActiveWindowPid()
+                await optInProcess(foregroundProcessPid)
+            })
+        }
+    }
+
+    const optOutKeys = getStoreValue<number[]>('optOutShortcut')
+    if (optOutKeys) {
+        const accelerator = nutKeyToElectronAccelerator(optOutKeys)
+        if (accelerator) {
+            globalShortcut.register(accelerator, async () => {
+                const foregroundProcessPid = await getActiveWindowPid()
+                const processPath = processWatcher.getByPid(foregroundProcessPid)?.filepath
+                await optOutProcess(processPath)
+            })
+        }
+    }
+}
+
+function initElectronShortcuts() {
+    registerShortcuts()
+    emitter.on('store-update', ({ type }) => {
+        if (['optInShortcut', 'optOutShortcut'].includes(type)) {
+            registerShortcuts()
+        }
     })
 }
 

@@ -80,3 +80,9 @@ contextBridge.exposeInMainWorld('optiScaler', {
         return await ipcRenderer.invoke('opti-scaler-check-install', exePath)
     },
 })
+
+contextBridge.exposeInMainWorld('electronLogs', {
+    async get() {
+        return await ipcRenderer.invoke('electron-logs-get')
+    },
+})
