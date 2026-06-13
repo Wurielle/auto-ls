@@ -68,42 +68,42 @@ export async function scaleByPid(pid: number, wait?: number) {
             waitForProcessWindowCreation(pid),
         ])
 
+        console.log(`[Auto LS] Starting focus check loop for pid ${pid}`)
+
         interval = autoClearInterval(async () => {
-            await focusWindow(pid)
-            const initialFocusActiveWindowPid = await getActiveWindowPid()
-            console.log('Checking for initial focus', {
-                pid,
-                foregroundWindowPID: initialFocusActiveWindowPid,
-            }, pid === initialFocusActiveWindowPid)
-            if (pid === initialFocusActiveWindowPid) {
+            const currentPid = await getActiveWindowPid()
+            if (pid === currentPid) {
+                console.log(`[Auto LS] Found focus for pid ${pid}. Proceeding with scale delay.`)
                 clearInterval(interval)
                 clearTimeout(timeout)
+
                 let triggerKeybindTimeout: NodeJS.Timeout | undefined
+                const delay = typeof wait === 'number' ? wait : getStoreValue<number>('defaultTimeout')
 
                 const triggerKeybind = async () => {
+                    // Try to re-focus just before scaling in case user switched windows
                     await focusWindow(pid)
-                    const delayedFocusActiveWindowPid = await getActiveWindowPid()
-                    console.log('Checking for focus after provided delay', {
-                        pid,
-                        foregroundWindowPID: delayedFocusActiveWindowPid,
-                        waited: wait,
-                    }, pid === delayedFocusActiveWindowPid)
-                    if (pid === delayedFocusActiveWindowPid) {
-                        console.log('Scaling', {
-                            pid,
-                        })
+                    const finalPid = await getActiveWindowPid()
+
+                    if (pid === finalPid) {
+                        console.log(`[Auto LS] Scaling pid ${pid}`)
                         clearTimeout(triggerKeybindTimeout)
                         await Promise.all(automations.map((automation) => automation.onScale(context)))
-                        // try again in case it didn't succeed initially (can happen for some reason)
+                        // Wait a bit before afterScale to let LS finish its work
+                        await new Promise(resolve => setTimeout(resolve, 500))
                         await Promise.all(automations.map((automation) => automation.afterScale(context)))
+                        console.log(`[Auto LS] Scaling successful for pid ${pid}`)
                     } else {
-                        console.log('Scaling not possible, the window may not be focused. Trying again in a second.')
+                        console.log(`[Auto LS] Scaling not possible for pid ${pid}, window not focused (${finalPid} focused instead). Retrying focus in 1s.`)
                         triggerKeybindTimeout = setTimeout(triggerKeybind, 1000)
                     }
-                    console.log('Scaling successful')
                 }
 
-                timeout = autoClearTimeout(triggerKeybind, typeof wait === 'number' ? wait : getStoreValue('defaultTimeout'))
+                timeout = autoClearTimeout(triggerKeybind, delay)
+            } else {
+                // If not focused, try to focus it (but don't force it too aggressively if user is doing something else)
+                // Actually, the previous implementation did focusWindow(pid) every second.
+                await focusWindow(pid)
             }
         }, 1000)
     } catch (e) {
