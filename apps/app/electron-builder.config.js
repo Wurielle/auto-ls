@@ -29,6 +29,7 @@ module.exports = {
         perMachine: true,
         allowToChangeInstallationDirectory: false,
         deleteAppDataOnUninstall: false,
+        include: path.join(__dirname, 'build', 'installer.nsh'),
     },
     win: {
         appId: 'com.nhs.auto-lossless-scaling',
